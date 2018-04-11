@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<IOManager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Version Label="">
+    <Info Version="IOManager V0.1.0" />
+    <Schema Version="1" />
+  </Version>
+  <WarnMultipleUsageOfInputs printWarning="false" />
+  <BusList>
+    <Bus BusDriverName="ECatIODriver" BusInstanceName="SYS-X44">
+      <IOList>
+        <DigitalIO Name="FlexFellow.DoorIsClosed" Type="INPUT" Scope="USER_IO" StartBit="326" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.FuseOfAirCondition" Type="INPUT" Scope="USER_IO" StartBit="327" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.EnableMagnetBackLeft" Type="OUTPUT" Scope="USER_IO" StartBit="12578" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.EnableMagnetBackRight" Type="OUTPUT" Scope="USER_IO" StartBit="12579" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.EnableMagnetSideLeftBack" Type="OUTPUT" Scope="USER_IO" StartBit="12577" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.EnableMagnetSideLeftFront" Type="OUTPUT" Scope="USER_IO" StartBit="12576" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.EnableMagnetSideRightBack" Type="OUTPUT" Scope="USER_IO" StartBit="12580" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.SignalLightBlue" Type="OUTPUT" Scope="USER_IO" StartBit="12587" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.SignalLightGreen" Type="OUTPUT" Scope="USER_IO" StartBit="12584" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.SignalLightRed" Type="OUTPUT" Scope="USER_IO" StartBit="12586" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.SignalLightYellow" Type="OUTPUT" Scope="USER_IO" StartBit="12585" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.SignalRinger" Type="OUTPUT" Scope="USER_IO" StartBit="12588" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.CloseGripper" Type="OUTPUT" Scope="USER_IO" StartBit="12581" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.OpenGripper" Type="OUTPUT" Scope="USER_IO" StartBit="12582" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.GripperIsOpen" Type="INPUT" Scope="USER_IO" StartBit="321" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+        <DigitalIO Name="FlexFellow.GripperIsClose" Type="INPUT" Scope="USER_IO" StartBit="325" BitSize="1" Signed="false">
+          <Description />
+        </DigitalIO>
+      </IOList>
+    </Bus>
+  </BusList>
+</IOManager>
