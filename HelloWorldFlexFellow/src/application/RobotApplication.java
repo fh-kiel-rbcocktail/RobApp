@@ -104,18 +104,18 @@ public class RobotApplication extends RoboticsAPIApplication {
 				// TODO Laboratory 1: Reference measurement (measurement of the sample)
 		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		// Pick up at RefPart
-		//gripper.getPart(getApplicationData().getFrame("/RefPart"));
-		//gripper.putPart(getApplicationData().getFrame("/MessPos"));
+		gripper.getPart(getApplicationData().getFrame("/RefPart"));
+		gripper.putPart(getApplicationData().getFrame("/MessPos"));
 		gripper.moveNear(getApplicationData().getFrame("/MessPos"));
 		gripper.close();
 		// Measurement at measurement points
 		//Frame ref=new Frame(gripper.myfindZ(100));
-		Frame ref = gripper.myfindZ(100);
+		//Frame ref = gripper.myfindZ(100);
 		//double distance=gripper.getDistance(ref,getApplicationData().getFrame("/MessPos"));
 				
-		gripper.getDistance(ref,getApplicationData().getFrame("/MessPos"));
+		//gripper.getDistance(ref,getApplicationData().getFrame("/MessPos"));
 		//getLogger().info("height of object:" + distance);
-		gripper.movePTP(getApplicationData().getFrame("/Start"));
+		//gripper.movePTP(getApplicationData().getFrame("/Start"));
 		//gripper.getPart(getApplicationData().getFrame("/MessPos"));
 				
 		// store at RefPart
