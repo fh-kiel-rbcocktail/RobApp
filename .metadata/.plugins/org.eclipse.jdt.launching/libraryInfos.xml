@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk" version="1.6.0_45">
+<bootpath>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\resources.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\rt.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\sunrsasign.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\jsse.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\jce.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\charsets.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\modules\jdk.boot.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\ext"/>
+<entry path="C:\WINDOWS\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre" version="1.6.0_45">
+<bootpath>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\resources.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\rt.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\sunrsasign.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\jsse.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\jce.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\charsets.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\modules\jdk.boot.jar"/>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\ext"/>
+<entry path="C:\WINDOWS\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+</libraryInfos>

@@ -1,0 +1,54 @@
+!SESSION 2018-04-18 15:40:24.457 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_45
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=de_DE
+Command-line arguments:  -data E:\Workbench\RobApp -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.611
+!MESSAGE NLS unused message: DeleteTemplateHandler_ConfirmationTitleRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.619
+!MESSAGE NLS unused message: DeleteHandler_DeleteFrameWithChildsDialogMessageRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.619
+!MESSAGE NLS unused message: Rapi2DeleteHandler_ConfirmCategoryDeletionTitle in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.647
+!MESSAGE NLS unused message: Rapi2DeleteHandler_ConfirmCategoryDeletionMessage in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.648
+!MESSAGE NLS unused message: Rapi2CreateFrameHandler_OnlyOneFrameAllowed in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.648
+!MESSAGE NLS unused message: ScenegraphView_SelectRapi1 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.649
+!MESSAGE NLS unused message: ScenegraphView_SelectRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.649
+!MESSAGE NLS unused message: GeneralPropertySection_sectionDescription in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:25.650
+!MESSAGE NLS unused message: MassPropertySection_validationError_outOfRange in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:40:26.397
+!MESSAGE NLS unused message: WhiteSpaceTabPage_try in: org.eclipse.jdt.internal.ui.preferences.formatter.FormatterMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:42:22.363
+!MESSAGE NLS unused message: FrameSafetyPropertySection_outOfRange in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:42:22.363
+!MESSAGE NLS unused message: WorkpieceSafetyPropertySection_description in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:42:22.364
+!MESSAGE NLS unused message: FrameSafetyPropertySection_description in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-18 15:42:22.364
+!MESSAGE NLS unused message: WorkpieceSafetyPropertySection_inertiaInvalid in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.ui 4 4 2018-04-18 15:50:46.634
+!MESSAGE Unable to create menu item "com.kuka.roboticsAPI.eclipseBase.InsertPTPCommand", command "com.kuka.roboticsAPI.eclipseBase.InsertPTPCommand" not defined
+
+!ENTRY org.eclipse.ui 4 4 2018-04-18 15:50:49.991
+!MESSAGE Unable to create menu item "com.kuka.roboticsAPI.eclipseBase.InsertPTPCommand", command "com.kuka.roboticsAPI.eclipseBase.InsertPTPCommand" not defined
