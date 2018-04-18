@@ -2,7 +2,7 @@ package de.fh_kiel.cimtt.robotik;
 
 
 
-import java.util.Timer;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -94,7 +94,6 @@ public class EGripper extends Gripper{
 		 * 	- Measure weight of filling and go on
 		 * 	- Feature: Wait for xx seconds, if weight isn't changing go up and down again 
 		*/
-		Timer timer = new Timer();
 		
 		
 		//TODO: Move down

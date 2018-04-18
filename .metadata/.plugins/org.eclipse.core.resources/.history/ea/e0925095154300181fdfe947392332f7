@@ -120,6 +120,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 				
 		// store at RefPart
 		//gripper.putPart(getApplicationData().getFrame("/RefPart"));
+					
 		
 	}
 
