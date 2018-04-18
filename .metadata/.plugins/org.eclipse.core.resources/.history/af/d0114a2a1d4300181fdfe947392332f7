@@ -96,6 +96,13 @@ public class EGripper extends Gripper{
 		*/
 		Timer timer = new Timer();
 		
+		timer.shedule(new TimerTask(){
+			@Override
+			public void run(){
+				
+			}
+		}, 2*1000);
+		
 		
 		//TODO: Move down
 		this.moveZ(-10); //Measure Distance

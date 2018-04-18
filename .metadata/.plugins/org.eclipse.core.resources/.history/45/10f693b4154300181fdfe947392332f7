@@ -121,6 +121,10 @@ public class RobotApplication extends RoboticsAPIApplication {
 		// store at RefPart
 		//gripper.putPart(getApplicationData().getFrame("/RefPart"));
 		
+		/*TASK: FILLING A GLASS WITH ONE LIQUID*/
+		
+		public 
+		
 	}
 
 	/**

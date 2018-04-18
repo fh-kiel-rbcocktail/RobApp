@@ -2,25 +2,20 @@ package de.fh_kiel.cimtt.robotik;
 
 
 
-import java.util.Timer;
+
 import java.io.IOException;
 import java.util.Properties;
 
 import com.kuka.common.ThreadUtil;
 import com.kuka.generated.ioAccess.*;
-import com.kuka.roboticsAPI.conditionModel.ForceCondition;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.AbstractFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
-import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
-import com.kuka.roboticsAPI.geometricModel.math.Vector;
-import com.kuka.roboticsAPI.sensorModel.ForceSensorData;
 
 public class EGripper extends Gripper{
 	FlexFellowIOGroup digitalOut;
-	Tool toolEgripper;
-	LBR robotEgripper;
+	
 	/**
 	 * 
 	 * @param controller Verwendeter Controller
@@ -36,8 +31,6 @@ public class EGripper extends Gripper{
 	    // in der Property-Datei
 		
 		digitalOut = new FlexFellowIOGroup(controller);
-		toolEgripper = tool;
-		robotEgripper = robot;
 	}
 	
 	/**
@@ -76,26 +69,14 @@ public class EGripper extends Gripper{
 	
 
 	/*
-	 * Task: Fill glass with one liquid
-	 * - gets ingredient Frame and amount of liquid 
-	 * - stops when current weight 
-	 * */
-	public boolean fillGlass(AbstractFrame ingredient, int amount) {
+	 * Task: Fill glass with one liquid*/
+	public boolean fillGlass(AbstractFrame ingredient) {
 		//Move to Bottle
 		this.moveNear(ingredient);
-		 
+		//TODO: Configure Sensibility and check distance 
 		//Move up
-		this.findZ(10); //Move until contact
-		//TODO: Configure Sensibility and check distance
-		this.moveZ(10); //Move up to fill
-		/*	- implement timer
-		 * TODO: 
-		 * 	- Wait for fluid to fill 
-		 * 	- Measure weight of filling and go on
-		 * 	- Feature: Wait for xx seconds, if weight isn't changing go up and down again 
-		*/
-		Timer timer = new Timer();
-		
+		this.moveZ(10); //Measure Distance
+		//TODO: Wait for fluid to fill
 		
 		//TODO: Move down
 		this.moveZ(-10); //Measure Distance
