@@ -79,11 +79,14 @@ public class Gripper extends Items implements  Movable,Grippable{
 	@Override
 	public boolean getPart(AbstractFrame destination) {
 		// TODO: Ein Teil an der gegebenen Position abholen
-		this.open();
-		this.moveLin(destination);
-		this.moveNear(destination);
-		this.close();
-		this.moveNear(destination);
+		
+		open();
+		moveNear(destination);
+		moveLin(destination);
+		close();
+		moveNear(destination);
+		
+
 		return false;
 	}
 
@@ -97,11 +100,11 @@ public class Gripper extends Items implements  Movable,Grippable{
 	@Override
 	public boolean putPart(AbstractFrame destination) {
 		// TODO: Ein Teil an der gegebenen Position ablegen
-		this.moveLin(destination);
-		this.moveNear(destination);
-		this.open();
-		this.close();
-		this.moveNear(destination);
+		moveNear(destination);
+		moveLin(destination);
+		open();
+		moveNear(destination);
+		close();
 		return false;
 	}
 
@@ -263,7 +266,7 @@ public class Gripper extends Items implements  Movable,Grippable{
 	 */
 	@Override
 	public boolean moveNear(AbstractFrame destination) {
-		return moveNear(destination, -50.0);
+		return moveNear(destination, 50.0);
 	}
 
 	/**
@@ -394,6 +397,7 @@ public class Gripper extends Items implements  Movable,Grippable{
 		}
 		temp1 = frame1.copy();
 		temp2 = frame2.copy();
+		System.out.print("Z Frame 1: " + temp1.getZ());
 		distance = temp1.getZ()-temp2.getZ();
 		distance *= 100.0;
 		temp = (int)distance;
@@ -419,34 +423,7 @@ public class Gripper extends Items implements  Movable,Grippable{
 		// TODO Automatisch generierter Methodenstub
 		return false;
 	}
-	@SuppressWarnings("unused")
-	private Frame find(double distance){
-		double z = distance;
-		IMotionContainer motionCmd;
-		ForceCondition normalForce = ForceCondition.createNormalForceCondition(this.tool.getDefaultMotionFrame(), CoordinateAxis.Z, 10.0);
-		ForceSensorData data = robot.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame());
-		Vector force = data.getForce();
-		CartesianImpedanceControlMode cartImpCtrlMode = new CartesianImpedanceControlMode();
-		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(1000);
-		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(1000);
-		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(3000);
-		try{
-			motionCmd = this.tool.getDefaultMotionFrame().move(linRel(0, 0, z)
-					.setMode(cartImpCtrlMode)
-					.setCartVelocity(50.0)
-					.setCartAcceleration(maxCartAcceleration)
-					.setCartJerk(maxCartJerk).breakWhen(normalForce));
-		}catch(Exception e){
-			System.out.println("Es konnte nicht in Richtung "+distance+" mm gesucht werden");
-			return null;
-		}
-		IFiredConditionInfo firedInfo = motionCmd.getFiredBreakConditionInfo();
-		if(firedInfo != null){
-			return this.robot.getCurrentCartesianPosition(this.tool.getDefaultMotionFrame());
-		}
-		System.out.println("Es konnte nichts gefunden werden");
-		return null;
-	}
+
 	
 	private Frame find(double distance, CoordinateAxis direction) {
 		ThreadUtil.milliSleep(300);
@@ -472,7 +449,8 @@ public class Gripper extends Items implements  Movable,Grippable{
 					.setMode(cartImpCtrlMode)
 					.setCartVelocity(50.0)
 					.setCartAcceleration(maxCartAcceleration)
-					.setCartJerk(maxCartJerk).breakWhen(normalForce));
+					.setCartJerk(maxCartJerk).breakWhen(normalForce)
+					);
 		}catch(Exception e){
 			System.out.println("Es konnte nicht in "+direction.toString()+"-Richtung "+distance+" mm gesucht werden");
 			return null;
@@ -486,6 +464,48 @@ public class Gripper extends Items implements  Movable,Grippable{
 		System.out.println("Es konnte nichts gefunden werden");
 		return null;
 	}
+	
+	public Frame myfindZ(double z){
+		
+		IMotionContainer motionCmd;
+		ForceCondition normalForce = ForceCondition.createNormalForceCondition(this.tool.getDefaultMotionFrame(),CoordinateAxis.Z , 10.0);
+		ForceSensorData data = robot.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
+		Vector force = data.getForce(); //Get actual current forces (angle, weight, etc)
+		
+		CartesianImpedanceControlMode cartImpCtrlMode = new CartesianImpedanceControlMode();
+		cartImpCtrlMode.setNullSpaceStiffnessToDefaultValue();
+		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
+		
+		cartImpCtrlMode.setNullSpaceStiffness(nullStiffness);
+		//Substracting the measured force to set the force to 0. Unstressed forces aren't 0 due to weight and angle etc. of the robot.
+		cartImpCtrlMode.parametrize(CartDOF.X).setAdditionalControlForce(-force.getX());
+		cartImpCtrlMode.parametrize(CartDOF.Y).setAdditionalControlForce(-force.getY());
+		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(-force.getZ());
+		
+		//
+		try{//only to check if possible ACTUAL COMMAND WHEN THE ROBOT MOVES
+			motionCmd = this.tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, z)
+					.setMode(cartImpCtrlMode)
+					.setCartVelocity(50.0)
+					.setCartAcceleration(maxCartAcceleration)
+					.setCartJerk(maxCartJerk).breakWhen(normalForce));
+					System.out.println("motionCMD fired");
+		}catch(Exception e){
+			System.out.println("Es konnte nicht in Z-Richtung "+z+" mm gesucht werden");
+			return null;
+		}
+		IFiredConditionInfo firedInfo = motionCmd.getFiredBreakConditionInfo();
+		if(firedInfo != null){ //If motionCmd fired return Current Position
+			return this.robot.getCurrentCartesianPosition(this.tool.getDefaultMotionFrame());
+		}
+		System.out.println("Es konnte nichts gefunden werden");
+		return null;
+	}
+	
+	
+	
 
 	@Override
 	public boolean putPartSpline(AbstractFrame destination) {

@@ -101,32 +101,26 @@ public class RobotApplication extends RoboticsAPIApplication {
 		// Greifer mit Roboterflansch verbinden
 		gripper.attach(lbr_iiwa_7_R800_1.getFlange());
 		
-		
-		// TODO Labor 1: Referenzmessung ( Vermessung des Gutmusters )
-		//	Abholen bei RefPart
-		//	Vermessen bei MessPos
-		//	ablegen bei RefPart
-		// TODO Laboratory 1: Reference measurement (measurement of the sample)
+				// TODO Laboratory 1: Reference measurement (measurement of the sample)
+		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		// Pick up at RefPart
+		//gripper.getPart(getApplicationData().getFrame("/RefPart"));
+		//gripper.putPart(getApplicationData().getFrame("/MessPos"));
+		gripper.moveNear(getApplicationData().getFrame("/MessPos"));
+		gripper.close();
 		// Measurement at measurement points
+		//Frame ref=new Frame(gripper.myfindZ(100));
+		Frame ref = gripper.myfindZ(100);
+		//double distance=gripper.getDistance(ref,getApplicationData().getFrame("/MessPos"));
+				
+		gripper.getDistance(ref,getApplicationData().getFrame("/MessPos"));
+		//getLogger().info("height of object:" + distance);
+		gripper.movePTP(getApplicationData().getFrame("/Start"));
+		//gripper.getPart(getApplicationData().getFrame("/MessPos"));
+				
 		// store at RefPart
-		
-				
-		// TODO Labor 2: Vermessung der übrigen Teile
-		//	Abholen bei DynPos
-		//	Vermessen bei MessPos
-		//	Ablegen bei Gut 1..6, Nacharbeit 1..6 oder Schlecht
-		//	Reagieren auf Volle Palette
-				
-				
-		// Abbruch, wenn a) keine Teile vorhanden oder b) Antwort: Palette voll
-				
-		
-		// TODO Labor 3: Statusausgabe an logger()
-		//	Ausgabe der Anzahl gesamt
-		//	Ausgabe der Anzahl Gut-Teile
-		//	Ausgabe der Anzahl Nacharbeit-Teile
-		//	Ausgabe der Anzahl Schlecht-Teile	
+		//gripper.putPart(getApplicationData().getFrame("/RefPart"));
+					
 		
 	}
 

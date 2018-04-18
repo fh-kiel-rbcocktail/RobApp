@@ -146,6 +146,24 @@
                 </redundancy>
             </redundancyData>
         </frame>
+        <frame id="_c4aebf82-5c00-4544-b641-5957e4dbc503" name="DynPos">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1522832148976"/>
+            </additionalInformation>
+        </frame>
+        <frame id="_12da209b-ecc5-4bce-bda0-b1e56695ec29" name="MessPos">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1522832280471"/>
+            </additionalInformation>
+        </frame>
+        <frame id="_119f6c20-f233-4248-b544-59daac392381" name="RefPart">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1522832308042"/>
+            </additionalInformation>
+        </frame>
     </world>
     <objectTemplates>
         <toolTemplate class="" defaultMotionFrameRef="/Greifer/SteinGreifer" name="EGripper">
