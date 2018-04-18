@@ -2,59 +2,19 @@ package application;
 
 import com.kuka.roboticsAPI.geometricModel.Frame;
 
-public class Ingredient {
+public abstract class Ingredient {
 	// Variables
 	private float timeToFill = 0;
 	private double amount = 0;
-	private double weightPerVolume = 1.0;
-	private String name = "";
+	protected double weightPerVolume = 1.0; // gr/ml
+	protected String name = "";
 	private String unitOfWeight = "gr";
 	private String unitOfVolume = "ml";
 	private Frame position;
 	
 	// Constructors
-	public Ingredient(String name, double weightPerVolume, float timeToFill) {
+	public Ingredient(float timeToFill) {
 		this.setTimeToFill(timeToFill);
-		this.setName(name);
-		this.weightPerVolume = weightPerVolume;
-	}
-	
-	public Ingredient(String name, double weightPerVolume, double amount) {
-		this.setAmount(amount);
-		this.setName(name);
-		this.weightPerVolume = weightPerVolume;
-	}
-	
-	public Ingredient(String name, double weightPerVolume, double amount, String unitOfWeight, String unitOfVolume) {
-		this.setAmount(amount);
-		this.setUnitOfWeight(unitOfWeight);
-		this.setUnitOfVolume(unitOfVolume);
-		this.setName(name);
-		this.weightPerVolume = weightPerVolume;
-	}
-	
-	public Ingredient(String name, double weightPerVolume, float timeToFill, String unitOfWeight, String unitOfVolume) {
-		this.setTimeToFill(timeToFill);
-		this.setUnitOfWeight(unitOfWeight);
-		this.setUnitOfVolume(unitOfVolume);
-		this.setName(name);
-		this.weightPerVolume = weightPerVolume;
-	}
-	
-	public Ingredient(String name, double weightPerVolume, double amount, float timeToFill) {
-		this.setAmount(amount);
-		this.setTimeToFill(timeToFill);
-		this.setName(name);
-		this.weightPerVolume = weightPerVolume;
-	}
-	
-	public Ingredient(String name, double weightPerVolume, double amount, float timeToFill, String unitOfWeight, String unitOfVolume) {
-		this.setAmount(amount);
-		this.setTimeToFill(timeToFill);
-		this.setUnitOfWeight(unitOfWeight);
-		this.setUnitOfVolume(unitOfVolume);
-		this.setName(name);
-		this.weightPerVolume = weightPerVolume;
 	}
 	
 	// Setter and Getter
@@ -101,12 +61,17 @@ public class Ingredient {
 	public void setPosition(Frame position) {
 		this.position = position;
 	}
-
+	
 	public String getName() {
-		return name;
+		return this.name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	
+	// Methods
+	public double convertWeight() {
+		return this.weightPerVolume * this.amount;
+	}
+	
+	public float convertTime() {
+		return 1;
 	}
 }
