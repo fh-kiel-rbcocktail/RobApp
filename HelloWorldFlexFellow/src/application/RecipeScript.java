@@ -26,25 +26,58 @@ public class RecipeScript {
 			doc.getDocumentElement().normalize();
 
 			NodeList recipes = doc.getElementsByTagName("recipe");
-			// read recipe object
+			// read recipes
 			for(int iRecipe = 0; iRecipe < recipes.getLength(); iRecipe++) {
-				Node aNode = recipes.item(iRecipe);
-				if (aNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element aRecipe = (Element)aNode;
-					// create a Recipe object
-					// aRecipe.getAttribute("id");
-					// read Ingredient object
+				NodeList aParentNode = (NodeList)recipes.item(iRecipe);
+				// create a Recipe object
+				String recipeName = ((Element)aParentNode).getAttribute("id");
+				Recipe aRecipe = new Recipe(recipeName);
+				// read Ingredients
+				for(int iIngredient = 0; iIngredient < aParentNode.getLength(); iIngredient++) {
+					Node aNode = aParentNode.item(iIngredient);
+					initializeIngredient(aNode, aRecipe);
 				}
+				// create a Recipe list
+				menu.put(recipeName, aRecipe);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	public void initializeIngredient(Node aNode, Recipe aRecipe) {
+		if (aNode.getNodeType() == Node.ELEMENT_NODE) {
+			Element anIngre = (Element)aNode;
+			String IngreName = anIngre.getAttribute("id");
+			float time = Float.parseFloat(anIngre.getAttribute("timeToFill"));
+			double amount = Double.parseDouble(anIngre.getAttribute("amount"));
+			String unitOfVolume = anIngre.getAttribute("unitOfVolume");
+			// create Ingredient object
+			Ingredient ele;
+			if(IngreName.equals("milk")) {
+				ele = new Milk(time);
+			}
+			else {
+				ele = new Orange(time);
+			}
+			ele.setAmount(amount);
+			ele.setUnitOfVolume(unitOfVolume);
+			aRecipe.addIngredients(ele);
+		}
+	}
+	
 	public Recipe getRecipe(String name) {
 		// lower case and trim String
 		name = name.toLowerCase().trim();
-		// get
+		// TODO: Should deep copy object
 		return menu.get(name);
+	}
+	
+	public Recipe customizeRecipe(String name, Map<String, Float> ingredients) {
+		Recipe newRecipe = getRecipe(name);
+		for(Map.Entry ingre : ingredients.entrySet()) {
+			newRecipe.modifyIngredients(ingre.getKey().toString(), (Float)ingre.getValue());
+		}
+		return newRecipe;
 	}
 }

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<recipe id="milky cafe">
-	<ingredient id="hot water">
-		<timeToFill>2.1</timeToFill>
-		<amount>100</amount>
-		<unitOfVolume>ml</unitOfVolume>
-	</ingredient>
-	<ingredient id="coffee">
+<recipe id="milky orange juice">
+	<ingredient id="milk">
 		<timeToFill>1</timeToFill>
 		<amount>50</amount>
 		<unitOfVolume>ml</unitOfVolume>
 	</ingredient>
-	<ingredient id="milk">
+	<ingredient id="orange">
 		<timeToFill>2.1</timeToFill>
 		<amount>100</amount>
 		<unitOfVolume>ml</unitOfVolume>
