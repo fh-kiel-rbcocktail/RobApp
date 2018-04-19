@@ -9,14 +9,14 @@ import org.w3c.dom.Element;
 import java.io.File;
 import java.util.*;
 
-public class RecipeScript {
+public class RecipeScript implements IRecipeScript {
 	private Map<String, Recipe> menu = new HashMap<String, Recipe>();
 	
 	public RecipeScript() {
 		readScript();
 	}
 	
-	public void readScript() {
+	private void readScript() {
 		try {
 			File fXmlFile = new File("Recipe.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -45,7 +45,7 @@ public class RecipeScript {
 		}
 	}
 	
-	public void initializeIngredient(Node aNode, Recipe aRecipe) {
+	private void initializeIngredient(Node aNode, Recipe aRecipe) {
 		if (aNode.getNodeType() == Node.ELEMENT_NODE) {
 			Element anIngre = (Element)aNode;
 			String IngreName = anIngre.getAttribute("id");
