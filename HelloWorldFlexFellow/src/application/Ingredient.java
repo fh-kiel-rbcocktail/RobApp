@@ -10,11 +10,15 @@ public abstract class Ingredient {
 	protected String name = "";
 	private String unitOfWeight = "gr";
 	private String unitOfVolume = "ml";
+	protected float velocity = 1;
 	private Frame position;
 	
 	// Constructors
-	public Ingredient(float timeToFill) {
+	public Ingredient() {}
+	
+	public Ingredient(float timeToFill, double amount) {
 		this.setTimeToFill(timeToFill);
+		this.setAmount(amount);
 	}
 	
 	// Setter and Getter
@@ -71,7 +75,11 @@ public abstract class Ingredient {
 		return this.weightPerVolume * this.amount;
 	}
 	
-	public float convertTime() {
-		return 1;
+	/*public void convertTime() {
+		this.timeToFill = (float) (this.amount / this.velocity);
 	}
+	
+	public void convertAmount() {
+		this.amount = this.velocity * this.timeToFill;
+	}*/
 }

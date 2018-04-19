@@ -51,17 +51,16 @@ public class RecipeScript {
 			String IngreName = anIngre.getAttribute("id");
 			float time = Float.parseFloat(anIngre.getAttribute("timeToFill"));
 			double amount = Double.parseDouble(anIngre.getAttribute("amount"));
-			String unitOfVolume = anIngre.getAttribute("unitOfVolume");
 			// create Ingredient object
 			Ingredient ele;
 			if(IngreName.equals("milk")) {
-				ele = new Milk(time);
+				ele = new Milk(time, amount);
 			}
 			else {
-				ele = new Orange(time);
+				ele = new Orange(time, amount);
 			}
-			ele.setAmount(amount);
-			ele.setUnitOfVolume(unitOfVolume);
+			if(anIngre.hasAttribute("unitOfVolume"))
+				ele.setUnitOfVolume(anIngre.getAttribute("unitOfVolume"));
 			aRecipe.addIngredients(ele);
 		}
 	}
@@ -75,7 +74,7 @@ public class RecipeScript {
 	
 	public Recipe customizeRecipe(String name, Map<String, Float> ingredients) {
 		Recipe newRecipe = getRecipe(name);
-		for(Map.Entry ingre : ingredients.entrySet()) {
+		for(Map.Entry<String, Float> ingre : ingredients.entrySet()) {
 			newRecipe.modifyIngredients(ingre.getKey().toString(), (Float)ingre.getValue());
 		}
 		return newRecipe;
