@@ -8,11 +8,10 @@ public class Ingredient {
 	private double amount = 0;
 	private double weightPerVolume = 1.0;
 	private String name = "";
-	private String unitOfWeight = "gr";
-	private String unitOfVolume = "ml";
+	private String unitOfWeight = "ml";
+	private String unitOfVolume = "gr";
 	private Frame position;
 	
-	// Constructors
 	public Ingredient(String name, double weightPerVolume, float timeToFill) {
 		this.setTimeToFill(timeToFill);
 		this.setName(name);
