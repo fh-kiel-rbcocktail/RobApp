@@ -6,6 +6,7 @@ public abstract class Ingredient {
 	// Variables
 	private float timeToFill = 0;
 	private double amount = 0;
+
 	protected double weightPerVolume = 1.0; // gr/ml
 	protected String name = "";
 	private String unitOfWeight = "gr";
@@ -15,7 +16,7 @@ public abstract class Ingredient {
 	
 	// Constructors
 	public Ingredient() {}
-	
+
 	public Ingredient(float timeToFill, double amount) {
 		this.setTimeToFill(timeToFill);
 		this.setAmount(amount);

@@ -4,39 +4,14 @@ package application;
 
 
 //import com.kuka.generated.ioAccess.FlexFellowIOGroup;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.lin;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptp;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.spl;
-
-import java.io.IOException;
-
-import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
-import com.kuka.roboticsAPI.conditionModel.ForceCondition;
-import com.kuka.roboticsAPI.conditionModel.JointTorqueCondition;
+import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
-import com.kuka.roboticsAPI.deviceModel.JointEnum;
 import com.kuka.roboticsAPI.deviceModel.LBR;
-import com.kuka.roboticsAPI.deviceModel.PositionInformation;
-import com.kuka.roboticsAPI.executionModel.IFiredConditionInfo;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
-import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
-import com.kuka.roboticsAPI.motionModel.IMotion;
-import com.kuka.roboticsAPI.motionModel.IMotionContainer;
-import com.kuka.roboticsAPI.motionModel.PositionHold;
-import com.kuka.roboticsAPI.motionModel.Spline;
-import com.kuka.roboticsAPI.motionModel.SplineOrientationType;
-import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
-import com.kuka.roboticsAPI.persistenceModel.IPersistenceEngine;
-import com.kuka.roboticsAPI.persistenceModel.XmlApplicationDataSource;
-import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 import de.fh_kiel.cimtt.robotik.EGripper;
-
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Implementation of a robot application.
