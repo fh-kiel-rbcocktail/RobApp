@@ -89,3 +89,54 @@ Java Model Exception: Java Model Status [Unbekanntes Javadoc-Format für TODO {k
 	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:166)
 !SUBENTRY 1 org.eclipse.jdt.core 4 1009 2018-04-18 16:55:05.089
 !MESSAGE Unbekanntes Javadoc-Format für TODO {key=Lcom/sun/xml/internal/bind/v2/TODO;} [in TODO.class [in com.sun.xml.internal.bind.v2 [in E:\Programme\KUKA Roboter GmbH\Sunrise Workbench\jdk\jre\lib\rt.jar]]]
+!SESSION 2018-04-19 10:07:28.594 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_45
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=de_DE
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.311
+!MESSAGE NLS unused message: DeleteTemplateHandler_ConfirmationTitleRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.343
+!MESSAGE NLS unused message: DeleteHandler_DeleteFrameWithChildsDialogMessageRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.343
+!MESSAGE NLS unused message: Rapi2DeleteHandler_ConfirmCategoryDeletionTitle in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.343
+!MESSAGE NLS unused message: Rapi2DeleteHandler_ConfirmCategoryDeletionMessage in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.347
+!MESSAGE NLS unused message: Rapi2CreateFrameHandler_OnlyOneFrameAllowed in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.347
+!MESSAGE NLS unused message: ScenegraphView_SelectRapi1 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.347
+!MESSAGE NLS unused message: ScenegraphView_SelectRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.347
+!MESSAGE NLS unused message: GeneralPropertySection_sectionDescription in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:31.347
+!MESSAGE NLS unused message: MassPropertySection_validationError_outOfRange in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:37.263
+!MESSAGE NLS unused message: FrameSafetyPropertySection_outOfRange in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:37.263
+!MESSAGE NLS unused message: WorkpieceSafetyPropertySection_description in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:37.263
+!MESSAGE NLS unused message: FrameSafetyPropertySection_description in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:07:37.264
+!MESSAGE NLS unused message: WorkpieceSafetyPropertySection_inertiaInvalid in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-04-19 10:09:32.275
+!MESSAGE NLS unused message: DeployProjectHandler_UnknownException in: com.kuka.roboticsAPI.industrial.targetManagement.messages
+
+!ENTRY org.eclipse.ui 4 4 2018-04-19 10:14:49.045
+!MESSAGE Unable to create menu item "com.kuka.roboticsAPI.eclipseBase.InsertPTPCommand", command "com.kuka.roboticsAPI.eclipseBase.InsertPTPCommand" not defined
