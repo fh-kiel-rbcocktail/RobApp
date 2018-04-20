@@ -1,6 +1,7 @@
-package application;
+package application.object;
 
 import java.util.*;
+
 
 public class Recipe {
 	private Map<String, Ingredient> ingredients;

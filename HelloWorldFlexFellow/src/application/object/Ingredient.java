@@ -1,4 +1,4 @@
-package application;
+package application.object;
 
 import com.kuka.roboticsAPI.geometricModel.Frame;
 

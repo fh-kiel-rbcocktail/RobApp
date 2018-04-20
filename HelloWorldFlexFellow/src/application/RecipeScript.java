@@ -1,13 +1,19 @@
 package application;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import java.io.File;
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import application.object.Ingredient;
+import application.object.Recipe;
 
 public class RecipeScript implements IRecipeScript {
 	private Map<String, Recipe> menu = new HashMap<String, Recipe>();
@@ -16,47 +22,38 @@ public class RecipeScript implements IRecipeScript {
 		readScript();
 	}
 	
-	private void readScript() {
-		try {
-			File fXmlFile = new File("Recipe.xml");
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-					
-			doc.getDocumentElement().normalize();
+	private void readScript(){
+		JSONParser parser = new JSONParser();
+	     try {
+	         Object obj = parser.parse(new FileReader("D:\\test.json"));
 
-			NodeList recipes = doc.getElementsByTagName("recipe");
-			// read recipes
-			for(int iRecipe = 0; iRecipe < recipes.getLength(); iRecipe++) {
-				NodeList aParentNode = (NodeList)recipes.item(iRecipe);
-				// create a Recipe object
-				String recipeName = ((Element)aParentNode).getAttribute("id");
-				Recipe aRecipe = new Recipe(recipeName);
-				// read Ingredients
-				for(int iIngredient = 0; iIngredient < aParentNode.getLength(); iIngredient++) {
-					Node aNode = aParentNode.item(iIngredient);
-					initializeIngredient(aNode, aRecipe);
-				}
-				// create a Recipe list
-				menu.put(recipeName, aRecipe);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void initializeIngredient(Node aNode, Recipe aRecipe) {
-		if (aNode.getNodeType() == Node.ELEMENT_NODE) {
-			Element anIngre = (Element)aNode;
-			String IngreName = anIngre.getAttribute("id");
-			float time = Float.parseFloat(anIngre.getAttribute("timeToFill"));
-			double amount = Double.parseDouble(anIngre.getAttribute("amount"));
-			// create Ingredient object
-			Ingredient ele = new Ingredient(IngreName, time, amount);
-			if(anIngre.hasAttribute("unitOfVolume"))
-				ele.setUnitOfVolume(anIngre.getAttribute("unitOfVolume"));
-			aRecipe.addIngredients(ele);
-		}
+	         JSONObject jsonObject = (JSONObject) obj;
+	         JSONArray recipes = (JSONArray) jsonObject.get("recipes");
+	         Iterator<JSONObject> iterRecipes = recipes.iterator();
+	         while(iterRecipes.hasNext()) {
+	        	 JSONObject recipe = iterRecipes.next();
+	        	 String nameRecipe = (String) recipe.get("name");
+	        	 Recipe aRecipe = new Recipe(nameRecipe);
+	        	 // loop array
+		         JSONArray iterIngredient = (JSONArray) recipe.get("ingredients");
+		         Iterator<JSONObject> iterator = iterIngredient.iterator();
+		         while (iterator.hasNext()) {
+		        	 JSONObject ing = iterator.next();
+		        	 String nameIngredient = (String)ing.get("nameIngredient");
+		        	 double timeToFill =(double) ing.get("timeToFill");
+		        	 double amount = (double)ing.get("amount");
+			         Ingredient ingre = new Ingredient(nameIngredient, timeToFill, amount);
+			         aRecipe.addIngredients(ingre);
+		         }
+		         menu.put(nameRecipe, aRecipe);
+	         }
+	     } catch (FileNotFoundException e) {
+	         e.printStackTrace();
+	     } catch (IOException e) {
+	         e.printStackTrace();
+	     } catch (ParseException e) {
+	         e.printStackTrace();
+	     }
 	}
 	
 	public Recipe getRecipe(String name) {
@@ -64,14 +61,13 @@ public class RecipeScript implements IRecipeScript {
 		name = name.toLowerCase().trim();
 		// TODO: Should deep copy object
 		Recipe currRecipe = menu.get(name);
-		Map<String, Ingredient> listIngredients = new HashMap<String, Ingredient>() ;
-		for(Map.Entry<String, Ingredient> ingre : currRecipe.getIngredients().entrySet()){
-			Ingredient i = new Ingredient(ingre.getKey(), ingre.getValue().getTimeToFill(), ingre.getValue().getAmount());
-			listIngredients.put(ingre.getKey(),i);
-		}
-		Recipe result = new Recipe(currRecipe.getName(), listIngredients);
-		
-		return result;
+//		Map<String, Ingredient> listIngredients = new HashMap<String, Ingredient>() ;
+//		for(Map.Entry<String, Ingredient> ingre : currRecipe.getIngredients().entrySet()){
+//			Ingredient i = new Ingredient(ingre.getKey(), ingre.getValue().getTimeToFill(), ingre.getValue().getAmount());
+//			listIngredients.put(ingre.getKey(),i);
+//		}
+//		Recipe result = new Recipe(currRecipe.getName(), listIngredients);
+		return currRecipe;
 	}
 	
 	public Recipe customizeRecipe(String name, Map<String, Float> ingredients) {
