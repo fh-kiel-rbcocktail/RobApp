@@ -52,13 +52,7 @@ public class RecipeScript implements IRecipeScript {
 			float time = Float.parseFloat(anIngre.getAttribute("timeToFill"));
 			double amount = Double.parseDouble(anIngre.getAttribute("amount"));
 			// create Ingredient object
-			Ingredient ele;
-			if(IngreName.equals("milk")) {
-				ele = new Milk(time, amount);
-			}
-			else {
-				ele = new Orange(time, amount);
-			}
+			Ingredient ele = new Ingredient(IngreName, time, amount);
 			if(anIngre.hasAttribute("unitOfVolume"))
 				ele.setUnitOfVolume(anIngre.getAttribute("unitOfVolume"));
 			aRecipe.addIngredients(ele);
@@ -69,7 +63,15 @@ public class RecipeScript implements IRecipeScript {
 		// lower case and trim String
 		name = name.toLowerCase().trim();
 		// TODO: Should deep copy object
-		return menu.get(name);
+		Recipe currRecipe = menu.get(name);
+		Map<String, Ingredient> listIngredients = new HashMap<String, Ingredient>() ;
+		for(Map.Entry<String, Ingredient> ingre : currRecipe.getIngredients().entrySet()){
+			Ingredient i = new Ingredient(ingre.getKey(), ingre.getValue().getTimeToFill(), ingre.getValue().getAmount());
+			listIngredients.put(ingre.getKey(),i);
+		}
+		Recipe result = new Recipe(currRecipe.getName(), listIngredients);
+		
+		return result;
 	}
 	
 	public Recipe customizeRecipe(String name, Map<String, Float> ingredients) {

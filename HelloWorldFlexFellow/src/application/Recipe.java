@@ -45,6 +45,9 @@ public class Recipe {
 	public void setIngredients(Map<String, Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+	public Map<String, Ingredient> getIngredients() {
+		return this.ingredients ;
+	}
 
 	public String getName() {
 		return name;

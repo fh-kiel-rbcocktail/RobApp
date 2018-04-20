@@ -2,28 +2,46 @@ package application;
 
 import com.kuka.roboticsAPI.geometricModel.Frame;
 
-public abstract class Ingredient {
+public class Ingredient {
 	// Variables
-	private float timeToFill = 0;
+	private double timeToFill = 0;
 	private double amount = 0;
 
-	protected double weightPerVolume = 1.0; // gr/ml
-	protected String name = "";
-	private String unitOfWeight = "gr";
-	private String unitOfVolume = "ml";
-	protected float velocity = 1;
+	protected double weightPerVolume; // gr/ml
+	protected String name;
+	private String unitOfWeight;
+	private String unitOfVolume;
+	protected float velocity;
 	private Frame position;
 	
 	// Constructors
-	public Ingredient() {}
+	public Ingredient() {
+		this.weightPerVolume = 1.0;
+		this.name = "";
+		this.unitOfWeight = "gr";
+		this.unitOfVolume = "ml";
+		this.velocity = 1;
+	}
+	
+	public Ingredient(String name, double timeToFill, double amount) {
+		this.name = name;
+		this.timeToFill = timeToFill;
+		this.amount = amount;
+	//	this.weightPerVolume = ingre.weightPerVolume;
+		//this.unitOfVolume = ingre.unitOfVolume;
+		//this.unitOfWeight = ingre.unitOfWeight;
+		//this.velocity = ingre.velocity;
+		//this.amount = ingre.amount;
+		//this.timeToFill = ingre.timeToFill;
+	}
 
-	public Ingredient(float timeToFill, double amount) {
+	public Ingredient(double timeToFill, double amount) {
 		this.setTimeToFill(timeToFill);
 		this.setAmount(amount);
 	}
 	
 	// Setter and Getter
-	public void setTimeToFill(float timeToFill) {
+	public void setTimeToFill(double timeToFill) {
 		this.timeToFill = timeToFill;
 	}
 	
