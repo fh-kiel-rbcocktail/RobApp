@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wrapper>
+<recipe id="milky orange juice">
+	<ingredient id="milk">
+		<timeToFill>10</timeToFill>
+		<amount>50</amount>
+		<unitOfVolume>ml</unitOfVolume>
+	</ingredient>
+	<ingredient id="orange">
+		<timeToFill>30</timeToFill>
+		<amount>100</amount>
+		<unitOfVolume>ml</unitOfVolume>
+	</ingredient>
+</recipe>
+<recipe id="abc">
+	<ingredient id="milk1">
+		<timeToFill>10</timeToFill>
+		<amount>50</amount>
+		<unitOfVolume>ml</unitOfVolume>
+	</ingredient>
+	<ingredient id="orange2">
+		<timeToFill>30</timeToFill>
+		<amount>100</amount>
+		<unitOfVolume>ml</unitOfVolume>
+	</ingredient>
+</recipe>
+</wrapper>
