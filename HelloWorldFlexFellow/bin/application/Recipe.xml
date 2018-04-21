@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recipe id="milky orange juice">
+	<ingredient id="milk">
+		<timeToFill>1</timeToFill>
+		<amount>50</amount>
+		<unitOfVolume>ml</unitOfVolume>
+	</ingredient>
+	<ingredient id="orange">
+		<timeToFill>2.1</timeToFill>
+		<amount>100</amount>
+		<unitOfVolume>ml</unitOfVolume>
+	</ingredient>
+</recipe>
