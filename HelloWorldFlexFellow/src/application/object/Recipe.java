@@ -1,6 +1,7 @@
-package application;
+package application.object;
 
 import java.util.*;
+
 
 public class Recipe {
 	private Map<String, Ingredient> ingredients;
@@ -44,6 +45,9 @@ public class Recipe {
 
 	public void setIngredients(Map<String, Ingredient> ingredients) {
 		this.ingredients = ingredients;
+	}
+	public Map<String, Ingredient> getIngredients() {
+		return this.ingredients ;
 	}
 
 	public String getName() {

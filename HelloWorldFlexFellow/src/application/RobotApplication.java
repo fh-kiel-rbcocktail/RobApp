@@ -4,39 +4,14 @@ package application;
 
 
 //import com.kuka.generated.ioAccess.FlexFellowIOGroup;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.lin;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptp;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.spl;
-
-import java.io.IOException;
-
-import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
-import com.kuka.roboticsAPI.conditionModel.ForceCondition;
-import com.kuka.roboticsAPI.conditionModel.JointTorqueCondition;
+import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
-import com.kuka.roboticsAPI.deviceModel.JointEnum;
 import com.kuka.roboticsAPI.deviceModel.LBR;
-import com.kuka.roboticsAPI.deviceModel.PositionInformation;
-import com.kuka.roboticsAPI.executionModel.IFiredConditionInfo;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
-import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
-import com.kuka.roboticsAPI.motionModel.IMotion;
-import com.kuka.roboticsAPI.motionModel.IMotionContainer;
-import com.kuka.roboticsAPI.motionModel.PositionHold;
-import com.kuka.roboticsAPI.motionModel.Spline;
-import com.kuka.roboticsAPI.motionModel.SplineOrientationType;
-import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
-import com.kuka.roboticsAPI.persistenceModel.IPersistenceEngine;
-import com.kuka.roboticsAPI.persistenceModel.XmlApplicationDataSource;
-import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 import de.fh_kiel.cimtt.robotik.EGripper;
-
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Implementation of a robot application.
@@ -101,13 +76,30 @@ public class RobotApplication extends RoboticsAPIApplication {
 		// Greifer mit Roboterflansch verbinden
 		gripper.attach(lbr_iiwa_7_R800_1.getFlange());
 		
-				// TODO Laboratory 1: Reference measurement (measurement of the sample)
+		/*
+		 * 19.04.2018 - Test sequence 1
+		 * 
+		 * - Cup must be placed higher than the table level, otherwise --> collision
+		 * - moveNear-function will move straight into bottle holder 
+		 * - moving the gripper to grab the glass needs a more detailed path --> gripper tips over the cup
+		 * 
+		 * TODO: 
+		 * - design cup-holder to place it higher than table
+		 * - configure moveNear-function Z-levels
+		 * - define path for gripper to move to horizontal level before moving near the cup
+		 * 
+		 * */
 		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		// Pick up at RefPart
-		gripper.getPart(getApplicationData().getFrame("/RefPart"));
-		gripper.putPart(getApplicationData().getFrame("/MessPos"));
-		gripper.moveNear(getApplicationData().getFrame("/MessPos"));
+		gripper.getPart(getApplicationData().getFrame("/CupS"));
+		gripper.moveNear(getApplicationData().getFrame("/Bottle1"));
+		gripper.putPart(getApplicationData().getFrame("/CupE"));
+		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		gripper.close();
+		
+		/*End of test sequence 1 19.04.2018*/
+		
+		
 		// Measurement at measurement points
 		//Frame ref=new Frame(gripper.myfindZ(100));
 		//Frame ref = gripper.myfindZ(100);
