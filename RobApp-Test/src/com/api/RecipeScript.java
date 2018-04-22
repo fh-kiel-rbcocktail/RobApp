@@ -27,7 +27,7 @@ public class RecipeScript implements IRecipeScript{
 	private void readScript() {
 		JSONParser parser = new JSONParser();
 	     try {
-	         Object obj = parser.parse(new FileReader("D:\\test.json"));
+	         Object obj = parser.parse(new FileReader("C:\\Users\\Tien\\Desktop\\test.json"));
 
 	         JSONObject jsonObject = (JSONObject) obj;
 	         JSONArray recipes = (JSONArray) jsonObject.get("recipes");
@@ -60,17 +60,17 @@ public class RecipeScript implements IRecipeScript{
 	
 	@Override
 	public Recipe getRecipe(String name) {
-		// lower case and trim String
-				name = name.toLowerCase().trim();
-				// TODO: Should deep copy object
-				Recipe currRecipe = menu.get(name);
-				Map<String, Ingredient> listIngredients = new HashMap<String, Ingredient>() ;
-				for(Map.Entry<String, Ingredient> ingre : currRecipe.getIngredients().entrySet()){
-					Ingredient i = new Ingredient(ingre.getKey(), ingre.getValue().getTimeToFill(), ingre.getValue().getAmount());
-					listIngredients.put(ingre.getKey(),i);
-				}
-				Recipe result = new Recipe(currRecipe.getName(), listIngredients);
-				return result;
+            // lower case and trim String
+            name = name.toLowerCase().trim();
+            // TODO: Should deep copy object
+            Recipe currRecipe = menu.get(name);
+            Map<String, Ingredient> listIngredients = new HashMap<String, Ingredient>() ;
+            for(Map.Entry<String, Ingredient> ingre : currRecipe.getIngredients().entrySet()){
+                    Ingredient i = new Ingredient(ingre.getKey(), ingre.getValue().getTimeToFill(), ingre.getValue().getAmount());
+                    listIngredients.put(ingre.getKey(),i);
+            }
+            Recipe result = new Recipe(currRecipe.getName(), listIngredients);
+            return result;
 	}
 
 	@Override

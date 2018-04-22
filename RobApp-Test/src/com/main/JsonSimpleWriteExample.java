@@ -58,11 +58,11 @@ public class JsonSimpleWriteExample {
         listRecipe.add(recipe1);
 
         f.put("recipes", listRecipe);
-        try (FileWriter file = new FileWriter("D:\\test.json")) {
-
+        try (FileWriter file = new FileWriter("C:\\Users\\Tien\\Desktop\\test.json")) {
+                
             file.write(f.toString());
             file.flush();
-
+            System.out.print(f);
         } catch (IOException e) {
             e.printStackTrace();
         }
