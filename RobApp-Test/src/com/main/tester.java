@@ -17,6 +17,7 @@ public class tester {
             List<Recipe> orders = new ArrayList<Recipe>();
 
             // Display menu for ordering purpose
+            System.out.println("================= Menu =================");
             for(int i = 0; i < menu.menuSize(); i += 1) {
                 Recipe drinkOnMenu = menu.getNextRecipe(i);
                 String recipeName = drinkOnMenu.getName();
@@ -27,6 +28,7 @@ public class tester {
                     System.out.printf("\t%d.%d. %s: %f\n",i+1,j+1,fixedIngredient.getName(),fixedIngredient.getAmount());
                 }
             }
+            System.out.println("========================================");
 
             // Order Milky Orange Juice
             Recipe cup1 = menu.generateRecipe("milky orange juice");
@@ -39,6 +41,8 @@ public class tester {
             orders.add(cup2);
             
             // Robot makes ordered drinks
+            System.out.println();
+            System.out.println("================= Robot =================");
             for(int i = 0; i < orders.size(); i += 1) {
                 Recipe orderedCup = menu.getNextRecipe(i);
                 System.out.printf("Cup %d: %s\n",i+1,orderedCup.getName());
@@ -49,5 +53,6 @@ public class tester {
                         System.out.printf("\t%s with %f%s during %fs\n", in.getName(), in.getAmount(), in.getUnitOfVolume(), in.getTimeToFill());
                 }
             }
+            System.out.println("=========================================");
 	}
 }
