@@ -4,17 +4,20 @@ package application;
 
 
 //import com.kuka.generated.ioAccess.FlexFellowIOGroup;
+
 import java.util.Arrays;
 import java.util.Map;
 
 import application.object.Ingredient;
-import application.object.Recipe;
+
+import application.object.*;
 
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
@@ -105,6 +108,32 @@ public class RobotApplication extends RoboticsAPIApplication {
 		 * - define path for gripper to move to horizontal level before moving near the cup
 		 * 
 		 * */
+		// Initialize menu
+        IRecipeScript menu = new RecipeScript();
+        String[] mS = new String[12];
+		/*
+		 *  For user panel
+		 */
+		String menuText = "Please order the drink!";
+		String errorText = "Sorry, invalid drink. Please choose again!";
+		for(int i = 0; i < Math.max(menu.menuSize(),12); i += 1) {
+			mS[i] = menu.getNextRecipe(i).getName();
+        }
+		int orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4],mS[5],mS[6],mS[7],mS[8],mS[9],mS[10],mS[11]);
+        while(orderNbr >= menu.menuSize()) {
+        	getApplicationUI().displayModalDialog(ApplicationDialogType.ERROR, errorText, "Ok");
+        	orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4],mS[5],mS[6],mS[7],mS[8],mS[9],mS[10],mS[11]);
+        }
+		Recipe order = menu.generateRecipe(mS[orderNbr]);
+        for(int j = 0; j < menu.ingredientListSize(order); j+=1) {
+            Ingredient in = menu.getNextIngredient(order, j);
+            gripper.movePTP(getApplicationData().getFrame("/" + in.getName()));
+            // Useful functions: in.getName(), in.getAmount(), in.getUnitOfVolume(), in.getTimeToFill()
+        }
+        /*
+		 *  End user panel
+		 */
+		
 		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		// Pick up at RefPart
 		gripper.getPart(getApplicationData().getFrame("/CupS"));
@@ -114,7 +143,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 		getLogger().info("Show modal dialog and wait for user to confirm");
         int recipePopUp = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, informationText, 
         												"Recipe 1", "Recipe 2", "Recipe 3", "Recipe 4", "Cancel");
-        RecipeScript menu = new RecipeScript();
+        
 		Recipe recipe = null;
         if (recipePopUp == 0){
         	recipe = menu.generateRecipe("recipe 1");
