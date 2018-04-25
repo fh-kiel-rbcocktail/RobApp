@@ -35,7 +35,7 @@ public class RecipeScript implements IRecipeScript {
 	private void readScript() {
 		JSONParser parser = new JSONParser();
 	     try {
-	         Object obj = parser.parse(new FileReader("C:\\Users\\Tien\\Desktop\\test.json"));
+	         Object obj = parser.parse(new FileReader("D:\\test.json"));
 	
 	         JSONObject jsonObject = (JSONObject) obj;
 	         JSONArray recipes = (JSONArray) jsonObject.get("recipes");

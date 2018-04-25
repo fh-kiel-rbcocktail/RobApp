@@ -4,12 +4,19 @@ package application;
 
 
 //import com.kuka.generated.ioAccess.FlexFellowIOGroup;
+import java.util.Arrays;
+import java.util.Map;
+
+import application.object.Ingredient;
+import application.object.Recipe;
+
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 import de.fh_kiel.cimtt.robotik.EGripper;
 
@@ -54,7 +61,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 	private static double nullStiffness = 0.5;
 	
 	//private static int colorCount = 255;
-	
+	private final static String informationText=
+			"Which coctail do you want";
+
 	public void initialize() {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
 		lbr_iiwa_7_R800_1 = (LBR) getDevice(kuka_Sunrise_Cabinet_1, "LBR_iiwa_7_R800_1");
@@ -64,6 +73,13 @@ public class RobotApplication extends RoboticsAPIApplication {
 		//camera = new Cognex();
 	}
 
+	public int getPositionOfBottle (String[]positionBottle, String ingredientName){
+		int index = Arrays.binarySearch(positionBottle, ingredientName);
+		if(index >= 0){
+			return index + 1;
+		}
+		return 0;
+	}
 	
 	public void run() {
 		// Zähler für Gut-, Schlecht- und Nachzuarbeitende Teile
@@ -94,11 +110,39 @@ public class RobotApplication extends RoboticsAPIApplication {
 		gripper.getPart(getApplicationData().getFrame("/CupS"));
 		gripper.moveNear(getApplicationData().getFrame("/Bottle1"));
 		gripper.putPart(getApplicationData().getFrame("/CupE"));
-		gripper.movePTP(getApplicationData().getFrame("/Start"));
+		
+		getLogger().info("Show modal dialog and wait for user to confirm");
+        int recipePopUp = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, informationText, 
+        												"Recipe 1", "Recipe 2", "Recipe 3", "Recipe 4", "Cancel");
+        RecipeScript menu = new RecipeScript();
+		Recipe recipe = null;
+        if (recipePopUp == 0){
+        	recipe = menu.generateRecipe("recipe 1");
+        }else if (recipePopUp == 1){
+        	recipe = menu.generateRecipe("recipe 2");
+        }else if(recipePopUp == 2){
+        	recipe = menu.generateRecipe("recipe 3");
+        }else if(recipePopUp == 3){
+        	recipe = menu.generateRecipe("recipe 4");
+        }else{
+        	gripper.movePTP(getApplicationData().getFrame("/Start"));
+     		gripper.close();
+     		
+        }
+        //Initialize the position of bottle 
+        String[] positionBottle = {"milk", "cafe", "orange", "tea"};
+        Map<String, Ingredient>ingredients = recipe.getIngredients();
+        for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
+        	int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
+        	String nameCurrFrame = "Bottle" + currPosition;
+        	gripper.movePTP(getApplicationData().getFrame(nameCurrFrame));
+        }
+        
+        
+        gripper.movePTP(getApplicationData().getFrame("/Start"));
 		gripper.close();
 		
 		/*End of test sequence 1 19.04.2018*/
-		
 		
 		// Measurement at measurement points
 		//Frame ref=new Frame(gripper.myfindZ(100));
