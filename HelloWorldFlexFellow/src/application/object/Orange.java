@@ -1,7 +1,7 @@
 package application.object;
 
 public class Orange extends Ingredient {
-    public Orange(double timeToFill, double amount) {
+    public Orange(int timeToFill, double amount) {
         super(timeToFill, amount);
         this.name = "orange";
         this.velocity = 1;

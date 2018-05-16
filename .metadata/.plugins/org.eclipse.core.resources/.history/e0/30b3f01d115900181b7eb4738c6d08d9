@@ -4,39 +4,24 @@ package application;
 
 
 //import com.kuka.generated.ioAccess.FlexFellowIOGroup;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.lin;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptp;
-import static com.kuka.roboticsAPI.motionModel.BasicMotions.spl;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 
-import com.kuka.common.ThreadUtil;
+import application.object.Ingredient;
+
+import application.object.*;
+
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
-import com.kuka.roboticsAPI.conditionModel.ForceCondition;
-import com.kuka.roboticsAPI.conditionModel.JointTorqueCondition;
+import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
-import com.kuka.roboticsAPI.deviceModel.JointEnum;
 import com.kuka.roboticsAPI.deviceModel.LBR;
-import com.kuka.roboticsAPI.deviceModel.PositionInformation;
-import com.kuka.roboticsAPI.executionModel.IFiredConditionInfo;
 import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
-import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
-import com.kuka.roboticsAPI.motionModel.IMotion;
-import com.kuka.roboticsAPI.motionModel.IMotionContainer;
-import com.kuka.roboticsAPI.motionModel.PositionHold;
-import com.kuka.roboticsAPI.motionModel.Spline;
-import com.kuka.roboticsAPI.motionModel.SplineOrientationType;
-import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
-import com.kuka.roboticsAPI.persistenceModel.IPersistenceEngine;
-import com.kuka.roboticsAPI.persistenceModel.XmlApplicationDataSource;
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 import de.fh_kiel.cimtt.robotik.EGripper;
-
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Implementation of a robot application.
@@ -79,7 +64,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 	private static double nullStiffness = 0.5;
 	
 	//private static int colorCount = 255;
-	
+	private final static String informationText=
+			"Which coctail do you want";
+
 	public void initialize() {
 		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
 		lbr_iiwa_7_R800_1 = (LBR) getDevice(kuka_Sunrise_Cabinet_1, "LBR_iiwa_7_R800_1");
@@ -89,6 +76,13 @@ public class RobotApplication extends RoboticsAPIApplication {
 		//camera = new Cognex();
 	}
 
+	public int getPositionOfBottle (String[]positionBottle, String ingredientName){
+		int index = Arrays.binarySearch(positionBottle, ingredientName);
+		if(index >= 0){
+			return index + 1;
+		}
+		return 0;
+	}
 	
 	public void run() {
 		// Zähler für Gut-, Schlecht- und Nachzuarbeitende Teile
@@ -101,13 +95,62 @@ public class RobotApplication extends RoboticsAPIApplication {
 		// Greifer mit Roboterflansch verbinden
 		gripper.attach(lbr_iiwa_7_R800_1.getFlange());
 		
-				// TODO Laboratory 1: Reference measurement (measurement of the sample)
+		/*
+		 * 19.04.2018 - Test sequence 1
+		 * 
+		 * - Cup must be placed higher than the table level, otherwise --> collision
+		 * - moveNear-function will move straight into bottle holder 
+		 * - moving the gripper to grab the glass needs a more detailed path --> gripper tips over the cup
+		 * 
+		 * TODO: 
+		 * - design cup-holder to place it higher than table
+		 * - configure moveNear-function Z-levels
+		 * - define path for gripper to move to horizontal level before moving near the cup
+		 * 
+		 * */
+		//Initialize the position of bottle 
+        String[] positionBottle = {"milk", "cafe", "orange", "tea"};
+        
+		// Initialize menu
+        IRecipeScript menu = new RecipeScript();
+        String[] mS = new String[5];
+		/*
+		 *  For user panel
+		 */
+		String menuText = "Please order the drink!";
+		String errorText = "Sorry, invalid drink. Please choose again!";
+		for(int i = 0; i < Math.max(menu.menuSize(),5); i += 1) {
+			mS[i] = menu.getNextRecipe(i).getName();
+        }
+		int orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4]);
+//        while(orderNbr >= menu.menuSize()) {
+//        	getApplicationUI().displayModalDialog(ApplicationDialogType.ERROR, errorText, "Ok");
+//        	orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4]);
+//        }
+		Recipe recipe = menu.generateRecipe(mS[orderNbr]);
+
+		
 		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		// Pick up at RefPart
-		gripper.getPart(getApplicationData().getFrame("/RefPart"));
-		gripper.putPart(getApplicationData().getFrame("/MessPos"));
-		gripper.moveNear(getApplicationData().getFrame("/MessPos"));
+		gripper.getPart(getApplicationData().getFrame("/CupS"));
+		
+        Map<String, Ingredient>ingredients = recipe.getIngredients();
+        for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
+        	int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
+        	String nameCurrFrame = "Bottle" + currPosition;
+        	gripper.movePTP(getApplicationData().getFrame(nameCurrFrame));
+        	//move up, wait, move down
+        	//gripper.fillGlass(ingredient, amount);
+        }
+        gripper.putPart(getApplicationData().getFrame("/CupE"));
+        
+        //GO and pick up a straw and stirr
+        
+        gripper.movePTP(getApplicationData().getFrame("/Start"));
 		gripper.close();
+		
+		/*End of test sequence 1 19.04.2018*/
+		
 		// Measurement at measurement points
 		//Frame ref=new Frame(gripper.myfindZ(100));
 		//Frame ref = gripper.myfindZ(100);

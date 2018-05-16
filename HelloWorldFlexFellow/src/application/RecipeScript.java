@@ -19,7 +19,7 @@ public class RecipeScript implements IRecipeScript {
 		readScript();
 	}
     
-    private Ingredient initializeIngredient(String name, double time, double amount) {
+    private Ingredient initializeIngredient(String name, int time, double amount) {
         // lower case and trim String
         name = name.toLowerCase().trim();
         if(name.equals("milk"))
@@ -81,10 +81,10 @@ public class RecipeScript implements IRecipeScript {
         return result;
 	}
 	@Override
-	public Recipe generateCustomizedRecipe(String name, Map<String, Float> ingredients) {
+	public Recipe generateCustomizedRecipe(String name, Map<String, Integer> ingredients) {
 		Recipe newRecipe = generateRecipe(name);
-		for(Map.Entry<String, Float> ingre : ingredients.entrySet()) {
-	                newRecipe.modifyIngredients(ingre.getKey().toString(), (Float)ingre.getValue());
+		for(Map.Entry<String, Integer> ingre : ingredients.entrySet()) {
+	                newRecipe.modifyIngredients(ingre.getKey().toString(), (int)ingre.getValue());
 		}
 		return newRecipe;
 	}

@@ -2,7 +2,7 @@ package de.fh_kiel.cimtt.robotik;
 
 
 
-
+import java.util.Timer;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -76,22 +76,26 @@ public class EGripper extends Gripper{
 	
 
 	/*
-	 * Task: Fill glass with one liquid*/
-	public boolean fillGlass(AbstractFrame ingredient) {
+	 * Task: Fill glass with one liquid
+	 * - gets ingredient Frame and amount of liquid 
+	 * - stops when current weight 
+	 * */
+	public boolean fillGlass(double amount) {
 		//Move to Bottle
-		this.moveNear(ingredient);
+		//this.moveNear(ingredient);
 		 
 		//Move up
 		this.findZ(10); //Move until contact
 		//TODO: Configure Sensibility and check distance
 		this.moveZ(10); //Move up to fill
-		/*TODO: 
-		 * 	- Wait for fluid to fill --> Measure weight of filling and go on
+		/*	- implement timer
+		 * TODO: 
+		 * 	- Wait for fluid to fill 
+		 * 	- Measure weight of filling and go on
 		 * 	- Feature: Wait for xx seconds, if weight isn't changing go up and down again 
 		*/
-		ForceCondition normalForce = ForceCondition.createNormalForceCondition(toolEgripper.getDefaultMotionFrame(),CoordinateAxis.Z , 10.0);
-		ForceSensorData data = robotEgripper.getExternalForceTorque(toolEgripper.getDefaultMotionFrame(), toolEgripper.getDefaultMotionFrame() );
-		Vector force = data.getForce(); //Get actual current forces (angle, weight, etc)
+		Timer timer = new Timer();
+		
 		
 		//TODO: Move down
 		this.moveZ(-10); //Measure Distance

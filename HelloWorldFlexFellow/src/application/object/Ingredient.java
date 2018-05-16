@@ -4,7 +4,7 @@ import com.kuka.roboticsAPI.geometricModel.Frame;
 
 public abstract class Ingredient {
 	// Variables
-    private double timeToFill;
+    private int timeToFill;
     private double amount;
 
     protected double weightPerVolume = 1.0; // gr/ml
@@ -20,17 +20,17 @@ public abstract class Ingredient {
         this.amount = 0;
     }
 
-    public Ingredient(double timeToFill, double amount) {
+    public Ingredient(int timeToFill, double amount) {
             this.timeToFill = timeToFill;
             this.amount = amount;
     }
 
     // Setter and Getter
-    public void setTimeToFill(double timeToFill) {
+    public void setTimeToFill(int timeToFill) {
             this.timeToFill = timeToFill;
     }
 
-    public double getTimeToFill() {
+    public int getTimeToFill() {
             return this.timeToFill;
     }
 

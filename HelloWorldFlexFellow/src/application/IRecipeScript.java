@@ -8,7 +8,7 @@ import application.object.Recipe;
 public interface IRecipeScript {
 	// Generate recipe
 	public Recipe generateRecipe(String name);
-	public Recipe generateCustomizedRecipe(String name, Map<String, Float> ingredients);
+	public Recipe generateCustomizedRecipe(String name, Map<String, Integer> ingredients);
 	        
     // Get all recipes and ingredients
     public int menuSize();

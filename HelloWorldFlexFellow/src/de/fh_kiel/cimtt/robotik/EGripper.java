@@ -3,6 +3,7 @@ package de.fh_kiel.cimtt.robotik;
 
 
 import java.util.Timer;
+import java.util.TimerTask;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -80,12 +81,14 @@ public class EGripper extends Gripper{
 	 * - gets ingredient Frame and amount of liquid 
 	 * - stops when current weight 
 	 * */
-	public boolean fillGlass(AbstractFrame ingredient, int amount) {
+	public boolean fillGlass(double amount) {
 		//Move to Bottle
-		this.moveNear(ingredient);
+		//this.moveNear(ingredient);
 		 
 		//Move up
-		this.findZ(10); //Move until contact
+		//this.findZ(10); //Move until contact
+		
+		
 		//TODO: Configure Sensibility and check distance
 		this.moveZ(10); //Move up to fill
 		/*	- implement timer
@@ -94,8 +97,15 @@ public class EGripper extends Gripper{
 		 * 	- Measure weight of filling and go on
 		 * 	- Feature: Wait for xx seconds, if weight isn't changing go up and down again 
 		*/
-		Timer timer = new Timer();
-		
+		final Timer timer = new Timer();
+	    timer.scheduleAtFixedRate(new TimerTask() {
+	        int iamount = 8;
+	            public void run() {
+	                if (iamount < 0)
+	                    timer.cancel();
+	               
+	            }
+	        }, 0, 1000);
 		
 		//TODO: Move down
 		this.moveZ(-10); //Measure Distance

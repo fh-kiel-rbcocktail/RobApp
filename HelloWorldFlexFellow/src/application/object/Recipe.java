@@ -33,7 +33,7 @@ public class Recipe {
 		this.ingredients.put(ingredient.getName(), ingredient);
 	}
 	
-	public boolean modifyIngredients(String name, float timeToFill) {
+	public boolean modifyIngredients(String name, int timeToFill) {
 		// lower case and trim String
 		name = name.toLowerCase().trim();
 		// get
