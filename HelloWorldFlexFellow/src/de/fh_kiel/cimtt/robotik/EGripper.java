@@ -81,7 +81,7 @@ public class EGripper extends Gripper{
 	 * - gets ingredient Frame and amount of liquid 
 	 * - stops when current weight 
 	 * */
-	public boolean fillGlass(double amount) {
+	public boolean fillGlass(final int amount) {
 		//Move to Bottle
 		//this.moveNear(ingredient);
 		 
@@ -99,9 +99,8 @@ public class EGripper extends Gripper{
 		*/
 		final Timer timer = new Timer();
 	    timer.scheduleAtFixedRate(new TimerTask() {
-	        int iamount = 8;
 	            public void run() {
-	                if (iamount < 0)
+	                if (amount < 0)
 	                    timer.cancel();
 	               
 	            }
