@@ -1,18 +1,15 @@
 package application;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import application.object.*;
+import application.object.Cafe;
+import application.object.Ingredient;
+import application.object.Milk;
+import application.object.Orange;
+import application.object.Recipe;
 
 public class RecipeScript implements IRecipeScript {
 	private Map<String, Recipe> menu = new HashMap<String, Recipe>();
@@ -33,40 +30,40 @@ public class RecipeScript implements IRecipeScript {
     }
     
 	private void readScript() {
-		JSONParser parser = new JSONParser();
-	     try {
-	         Object obj = parser.parse(new FileReader("D:\\test.json"));
-	
-	         JSONObject jsonObject = (JSONObject) obj;
-	         JSONArray recipes = (JSONArray) jsonObject.get("recipes");
-	         Iterator<JSONObject> iterRecipes = recipes.iterator();
-	             int iter = 0;
-	         while(iterRecipes.hasNext()) {
-	        	 JSONObject recipe = iterRecipes.next();
-	        	 String nameRecipe = (String) recipe.get("name");
-	        	 Recipe aRecipe = new Recipe(nameRecipe);
-	        	 // loop array
-		         JSONArray iterIngredient = (JSONArray) recipe.get("ingredients");
-		         Iterator<JSONObject> iterator = iterIngredient.iterator();
-		         while (iterator.hasNext()) {
-		        	 JSONObject ing = iterator.next();
-		        	 String nameIngredient = (String)ing.get("nameIngredient");
-		        	 double timeToFill =(double) ing.get("timeToFill");
-		        	 double amount = (double)ing.get("amount");
-			         Ingredient ingre = initializeIngredient(nameIngredient, timeToFill, amount);
-			         aRecipe.addIngredients(ingre);
-		         }
-		         this.menu.put(nameRecipe, aRecipe);
-	                     this.menuIdx.put(iter, nameRecipe);
-	                     iter += 1;
-	         }
-	     } catch (FileNotFoundException e) {
-	         e.printStackTrace();
-	     } catch (IOException e) {
-	         e.printStackTrace();
-	     } catch (ParseException e) {
-	         e.printStackTrace();
-	     }
+//		JSONParser parser = new JSONParser();
+//	     try {
+//	         Object obj = parser.parse(new FileReader("\test.json"));
+//	
+//	         JSONObject jsonObject = (JSONObject) obj;
+//	         JSONArray recipes = (JSONArray) jsonObject.get("recipes");
+//	         Iterator<JSONObject> iterRecipes = recipes.iterator();
+//	             int iter = 0;
+//	         while(iterRecipes.hasNext()) {
+//	        	 JSONObject recipe = iterRecipes.next();
+//	        	 String nameRecipe = (String) recipe.get("name");
+//	        	 Recipe aRecipe = new Recipe(nameRecipe);
+//	        	 // loop array
+//		         JSONArray iterIngredient = (JSONArray) recipe.get("ingredients");
+//		         Iterator<JSONObject> iterator = iterIngredient.iterator();
+//		         while (iterator.hasNext()) {
+//		        	 JSONObject ing = iterator.next();
+//		        	 String nameIngredient = (String)ing.get("nameIngredient");
+//		        	 double timeToFill =(double) ing.get("timeToFill");
+//		        	 double amount = (double)ing.get("amount");
+//			         Ingredient ingre = initializeIngredient(nameIngredient, timeToFill, amount);
+//			         aRecipe.addIngredients(ingre);
+//		         }
+//		         this.menu.put(nameRecipe, aRecipe);
+//	                     this.menuIdx.put(iter, nameRecipe);
+//	                     iter += 1;
+//	         }
+//	     } catch (FileNotFoundException e) {
+//	         e.printStackTrace();
+//	     } catch (IOException e) {
+//	         e.printStackTrace();
+//	     } catch (ParseException e) {
+//	         e.printStackTrace();
+//	     }
 	}
     
 	@Override
@@ -159,4 +156,24 @@ public class RecipeScript implements IRecipeScript {
         }
         return myWeight;
     }
+    public static void main(String[] args) {
+    	// Initialize menu
+        IRecipeScript menu = new RecipeScript();
+        // Prepare ordering note
+        List<Recipe> orders = new ArrayList<Recipe>();
+
+        // Display menu for ordering purpose
+        System.out.println("================= Menu =================");
+        for(int i = 0; i < menu.menuSize(); i += 1) {
+            Recipe drinkOnMenu = menu.getNextRecipe(i);
+            String recipeName = drinkOnMenu.getName();
+            System.out.printf("%d.Name: %s\n",i+1,recipeName);
+            System.out.println("\tIncluding: ");
+            for(int j = 0; j < menu.ingredientListSize(recipeName); j+=1) {
+                Ingredient fixedIngredient = menu.getNextIngredient(recipeName, j);
+                System.out.printf("\t%d.%d. %s: %f\n",i+1,j+1,fixedIngredient.getName(),fixedIngredient.getAmount());
+            }
+        }
+        System.out.println("========================================");
+	}
 }

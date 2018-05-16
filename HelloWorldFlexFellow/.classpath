@@ -5,6 +5,7 @@
 	<classpathentry kind="lib" path="javax-inject.jar"/>
 	<classpathentry kind="lib" path="jamod-1.2-SNAPSHOT.jar"/>
 	<classpathentry kind="src" path="examples"/>
+	<classpathentry kind="lib" path="EEIP_library.jar"/>
 	<classpathentry kind="lib" path="KUKAJavaLib/javax.inject_1.0.0.v20091030.jar"/>
 	<classpathentry kind="lib" path="KUKAJavaLib/com.kuka.common.datatypes_1.15.0.5.jar">
 		<attributes>
@@ -14,11 +15,6 @@
 	<classpathentry kind="lib" path="KUKAJavaLib/com.kuka.common.utilities_1.5.0.5.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/HelloWorldFlexFellow/KUKAJavaLib/com.kuka.common.utilities_1.5.0.5-javadoc.jar!/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="KUKAJavaLib/com.kuka.connectivity.fastRobotInterface_1.15.1.Con1-13-0_6.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="jar:platform:/resource/HelloWorldFlexFellow/KUKAJavaLib/com.kuka.connectivity.fastRobotInterface_1.15.1.Con1-13-0_6-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="KUKAJavaLib/com.kuka.mastering.provider.api_1.5.0.5.jar">
@@ -66,9 +62,5 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/HelloWorldFlexFellow/KUKAJavaLib/#Bundle-JavaDoc#!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="jsoniter-0.9.15.jar"/>
-	<classpathentry kind="lib" path="EEIP_library.jar"/>
-	<classpathentry exported="true" kind="lib" path="java-json.jar"/>
-	<classpathentry exported="true" kind="lib" path="json-simple-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

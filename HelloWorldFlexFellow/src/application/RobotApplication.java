@@ -6,6 +6,7 @@ package application;
 //import com.kuka.generated.ioAccess.FlexFellowIOGroup;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import application.object.Ingredient;
@@ -129,12 +130,18 @@ public class RobotApplication extends RoboticsAPIApplication {
 //        }
 		Recipe recipe = menu.generateRecipe(mS[orderNbr]);
 
-		
 		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		// Pick up at RefPart
 		gripper.getPart(getApplicationData().getFrame("/CupS"));
 		
-        Map<String, Ingredient>ingredients = recipe.getIngredients();
+		Ingredient in1= new Cafe(2, 2);
+		Ingredient in2= new Milk(2, 2);
+		Ingredient in3= new Orange(2, 2);
+		
+       // Map<String, Ingredient>ingredients = recipe.getIngredients();
+		Map<String, Ingredient> ingredients = new HashMap<String, Ingredient>();
+		ingredients.put("Cafe", in1);
+		
         for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
         	int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
         	String nameCurrFrame = "Bottle" + currPosition;

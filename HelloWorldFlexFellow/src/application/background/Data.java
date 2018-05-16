@@ -3,7 +3,6 @@ package application.background;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jsoniter.output.JsonStream;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.persistenceModel.XmlApplicationDataSource;
@@ -60,6 +59,7 @@ public class Data {
 
 	@Override
 	public String toString() {
-		return JsonStream.serialize(this);
+	//	return JsonStream.serialize(this);
+		return null;
 	}
 }
