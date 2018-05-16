@@ -138,9 +138,14 @@ public class RobotApplication extends RoboticsAPIApplication {
         for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
         	int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
         	String nameCurrFrame = "Bottle" + currPosition;
-        	gripper.movePTP(getApplicationData().getFrame(nameCurrFrame));
+        	gripper.moveNear(getApplicationData().getFrame(nameCurrFrame));
+        	//move up, wait, move down
+        	gripper.fillGlass(ingre.getValue().getTimeToFill());
         }
         gripper.putPart(getApplicationData().getFrame("/CupE"));
+        
+        //GO and pick up a straw and stirr
+        
         gripper.movePTP(getApplicationData().getFrame("/Start"));
 		gripper.close();
 		

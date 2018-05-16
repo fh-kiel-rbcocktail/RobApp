@@ -80,12 +80,14 @@ public class EGripper extends Gripper{
 	 * - gets ingredient Frame and amount of liquid 
 	 * - stops when current weight 
 	 * */
-	public boolean fillGlass(AbstractFrame ingredient, int amount) {
+	public boolean fillGlass(double amount) {
 		//Move to Bottle
-		this.moveNear(ingredient);
+		//this.moveNear(ingredient);
 		 
 		//Move up
-		this.findZ(10); //Move until contact
+		//this.findZ(10); //Move until contact
+		
+		
 		//TODO: Configure Sensibility and check distance
 		this.moveZ(10); //Move up to fill
 		/*	- implement timer
