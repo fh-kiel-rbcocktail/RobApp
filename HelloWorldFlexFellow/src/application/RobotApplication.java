@@ -163,7 +163,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 				//gripper.fillGlass(ingre.getValue().getTimeToFill());
 			}
 		}
-		
 			//Movements for picking up straw
 				/*
 				 *
