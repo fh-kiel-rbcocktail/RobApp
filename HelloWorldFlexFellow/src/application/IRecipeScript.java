@@ -6,6 +6,11 @@ import application.object.*;
 import application.object.Recipe;
 
 public interface IRecipeScript {
+	//Create the JSON Defaut value for menu
+	public void readJSONScript();
+	//Create the default menu
+	public void createDefaultMenu();
+	
 	// Generate recipe
 	public Recipe generateRecipe(String name);
 	public Recipe generateCustomizedRecipe(String name, Map<String, Integer> ingredients);

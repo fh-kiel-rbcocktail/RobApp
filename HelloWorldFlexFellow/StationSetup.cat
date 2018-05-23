@@ -58,7 +58,11 @@
                     </Property>
                 </PropertyGroup>
             </TopologyItem>
-            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="ApplGateAgent" installItem="true" installedVersion="NONE" itemPath="com.kuka/ApplGateAgent" selectedVersion="NONE" usage="Library"/>
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="ApplGateAgent" installItem="true" installedVersion="NONE" itemPath="com.kuka/ApplGateAgent" selectedVersion="NONE" usage="Library">
+                <Interface id="com.kuka/ApplGateAgent/DiscoveryService" version="0.8.4"/>
+                <Interface id="com.kuka/ApplGateAgent/SoapService" version="0.8.4"/>
+                <Interface id="com.kuka/ApplGateAgent/ApplicationGateAgent" version="0.8.4"/>
+            </SoftwareItem>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="ApplicationHost" installItem="true" installedVersion="1.0.0" itemPath="com.kuka/ApplicationHost" selectedVersion="1.0.0" usage="Library">
                 <Interface id="com.kuka/Bundle/org.eclipse.jetty.continuation" version="8.1.15"/>
                 <Interface id="com.kuka/Bundle/org.eclipse.core.runtime" version="3.7.0"/>
@@ -115,7 +119,7 @@
                 <Interface id="com.kuka/ControllerFramework/ConfigFiles" version="0.8.4"/>
                 <Interface id="com.kuka/NexxtGenSharedLib/ConfigFiles" version="0.8.4"/>
             </SoftwareItem>
-            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="ConnectivityBasic RT-Libs" installItem="true" installedVersion="NONE" itemPath="com.kuka/ConnectivityBasicModules" selectedVersion="NONE" usage="Library">
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="ConnectivityBasic RT-Libs" installItem="true" installedVersion="NONE" itemPath="com.kuka/ConnectivityBasicModules" selectedVersion="1" usage="Library">
                 <Interface id="com.kuka/ConnectivityBasicModules/ConnectivityBasicModules" version="0.1.0"/>
             </SoftwareItem>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="ControlPanelDriver" installItem="true" installedVersion="1" itemPath="com.kuka/ControlPanelDriver" selectedVersion="1" usage="Library">
@@ -136,10 +140,10 @@
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="FSoE Slave support" installItem="true" installedVersion="1" itemPath="com.kuka/FSoESlaveSupport" selectedVersion="1" usage="Feature">
                 <Interface id="com.kuka/FSoESlaveSupport/FSoESlaveSupport" version="0.1.0"/>
             </SoftwareItem>
-            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="FastRobotInterface RT-Libs" installItem="true" installedVersion="NONE" itemPath="com.kuka/FastRobotInterface" selectedVersion="NONE" usage="Library">
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="FastRobotInterface RT-Libs" installItem="true" installedVersion="NONE" itemPath="com.kuka/FastRobotInterface" selectedVersion="1" usage="Library">
                 <Interface id="com.kuka/FastRobotInterface/FastRobotInterface" version="0.1.0"/>
             </SoftwareItem>
-            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="FastRobotInterface Client SDK" installItem="true" installedVersion="NONE" itemPath="com.kuka/FastRobotInterface_SDK_Cpp" selectedVersion="NONE" usage="Library">
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="FastRobotInterface Client SDK" installItem="true" installedVersion="NONE" itemPath="com.kuka/FastRobotInterface_SDK_Cpp" selectedVersion="1" usage="Library">
                 <Interface id="com.kuka/FastRobotInterface_SDK_Cpp/FastRobotInterface_SDK_Cpp" version="0.1.0"/>
             </SoftwareItem>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="GMS Adjustment" installItem="false" installedVersion="NONE" itemPath="com.kuka/GMSAdjustment" selectedVersion="NONE" usage="Feature"/>
@@ -162,7 +166,7 @@
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="InjectionLib" installItem="true" installedVersion="1" itemPath="com.kuka/InjectionLib" selectedVersion="1" usage="Library">
                 <Interface id="com.kuka/InjectionLib/InjectionLib" version="0.1.0"/>
             </SoftwareItem>
-            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="KUKA Option Network Interface" installItem="true" installedVersion="NONE" itemPath="com.kuka/KONISupport" selectedVersion="NONE" usage="Library">
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="KUKA Option Network Interface" installItem="true" installedVersion="NONE" itemPath="com.kuka/KONISupport" selectedVersion="1" usage="Library">
                 <Interface id="com.kuka/KONISupport/KONISupport" version="0.1.0"/>
             </SoftwareItem>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="KrcDiag" installItem="true" installedVersion="1" itemPath="com.kuka/KrcDiag" selectedVersion="1" usage="Library">
@@ -221,7 +225,10 @@
             </SoftwareItem>
             <SoftwareItem autoSelected="false" canChangeSelection="true" displayName="KUKA Sunrise.ProfiNet M/S" installItem="false" installedVersion="NONE" itemPath="com.kuka/ProfiSafe" selectedVersion="NONE" usage="Feature"/>
             <SoftwareItem autoSelected="false" canChangeSelection="true" displayName="KUKA Sunrise.ProfiNet D" installItem="false" installedVersion="NONE" itemPath="com.kuka/ProfinetDevice" selectedVersion="NONE" usage="Feature"/>
-            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="PROFINET Driver" installItem="true" installedVersion="NONE" itemPath="com.kuka/ProfinetDriver" selectedVersion="NONE" usage="Library"/>
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="PROFINET Driver" installItem="true" installedVersion="NONE" itemPath="com.kuka/ProfinetDriver" selectedVersion="NONE" usage="Library">
+                <Interface id="com.kuka/ProfinetDriver/ProfinetDriver" version="0.3.1"/>
+                <Interface id="com.kuka/ProfinetSupport/Profinet" version="0.1.0"/>
+            </SoftwareItem>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="Robotics API" installItem="true" installedVersion="1.0.0" itemPath="com.kuka/RAPI" selectedVersion="1.0.0" usage="Feature">
                 <Interface id="com.kuka/RAPI/RAPI" version="1.0.0"/>
             </SoftwareItem>
@@ -443,8 +450,11 @@
                 <Interface id="com.kuka/Bundle/com.kuka.configuration.manager" version="2.0.1"/>
             </SoftwareItem>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="com.kuka.connectionLib" installItem="true" installedVersion="NONE" itemPath="com.kuka/com.kuka.connectionLib" selectedVersion="NONE" usage="Library"/>
-            <SoftwareItem autoSelected="false" canChangeSelection="true" displayName="Fast Robot Interface Extension" installItem="false" installedVersion="NONE" itemPath="com.kuka/com.kuka.connectivity.fastRobotInterface" selectedVersion="NONE" usage="Feature"/>
-            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="FastRobotInterface - Java SDK Libs" installItem="true" installedVersion="NONE" itemPath="com.kuka/com.kuka.connectivity.fastRobotInterface.clientSDK" selectedVersion="NONE" usage="Library">
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="Fast Robot Interface Extension" installItem="true" installedVersion="NONE" itemPath="com.kuka/com.kuka.connectivity.fastRobotInterface" selectedVersion="1.15.1.Con1-13-0_6" usage="Feature">
+                <Interface id="com.kuka/Bundle/com.kuka.connectivity.fastRobotInterface" version="1.15.1"/>
+                <Interface id="com.kuka/OSGi/com.kuka.connectivity.fastRobotInterface" version="1.15.1"/>
+            </SoftwareItem>
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="FastRobotInterface - Java SDK Libs" installItem="true" installedVersion="NONE" itemPath="com.kuka/com.kuka.connectivity.fastRobotInterface.clientSDK" selectedVersion="1.15.1.Con1-13-0_6" usage="Library">
                 <Interface id="com.kuka/OSGi/com.kuka.connectivity.fastRobotInterface.clientSDK.connection" version="1.15.0"/>
                 <Interface id="com.kuka/OSGi/com.google.protobuf" version="2.5.0"/>
                 <Interface id="com.kuka/Bundle/com.kuka.connectivity.fastRobotInterface.clientSDK" version="1.15.1"/>
@@ -452,7 +462,9 @@
                 <Interface id="com.kuka/OSGi/com.kuka.connectivity.fastRobotInterface.clientSDK.protobuf.gen" version="1.15.0"/>
                 <Interface id="com.kuka/OSGi/com.kuka.connectivity.fastRobotInterface.clientSDK.clientLBR" version="1.15.0"/>
             </SoftwareItem>
-            <SoftwareItem autoSelected="false" canChangeSelection="true" displayName="Fast Robot Interface Extension Example Applications" installItem="false" installedVersion="NONE" itemPath="com.kuka/com.kuka.connectivity.fastRobotInterface.exampleApplications" selectedVersion="NONE" usage="Feature"/>
+            <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="Fast Robot Interface Extension Example Applications" installItem="true" installedVersion="NONE" itemPath="com.kuka/com.kuka.connectivity.fastRobotInterface.exampleApplications" selectedVersion="1.15.0.Con1-13-0_6" usage="Feature">
+                <Interface id="com.kuka/Bundle/com.kuka.connectivity.fastRobotInterface.exampleApplications" version="1.15.0"/>
+            </SoftwareItem>
             <SoftwareItem autoSelected="true" canChangeSelection="true" displayName="com.kuka.deployment" installItem="true" installedVersion="1.0.0.5" itemPath="com.kuka/com.kuka.deployment" selectedVersion="1.0.0.5" usage="Library">
                 <Interface id="com.kuka/OSGi/com.kuka.deployment.errors" version="1.0.0"/>
                 <Interface id="com.kuka/OSGi/com.kuka.deployment.client" version="1.0.0"/>

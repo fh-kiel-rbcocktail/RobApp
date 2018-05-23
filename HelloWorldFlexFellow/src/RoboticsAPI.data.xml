@@ -75,18 +75,18 @@
             </additionalInformation>
         </frame>
         <frame id="_3d7e2834-ee5e-4eca-aea8-cf9fcf80fe1c" name="Bottle1">
-            <transformation a="-1.571236493359156" b="-0.019941174107441787" c="1.5613577135750738" x="-626.9840897498108" y="553.8665323023813" z="427.088931884572"/>
+            <transformation a="1.5998249160064817" b="0.007723901896373994" c="-1.554312898924369" x="-317.29247206079026" y="726.5517114354341" z="397.77460300301243"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1524126899309"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1526550433879"/>
                 <info base="LBR_iiwa_7_R800_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_7_R800_1" tcpName="EGripper/Greifer/SteinGreifer" tool="EGripper" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
                     <tcpTransformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="130.0"/>
                 </info>
             </additionalInformation>
             <redundancyData>
                 <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_7_R800_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="5" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="35" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="0.0121498469157061" valueType="java.lang.Double"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="120" valueType="java.lang.Integer"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.0995258502961052" valueType="java.lang.Double"/>
                 </redundancy>
             </redundancyData>
         </frame>
@@ -139,9 +139,9 @@
             </redundancyData>
         </frame>
         <frame id="_17f3d603-f879-4a3e-b649-b3d13eb3abf6" name="CupS">
-            <transformation a="-3.06685317176729" b="-0.059931498906512344" c="1.5466882942450884" x="74.2719491539884" y="834.8766836248202" z="221.58576941397766"/>
+            <transformation a="1.5994015830338837" b="0.007666106887044376" c="-1.5546330363286962" x="-341.6468014536596" y="416.856094195307" z="172.86527946755126"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1524129514636"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1526550356774"/>
                 <info base="LBR_iiwa_7_R800_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_7_R800_1" tcpName="EGripper/Greifer/SteinGreifer" tool="EGripper" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
                     <tcpTransformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="130.0"/>
                 </info>
@@ -149,9 +149,9 @@
             </additionalInformation>
             <redundancyData>
                 <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_7_R800_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="1" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="83" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="0.020892338910873526" valueType="java.lang.Double"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="120" valueType="java.lang.Integer"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.09944136152501" valueType="java.lang.Double"/>
                 </redundancy>
             </redundancyData>
         </frame>
@@ -173,24 +173,36 @@
             </redundancyData>
         </frame>
         <frame id="_197daa59-e050-47f8-8873-0dede2b14789" name="Start">
-            <transformation a="1.5749583817247124" b="-5.154819110110104E-5" c="3.1415544548987784" x="-1.6959360596390005" y="400.02918454919654" z="481.49323260830977"/>
+            <transformation a="1.596631108670941" b="0.006023899133363348" c="-1.5456278773950998" x="-271.6067607446349" y="416.6989869645841" z="219.00384195174377"/>
             <additionalInformation>
-                <info key="LastModificationTime" type="java.lang.Long" value="1524125965693"/>
+                <info key="LastModificationTime" type="java.lang.Long" value="1526550871916"/>
                 <info base="LBR_iiwa_7_R800_1" controller="KUKA_Sunrise_Cabinet_1" device="LBR_iiwa_7_R800_1" tcpName="EGripper/Greifer/SteinGreifer" tool="EGripper" type="com.kuka.roboticsAPI.deviceModel.TeachInformation">
                     <tcpTransformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="130.0"/>
                 </info>
             </additionalInformation>
             <redundancyData>
                 <redundancy transformationProviderName="KUKA_Sunrise_Cabinet_1/LBR_iiwa_7_R800_1" type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy">
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="5" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="55" valueType="java.lang.Integer"/>
-                    <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="-0.018849328265154452" valueType="java.lang.Double"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$StatusParameter" value="6" valueType="java.lang.Integer"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.StatusTurnRedundancy$TurnParameter" value="120" valueType="java.lang.Integer"/>
+                    <info type="com.kuka.roboticsAPI.deviceModel.LBRE1Redundancy$E1Parameter" value="1.1633561091490272" valueType="java.lang.Double"/>
                 </redundancy>
             </redundancyData>
         </frame>
+        <frame id="_3af45882-65e4-4889-8954-eaa66f03060b" name="StirrP">
+            <transformation a="0.0" b="0.0" c="0.0" x="23.8" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1527080011011"/>
+            </additionalInformation>
+        </frame>
+        <frame id="_a31ef4aa-b25f-441e-934a-55bab72ce1ea" name="GetStraw">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1527080066195"/>
+            </additionalInformation>
+        </frame>
     </world>
     <objectTemplates>
-        <toolTemplate class="" defaultMotionFrameRef="/Greifer/SteinGreifer" name="EGripper">
+        <toolTemplate class="" defaultMotionFrameRef="/CupGripper" name="EGripper">
             <frames>
                 <frame id="_dfda53bc-42e4-4e64-a6ee-f6ed1e5d6ee4" name="Greifer">
                     <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="105.0"/>
@@ -204,6 +216,9 @@
                             </frames>
                         </frame>
                     </frames>
+                </frame>
+                <frame id="_47f9e90c-1a8b-4134-b820-1adf1e587a09" name="CupGripper">
+                    <transformation a="0.0" b="0.0" c="1.6" x="0.0" y="0.0" z="160.0"/>
                 </frame>
             </frames>
             <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="0.0" cogY="0.0" cogZ="0.0" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="0.0"/>

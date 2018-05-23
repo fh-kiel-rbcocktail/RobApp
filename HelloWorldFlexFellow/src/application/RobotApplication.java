@@ -5,11 +5,19 @@ package application;
 
 //import com.kuka.generated.ioAccess.FlexFellowIOGroup;
 
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.linRel;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
+import application.object.Cafe;
 import application.object.Ingredient;
+import application.object.Milk;
+import application.object.Orange;
 
 import application.object.*;
 
@@ -17,9 +25,11 @@ import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 import de.fh_kiel.cimtt.robotik.EGripper;
@@ -77,12 +87,15 @@ public class RobotApplication extends RoboticsAPIApplication {
 		//camera = new Cognex();
 	}
 
-	public int getPositionOfBottle (String[]positionBottle, String ingredientName){
-		int index = Arrays.binarySearch(positionBottle, ingredientName);
-		if(index >= 0){
-			return index + 1;
+	public static int getPositionOfBottle (String[]positionBottle, String ingredientName){
+		int index = -1;
+		for (int i = 0; i < positionBottle.length ; i++) {
+		    if (positionBottle[i].equals(ingredientName)) {
+		        index = i;
+		        return index + 1;
+		    }
 		}
-		return 0;
+		return index;
 	}
 	
 	public void run() {
@@ -113,64 +126,105 @@ public class RobotApplication extends RoboticsAPIApplication {
         String[] positionBottle = {"milk", "cafe", "orange", "tea"};
         
 		// Initialize menu
-        IRecipeScript menu = new RecipeScript();
-        String[] mS = new String[5];
+        RecipeScript menu = new RecipeScript();
+		String[] mS = new String[5];
 		/*
 		 *  For user panel
 		 */
 		String menuText = "Please order the drink!";
 		String errorText = "Sorry, invalid drink. Please choose again!";
-		for(int i = 0; i < Math.max(menu.menuSize(),5); i += 1) {
-			mS[i] = menu.getNextRecipe(i).getName();
-        }
+		Map<String, Recipe> recipes = menu.getMenu();
+		int it = 0;
+		for(Map.Entry<String, Recipe> re : recipes.entrySet()) {
+			mS[it] = re.getKey();
+			it ++;
+		}
 		int orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4]);
-//        while(orderNbr >= menu.menuSize()) {
-//        	getApplicationUI().displayModalDialog(ApplicationDialogType.ERROR, errorText, "Ok");
-//        	orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4]);
-//        }
+		
+//	        while(orderNbr >= menu.menuSize()) {
+//	        	getApplicationUI().displayModalDialog(ApplicationDialogType.ERROR, errorText, "Ok");
+//	        	orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4]);
+//	        }
 		Recipe recipe = menu.generateRecipe(mS[orderNbr]);
-
+		
 		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		// Pick up at RefPart
 		gripper.getPart(getApplicationData().getFrame("/CupS"));
 		
-		Ingredient in1= new Cafe(2, 2);
-		Ingredient in2= new Milk(2, 2);
-		Ingredient in3= new Orange(2, 2);
+		Map<String, Ingredient>ingredients = recipe.getIngredients();
 		
-       // Map<String, Ingredient>ingredients = recipe.getIngredients();
-		Map<String, Ingredient> ingredients = new HashMap<String, Ingredient>();
-		ingredients.put("Cafe", in1);
+		for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
+			int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
+			if(currPosition != -1) {
+				String nameCurrFrame = "/Bottle" + currPosition;
+				gripper.moveNear(getApplicationData().getFrame(nameCurrFrame));
+				//move up, wait, move down
+				
+				//gripper.fillGlass(ingre.getValue().getTimeToFill());
+			}
+		}
 		
-        for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
-        	int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
-        	String nameCurrFrame = "Bottle" + currPosition;
-        	gripper.moveNear(getApplicationData().getFrame(nameCurrFrame));
-        	//move up, wait, move down
-        	gripper.fillGlass(ingre.getValue().getTimeToFill());
-        }
-        gripper.putPart(getApplicationData().getFrame("/CupE"));
-        
-        //GO and pick up a straw and stirr
-        
-        gripper.movePTP(getApplicationData().getFrame("/Start"));
+			//Movements for picking up straw
+				/*
+				 *
+				gripper.movePTP(getApplicationData().getFrame("/GetStraw"));
+				gripper.close();
+				gripper.moveX(250);			//Move gripper up (25cm) from straw rack 
+				gripper.movePTP(getApplicationData().getFrame("/StirrP")); 	//Move gripper to stirring frame (more or less horizontal movement to avoid collisions)
+				gripper.moveZ(-110);		//move gripper with straw down to place stirrer in cup
+				 */
+				
+				//Movements for stirring
+					
+				/* Lissajous stirring movement
+				 * For smooth stirring 
+					
+				CartesianSineImpedanceControlMode lissajousMode;
+				lissajousMode =	CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.XY, 2.5, 10.0, 400.0);
+				// Move in x 
+				tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				tool.move(linRel(-60.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				// Move in x
+				tool.move(linRel(0.0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				tool.move(linRel(0.0, -60.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				tool.move(linRel(0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				
+				gripper.open();
+				
+				gripper.moveY(-200);
+				gripper.moveLin(getApplicationData().getFrame("/CupS"));
+				gripper.close();
+				gripper.moveZ(50);
+				gripper.moveLin(getApplicationData().getFrame("/Start"));
+				*/
+				
+				//Measuring Impedance for filling up cup
+				gripper.close();
+				gripper.movePTP(getApplicationData().getFrame("/Bottle1"));
+				
+				/*
+				 * Filling method*/
+				CartesianImpedanceControlMode cartImpCtrlMode = new	CartesianImpedanceControlMode();
+				
+				cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
+				cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
+				cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(850);
+				
+
+				
+				tool.move(linRel(0,0,50.0).setCartVelocity(30.0).setMode(cartImpCtrlMode)); //Move up to fill
+				
+				
+				//tool.move(linRel(0,0,-50.0));
+		
+		
+		gripper.putPart(getApplicationData().getFrame("/CupE"));
+		//GO and pick up a straw and stirr
+		
+		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		gripper.close();
-		
-		/*End of test sequence 1 19.04.2018*/
-		
-		// Measurement at measurement points
-		//Frame ref=new Frame(gripper.myfindZ(100));
-		//Frame ref = gripper.myfindZ(100);
-		//double distance=gripper.getDistance(ref,getApplicationData().getFrame("/MessPos"));
-				
-		//gripper.getDistance(ref,getApplicationData().getFrame("/MessPos"));
-		//getLogger().info("height of object:" + distance);
-		//gripper.movePTP(getApplicationData().getFrame("/Start"));
-		//gripper.getPart(getApplicationData().getFrame("/MessPos"));
-				
-		// store at RefPart
-		//gripper.putPart(getApplicationData().getFrame("/RefPart"));
-		
+        
 	}
 
 	/**
