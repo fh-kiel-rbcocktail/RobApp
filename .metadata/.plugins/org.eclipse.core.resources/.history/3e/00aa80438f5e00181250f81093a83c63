@@ -168,7 +168,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 				
 			}
 		}
-		gripper.movePTP(getApplicationData().getFrame("/CupS"));
+		gripper.movePTP(getApplicationData().getFrame("/CupE"));
 		
 		//Movements for picking up straw
 		gripper.movePTP(getApplicationData().getFrame("/GetStraw"));

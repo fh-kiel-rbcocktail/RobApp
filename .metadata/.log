@@ -298,3 +298,40 @@ java.lang.UnsupportedClassVersionError: com/kuka/connectivity/fri/example/LBRWre
 
 !ENTRY org.eclipse.osgi 2 1 2018-05-16 15:54:48.695
 !MESSAGE NLS unused message: LocalCorrectionsSubProcessor_surroundwith_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.jdt.core 4 4 2018-05-23 15:09:48.797
+!MESSAGE Background Indexer Crash Recovery
+!STACK 0
+java.lang.OutOfMemoryError: Requested array size exceeds VM limit
+	at org.eclipse.jdt.internal.compiler.util.HashtableOfObject.<init>(HashtableOfObject.java:38)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.readCategoryTable(DiskIndex.java:634)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeCategory(DiskIndex.java:459)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeCategories(DiskIndex.java:451)
+	at org.eclipse.jdt.internal.core.index.DiskIndex.mergeWith(DiskIndex.java:541)
+	at org.eclipse.jdt.internal.core.index.Index.save(Index.java:192)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.saveIndex(IndexManager.java:774)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.saveIndexes(IndexManager.java:816)
+	at org.eclipse.jdt.internal.core.search.indexing.IndexManager.notifyIdle(IndexManager.java:546)
+	at org.eclipse.jdt.internal.core.search.processing.JobManager.run(JobManager.java:388)
+	at java.lang.Thread.run(Thread.java:662)
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-23 15:10:20.898
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_no_50jre_title in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-23 15:10:20.899
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_no_50jre_message in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-23 15:10:20.899
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_project_compliance_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-23 15:10:20.899
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_workspace_compliance_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-23 15:10:20.900
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_compliance_changeworkspace_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-23 15:10:20.900
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_compliance_changeproject_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-23 15:10:20.900
+!MESSAGE NLS unused message: LocalCorrectionsSubProcessor_surroundwith_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
