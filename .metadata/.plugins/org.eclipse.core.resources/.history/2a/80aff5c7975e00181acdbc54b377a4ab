@@ -161,7 +161,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 			int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
 			if(currPosition != -1) {
 				String nameCurrFrame = "/Bottle" + currPosition;
-				gripper.movePTP(getApplicationData().getFrame(nameCurrFrame));
+				gripper.moveNear(getApplicationData().getFrame(nameCurrFrame));
 				fillGlass(ingre.getValue().getTimeToFill());
 				
 			}
