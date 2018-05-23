@@ -80,7 +80,51 @@ public class EGripper extends Gripper{
 	}
 	
 
-	
+	/*
+	 * Task: Fill glass with one liquid
+	 * - gets ingredient Frame and amount of liquid 
+	 * - stops when current weight 
+	 * */
+	public boolean fillGlass(final int amount) {
+		
+		//Measuring Impedance for filling up cup
+		gripper.close();
+		gripper.movePTP(getApplicationData().getFrame("/Bottle1"));
+		
+		/*
+		 * Filling method*/
+		CartesianImpedanceControlMode cartImpCtrlMode = new	CartesianImpedanceControlMode();
+		
+		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(850);
+		
+
+		
+		tool.move(linRel(0,0,50.0).setCartVelocity(30.0).setMode(cartImpCtrlMode)); //Move up to fill
+		
+		
+		//tool.move(linRel(0,0,-50.0));
+		
+		
+		
+		
+		
+		final Timer timer = new Timer();
+	    timer.scheduleAtFixedRate(new TimerTask() {
+	            public void run() {
+	                if (amount < 0)
+	                    timer.cancel();
+	               
+	            }
+	        }, 0, 1000);
+		
+		//TODO: Move down
+		this.moveZ(-10); //Measure Distance
+		
+		
+		return false;
+	}
 	
 	
 }

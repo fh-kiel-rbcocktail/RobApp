@@ -168,7 +168,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 				
 			}
 		}
-		gripper.movePTP(getApplicationData().getFrame("/CupS"));
+		gripper.movePTP(getApplicationData().getFrame("/CupE"));
 		
 		//Movements for picking up straw
 		gripper.movePTP(getApplicationData().getFrame("/GetStraw"));
@@ -176,7 +176,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 		gripper.moveX(250);			//Move gripper up (25cm) from straw rack 
 		gripper.movePTP(getApplicationData().getFrame("/StirrP")); 	//Move gripper to stirring frame (more or less horizontal movement to avoid collisions)
 		gripper.moveZ(-110);		//move gripper with straw down to place stirrer in cup
-				
+		
 		//Movements for stirring
 		
 		/* Lissajous stirring movement

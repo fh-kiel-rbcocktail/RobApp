@@ -188,9 +188,21 @@
                 </redundancy>
             </redundancyData>
         </frame>
+        <frame id="_3af45882-65e4-4889-8954-eaa66f03060b" name="StirrP">
+            <transformation a="0.0" b="0.0" c="0.0" x="23.8" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1527080011011"/>
+            </additionalInformation>
+        </frame>
+        <frame id="_a31ef4aa-b25f-441e-934a-55bab72ce1ea" name="GetStraw">
+            <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="0.0"/>
+            <additionalInformation>
+                <info key="LastModificationTime" type="java.lang.Long" value="1527080066195"/>
+            </additionalInformation>
+        </frame>
     </world>
     <objectTemplates>
-        <toolTemplate class="" defaultMotionFrameRef="/Greifer/SteinGreifer" name="EGripper">
+        <toolTemplate class="" defaultMotionFrameRef="/CupGripper" name="EGripper">
             <frames>
                 <frame id="_dfda53bc-42e4-4e64-a6ee-f6ed1e5d6ee4" name="Greifer">
                     <transformation a="0.0" b="0.0" c="0.0" x="0.0" y="0.0" z="105.0"/>
@@ -204,6 +216,9 @@
                             </frames>
                         </frame>
                     </frames>
+                </frame>
+                <frame id="_47f9e90c-1a8b-4134-b820-1adf1e587a09" name="CupGripper">
+                    <transformation a="0.0" b="0.0" c="1.6" x="0.0" y="0.0" z="160.0"/>
                 </frame>
             </frames>
             <loadData cogA="0.0" cogB="0.0" cogC="0.0" cogX="0.0" cogY="0.0" cogZ="0.0" inertiaX="0.0" inertiaY="0.0" inertiaZ="0.0" mass="0.0"/>

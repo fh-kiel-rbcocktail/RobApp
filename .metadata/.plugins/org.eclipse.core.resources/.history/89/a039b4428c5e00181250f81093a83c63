@@ -28,12 +28,10 @@ import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
-import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
-import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 import de.fh_kiel.cimtt.robotik.EGripper;
@@ -165,43 +163,60 @@ public class RobotApplication extends RoboticsAPIApplication {
 				//move up, wait, move down
 				
 				fillGlass(ingre.getValue().getTimeToFill());
-				
 			}
 		}
-		gripper.movePTP(getApplicationData().getFrame("/CupS"));
 		
-		//Movements for picking up straw
-		gripper.movePTP(getApplicationData().getFrame("/GetStraw"));
-		gripper.close();
-		gripper.moveX(250);			//Move gripper up (25cm) from straw rack 
-		gripper.movePTP(getApplicationData().getFrame("/StirrP")); 	//Move gripper to stirring frame (more or less horizontal movement to avoid collisions)
-		gripper.moveZ(-110);		//move gripper with straw down to place stirrer in cup
+			//Movements for picking up straw
+				/*
+				 *
+				gripper.movePTP(getApplicationData().getFrame("/GetStraw"));
+				gripper.close();
+				gripper.moveX(250);			//Move gripper up (25cm) from straw rack 
+				gripper.movePTP(getApplicationData().getFrame("/StirrP")); 	//Move gripper to stirring frame (more or less horizontal movement to avoid collisions)
+				gripper.moveZ(-110);		//move gripper with straw down to place stirrer in cup
+				 */
 				
-		//Movements for stirring
-		
-		/* Lissajous stirring movement
-		 * For smooth stirring 
-		*/			
-		CartesianSineImpedanceControlMode lissajousMode;
-		lissajousMode =	CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.XY, 2.5, 10.0, 400.0);
-		// Move in x 
-		tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		tool.move(linRel(-60.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		// Move in x
-		tool.move(linRel(0.0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		tool.move(linRel(0.0, -60.0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		tool.move(linRel(0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				//Movements for stirring
+					
+				/* Lissajous stirring movement
+				 * For smooth stirring 
+					
+				CartesianSineImpedanceControlMode lissajousMode;
+				lissajousMode =	CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.XY, 2.5, 10.0, 400.0);
+				// Move in x 
+				tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				tool.move(linRel(-60.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				// Move in x
+				tool.move(linRel(0.0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				tool.move(linRel(0.0, -60.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				tool.move(linRel(0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
 				
-		//Dropping the straw into cup
-		gripper.open();
-		gripper.moveLin(getApplicationData().getFrame("/Start"));
+				gripper.open();
+				
+				gripper.moveY(-200);
+				gripper.moveLin(getApplicationData().getFrame("/CupS"));
+				gripper.close();
+				gripper.moveZ(50);
+				gripper.moveLin(getApplicationData().getFrame("/Start"));
+				*/
+				
+			
+				
 		
+		
+		gripper.putPart(getApplicationData().getFrame("/CupE"));
+		//GO and pick up a straw and stirr
+		
+		gripper.movePTP(getApplicationData().getFrame("/Start"));
 		gripper.close();
+        
 	}
 	
 	/*
 	 * Task: Fill glass with one liquid
+	 * - gets ingredient Frame and amount of liquid 
+	 * - stops when current weight 
 	 * */
 	public boolean fillGlass(final int amount) {
 		
@@ -213,21 +228,23 @@ public class RobotApplication extends RoboticsAPIApplication {
 		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
 		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(850);
 		
-		for (int i = 1; i<=amount; i++){		//Run up and down movement  
-		tool.move(linRel(0,0,50.0).setCartVelocity(30.0).setMode(cartImpCtrlMode)); //Move up to fill		
-		final Timer timer = new Timer();		//Set timer to wait until fluid chamber is empty
-	  
-		timer.scheduleAtFixedRate(new TimerTask() {
-			int timeToFill = 5;
+
+		
+		tool.move(linRel(0,0,50.0).setCartVelocity(30.0).setMode(cartImpCtrlMode)); //Move up to fill
+		
+		
+		//tool.move(linRel(0,0,-50.0));
+		
+		final Timer timer = new Timer();
+	    timer.scheduleAtFixedRate(new TimerTask() {
 	            public void run() {
-	            	timeToFill--;
-	                if ( timeToFill < 0)
+	                if (amount < 0)
 	                    timer.cancel();
+	               
 	            }
 	        }, 0, 1000);
 		
 	    tool.move(linRel(0,0,-50.0));
-		}
 		
 		return false;
 	}
