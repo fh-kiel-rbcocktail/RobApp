@@ -190,7 +190,7 @@ public class RecipeScript implements IRecipeScript {
     @Override
     public int ingredientListSize(String recipeName) {
         // lower case and trim String
-        recipeName = recipeName.toLowerCase().trim();
+       // recipeName = recipeName.toLowerCase().trim();
         return this.menu.get(recipeName).getIngredients().size();
     }
     @Override
@@ -209,13 +209,13 @@ public class RecipeScript implements IRecipeScript {
     @Override
     public Recipe getRecipe(String recipeName) {
         // lower case and trim String
-        recipeName = recipeName.toLowerCase().trim();
+      //  recipeName = recipeName.toLowerCase().trim();
         return this.menu.get(recipeName);
     }
     @Override
     public Ingredient getIngredient(String recipeName, String ingredientName) {
         // lower case and trim String
-        recipeName = recipeName.toLowerCase().trim();
+        //recipeName = recipeName.toLowerCase().trim();
         ingredientName = ingredientName.toLowerCase().trim();
         return this.menu.get(recipeName).getIngredients(ingredientName);
     }
@@ -228,7 +228,7 @@ public class RecipeScript implements IRecipeScript {
     @Override
     public double convertWeight(String recipeName) {
         // lower case and trim String
-        recipeName = recipeName.toLowerCase().trim();
+      //  recipeName = recipeName.toLowerCase().trim();
         double myWeight = 0;
         Recipe myRecipe = this.menu.get(recipeName);
         for(Map.Entry<String, Ingredient> in: myRecipe.getIngredients().entrySet()) {
