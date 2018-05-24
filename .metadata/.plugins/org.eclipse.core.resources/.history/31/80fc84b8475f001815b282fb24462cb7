@@ -26,22 +26,16 @@ import application.object.*;
 
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
-import com.kuka.roboticsAPI.conditionModel.ForceCondition;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
-import com.kuka.roboticsAPI.executionModel.IFiredConditionInfo;
 import com.kuka.roboticsAPI.geometricModel.AbstractFrame;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
-import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
-import com.kuka.roboticsAPI.geometricModel.math.Vector;
-import com.kuka.roboticsAPI.motionModel.IMotionContainer;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
-import com.kuka.roboticsAPI.sensorModel.ForceSensorData;
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 import de.fh_kiel.cimtt.robotik.EGripper;
@@ -226,17 +220,12 @@ public class RobotApplication extends RoboticsAPIApplication {
 		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
 		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(3500);
 		
-		//Added force to push up valve
-		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(10.0);
-		
-		for (int i = 1; i<=amount; i++){		//Run up and down movement
-		//Find valve and zero force before applying extra force and spring mode	
-		findValve(30);
-		tool.move(linRel(0,0,40.0).setCartVelocity(10.0).setMode(cartImpCtrlMode)); //Move up to fill		
+		for (int i = 1; i<=amount; i++){		//Run up and down movement  
+		tool.move(linRel(0,0,55.0).setCartVelocity(10.0).setMode(cartImpCtrlMode)); //Move up to fill		
 		
 		final Timer timer = new Timer();		//Set timer to wait until fluid chamber is empty
 		timer.scheduleAtFixedRate(new TimerTask() {
-			int timeToFill = 15;
+			int timeToFill = 80;
 	            public void run() {
 	            	System.out.println(timeToFill--);
 	                if ( timeToFill < 0)
@@ -248,41 +237,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 		}
 		
 		return false;
-	}
-	/*Function to find the valve
-	 * */
-	public boolean findValve(double z){
-		IMotionContainer motionCmd;
-		ForceCondition normalForce = ForceCondition.createNormalForceCondition(this.tool.getDefaultMotionFrame(),CoordinateAxis.Z , 10.0);
-		ForceSensorData data = lbr_iiwa_7_R800_1.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
-		Vector force = data.getForce(); //Get actual current forces (angle, weight, etc)
-			
-		CartesianImpedanceControlMode cartImpCtrlMode = new CartesianImpedanceControlMode();
-		cartImpCtrlMode.setNullSpaceStiffnessToDefaultValue();
-		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
-		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
-		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
-		
-		cartImpCtrlMode.setNullSpaceStiffness(nullStiffness);
-		//Substracting the measured force to set the force to 0. Unstressed forces aren't 0 due to weight and angle etc. of the robot.
-		cartImpCtrlMode.parametrize(CartDOF.X).setAdditionalControlForce(-force.getX());
-		cartImpCtrlMode.parametrize(CartDOF.Y).setAdditionalControlForce(-force.getY());
-		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(-force.getZ());
-		
-		try{//only to check if possible ACTUAL COMMAND WHEN THE ROBOT MOVES
-			motionCmd = this.tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, z)
-					.setMode(cartImpCtrlMode)
-					.setCartVelocity(50.0)
-					.setCartAcceleration(maxCartAcceleration)
-					.setCartJerk(maxCartJerk).breakWhen(normalForce));
-					System.out.println("motionCMD fired");
-		}catch(Exception e){
-			System.out.println("Es konnte nicht in Z-Richtung "+z+" mm gesucht werden");
-			return false;
-		}
-		IFiredConditionInfo firedInfo = motionCmd.getFiredBreakConditionInfo();
-		return false;
-		
 	}
 
 	/**

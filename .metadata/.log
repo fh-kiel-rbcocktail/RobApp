@@ -544,3 +544,69 @@ com.kuka.deployment.service.LocalizableDeploymentServiceException: Could not unl
 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
 	at java.lang.Thread.run(Unknown Source)
+!SESSION 2018-05-24 13:38:57.605 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_45
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=de_DE
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.898
+!MESSAGE NLS unused message: DeleteTemplateHandler_ConfirmationTitleRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.907
+!MESSAGE NLS unused message: DeleteHandler_DeleteFrameWithChildsDialogMessageRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.908
+!MESSAGE NLS unused message: Rapi2DeleteHandler_ConfirmCategoryDeletionTitle in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.908
+!MESSAGE NLS unused message: Rapi2DeleteHandler_ConfirmCategoryDeletionMessage in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.908
+!MESSAGE NLS unused message: Rapi2CreateFrameHandler_OnlyOneFrameAllowed in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.908
+!MESSAGE NLS unused message: ScenegraphView_SelectRapi1 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.908
+!MESSAGE NLS unused message: ScenegraphView_SelectRapi2 in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.909
+!MESSAGE NLS unused message: GeneralPropertySection_sectionDescription in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:38:58.909
+!MESSAGE NLS unused message: MassPropertySection_validationError_outOfRange in: com.kuka.roboticsAPI.eclipseBase.ResourceStrings
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:39:02.780
+!MESSAGE NLS unused message: FrameSafetyPropertySection_outOfRange in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:39:02.780
+!MESSAGE NLS unused message: WorkpieceSafetyPropertySection_description in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:39:02.781
+!MESSAGE NLS unused message: FrameSafetyPropertySection_description in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:39:02.781
+!MESSAGE NLS unused message: WorkpieceSafetyPropertySection_inertiaInvalid in: com.kuka.safety.configuration.SafetyConfiguration
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:45:23.593
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_no_50jre_title in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:45:23.593
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_no_50jre_message in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:45:23.593
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_project_compliance_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:45:23.593
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_workspace_compliance_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:45:23.594
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_compliance_changeworkspace_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:45:23.594
+!MESSAGE NLS unused message: ReorgCorrectionsSubProcessor_50_compliance_changeproject_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY org.eclipse.osgi 2 1 2018-05-24 13:45:23.594
+!MESSAGE NLS unused message: LocalCorrectionsSubProcessor_surroundwith_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages

@@ -226,17 +226,13 @@ public class RobotApplication extends RoboticsAPIApplication {
 		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
 		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(3500);
 		
-		//Added force to push up valve
-		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(10.0);
-		
-		for (int i = 1; i<=amount; i++){		//Run up and down movement
-		//Find valve and zero force before applying extra force and spring mode	
-		findValve(30);
-		tool.move(linRel(0,0,40.0).setCartVelocity(10.0).setMode(cartImpCtrlMode)); //Move up to fill		
+		for (int i = 1; i<=amount; i++){		//Run up and down movement  
+			
+		tool.move(linRel(0,0,55.0).setCartVelocity(10.0).setMode(cartImpCtrlMode)); //Move up to fill		
 		
 		final Timer timer = new Timer();		//Set timer to wait until fluid chamber is empty
 		timer.scheduleAtFixedRate(new TimerTask() {
-			int timeToFill = 15;
+			int timeToFill = 80;
 	            public void run() {
 	            	System.out.println(timeToFill--);
 	                if ( timeToFill < 0)
