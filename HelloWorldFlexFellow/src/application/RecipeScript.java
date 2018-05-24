@@ -259,23 +259,23 @@ public class RecipeScript implements IRecipeScript {
         
         JSONObject ingredient1 = new JSONObject();
         ingredient1.put("nameIngredient", "Milk");
-        ingredient1.put("timeToFill", 30);
+        ingredient1.put("timeToFill", 1);
         ingredient1.put("amount", new Float(20.1));
         
         JSONObject ingredient2 = new JSONObject();
         ingredient2.put("nameIngredient", "Orange");
-        ingredient2.put("timeToFill", 40);
+        ingredient2.put("timeToFill", 2);
         ingredient2.put("amount", new Float(30.1));
         
         
         JSONObject ingredient3 = new JSONObject();
         ingredient3.put("nameIngredient", "Tea");
-        ingredient3.put("timeToFill", 40);
+        ingredient3.put("timeToFill", 1);
         ingredient3.put("amount", new Float(30.1));
         
         JSONObject ingredient4 = new JSONObject();
         ingredient4.put("nameIngredient", "Cafe");
-        ingredient4.put("timeToFill", 40);
+        ingredient4.put("timeToFill", 2);
         ingredient4.put("amount", new Float(30.1));
         
         listIngredient.add(ingredient1);
@@ -294,22 +294,22 @@ public class RecipeScript implements IRecipeScript {
         
         JSONObject ingredient5 = new JSONObject();
         ingredient5.put("nameIngredient", "Milk");
-        ingredient5.put("timeToFill", 20);
+        ingredient5.put("timeToFill", 2);
         ingredient5.put("amount", new Float(20.1));
         
         JSONObject ingredient6 = new JSONObject();
         ingredient6.put("nameIngredient", "Orange");
-        ingredient6.put("timeToFill", 10);
+        ingredient6.put("timeToFill", 1);
         ingredient6.put("amount", new Float(30.1));
         
         JSONObject ingredient7 = new JSONObject();
         ingredient7.put("nameIngredient", "Cafe");
-        ingredient7.put("timeToFill", 20);
+        ingredient7.put("timeToFill", 2);
         ingredient7.put("amount", new Float(20.1));
         
         JSONObject ingredient8 = new JSONObject();
         ingredient8.put("nameIngredient", "Tea");
-        ingredient8.put("timeToFill", 10);
+        ingredient8.put("timeToFill", 1);
         ingredient8.put("amount", new Float(30.1));
         
         
