@@ -465,3 +465,82 @@ com.kuka.deployment.service.LocalizableDeploymentServiceException: Could not unl
 
 !ENTRY org.eclipse.osgi 2 1 2018-05-24 10:02:03.956
 !MESSAGE NLS unused message: LocalCorrectionsSubProcessor_surroundwith_description in: org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages
+
+!ENTRY com.kuka.common.eclipse 4 0 2018-05-24 10:51:20.578
+!MESSAGE Das synchronisierte Projekt hat auf der Steuerung einen Fehler verursacht, siehe Details.
+!STACK 0
+com.kuka.deployment.service.LocalizableDeploymentServiceException: Could not unload active project: Found active application 'application.RobotApplication@HelloWorldFlexFellow'
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.doRequestDeployment(DeploymentServiceImpl.java:169)
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.requestDeployment(DeploymentServiceImpl.java:142)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.kuka.publishing.ncf.contracts.MethodContract.invoke(MethodContract.java:95)
+	at com.kuka.publishing.ncf.messages.MethodInvoker.run(MethodInvoker.java:36)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY com.kuka.common.eclipse 4 0 2018-05-24 11:02:00.211
+!MESSAGE Das synchronisierte Projekt hat auf der Steuerung einen Fehler verursacht, siehe Details.
+!STACK 0
+com.kuka.deployment.service.LocalizableDeploymentServiceException: Could not unload active project: Found active application 'application.RobotApplication@HelloWorldFlexFellow'
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.doRequestDeployment(DeploymentServiceImpl.java:169)
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.requestDeployment(DeploymentServiceImpl.java:142)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.kuka.publishing.ncf.contracts.MethodContract.invoke(MethodContract.java:95)
+	at com.kuka.publishing.ncf.messages.MethodInvoker.run(MethodInvoker.java:36)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY com.kuka.common.eclipse 4 0 2018-05-24 11:08:38.731
+!MESSAGE Das synchronisierte Projekt hat auf der Steuerung einen Fehler verursacht, siehe Details.
+!STACK 0
+com.kuka.deployment.service.LocalizableDeploymentServiceException: Could not unload active project: Found active application 'application.RobotApplication@HelloWorldFlexFellow'
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.doRequestDeployment(DeploymentServiceImpl.java:169)
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.requestDeployment(DeploymentServiceImpl.java:142)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.kuka.publishing.ncf.contracts.MethodContract.invoke(MethodContract.java:95)
+	at com.kuka.publishing.ncf.messages.MethodInvoker.run(MethodInvoker.java:36)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY com.kuka.common.eclipse 4 0 2018-05-24 11:16:32.647
+!MESSAGE Das synchronisierte Projekt hat auf der Steuerung einen Fehler verursacht, siehe Details.
+!STACK 0
+com.kuka.deployment.service.LocalizableDeploymentServiceException: Could not unload active project: Found active application 'application.RobotApplication@HelloWorldFlexFellow'
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.doRequestDeployment(DeploymentServiceImpl.java:169)
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.requestDeployment(DeploymentServiceImpl.java:142)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.kuka.publishing.ncf.contracts.MethodContract.invoke(MethodContract.java:95)
+	at com.kuka.publishing.ncf.messages.MethodInvoker.run(MethodInvoker.java:36)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+!ENTRY com.kuka.common.eclipse 4 0 2018-05-24 11:41:26.543
+!MESSAGE Das synchronisierte Projekt hat auf der Steuerung einen Fehler verursacht, siehe Details.
+!STACK 0
+com.kuka.deployment.service.LocalizableDeploymentServiceException: Could not unload active project: Found active application 'application.RobotApplication@HelloWorldFlexFellow'
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.doRequestDeployment(DeploymentServiceImpl.java:169)
+	at com.kuka.deployment.service.internal.DeploymentServiceImpl.requestDeployment(DeploymentServiceImpl.java:142)
+	at sun.reflect.GeneratedMethodAccessor36.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.kuka.publishing.ncf.contracts.MethodContract.invoke(MethodContract.java:95)
+	at com.kuka.publishing.ncf.messages.MethodInvoker.run(MethodInvoker.java:36)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
