@@ -27,7 +27,6 @@ import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
-import com.kuka.roboticsAPI.geometricModel.AbstractFrame;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.Frame;
@@ -203,7 +202,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	/*
 	 * Task: Fill glass with one liquid
 	 * */
-	public boolean fillGlass(final int amount, String frame) {
+	public boolean fillGlass(final int amount) {
 		
 		/*
 		 * Filling method*/
@@ -226,7 +225,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	            }
 	        }, 0, 1000);
 		
-		gripper.moveLin(getApplicationData().getFrame(frame));
+	    tool.move(linRel(0,0,-50.0));
 		}
 		
 		return false;

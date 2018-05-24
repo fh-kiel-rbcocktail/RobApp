@@ -203,7 +203,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	/*
 	 * Task: Fill glass with one liquid
 	 * */
-	public boolean fillGlass(final int amount, String frame) {
+	public boolean fillGlass(final int amount, AbstractFrame frame) {
 		
 		/*
 		 * Filling method*/
@@ -226,7 +226,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	            }
 	        }, 0, 1000);
 		
-		gripper.moveLin(getApplicationData().getFrame(frame));
+		gripper.moveLin(frame);
 		}
 		
 		return false;
