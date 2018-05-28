@@ -4,4 +4,5 @@
 <fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode"/>
 <fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.CartPlane"/>
 <fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.controlModeModel.PositionControlMode"/>
 </qualifiedTypeNameHistroy>

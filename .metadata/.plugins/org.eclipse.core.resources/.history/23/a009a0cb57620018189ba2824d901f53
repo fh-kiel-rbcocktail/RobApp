@@ -26,7 +26,6 @@ import application.object.Orange;
 
 import application.object.*;
 
-import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.conditionModel.ForceCondition;
@@ -236,6 +235,10 @@ public class RobotApplication extends RoboticsAPIApplication {
 		
 		/*
 		 * fillMode: Pause movement with timer to fill up glass*/
+		/*CartesianImpedanceControlMode holdMode = new	CartesianImpedanceControlMode();
+		holdMode.parametrize(CartDOF.X).setStiffness(5000);
+		holdMode.parametrize(CartDOF.Y).setStiffness(5000);
+		holdMode.parametrize(CartDOF.Z).setStiffness(5000);*/
 		PositionControlMode holdMode=new PositionControlMode();
 		
 		
@@ -257,7 +260,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	            }
 	        }, 0, 1000);
 		*/
-		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(frame)).setCartVelocity(100.0));
+		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(frame)));
 		}
 		
 		return false;
@@ -289,8 +292,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 					.setCartAcceleration(maxCartAcceleration)
 					.setCartJerk(maxCartJerk).breakWhen(normalForce));
 					System.out.println("Valve detected!");
-			ThreadUtil.milliSleep(2000);
-			System.out.println("Wait done");
 		}catch(Exception e){
 			System.out.println("Es konnte nicht in Z-Richtung "+z+" mm gesucht werden");
 			return false;

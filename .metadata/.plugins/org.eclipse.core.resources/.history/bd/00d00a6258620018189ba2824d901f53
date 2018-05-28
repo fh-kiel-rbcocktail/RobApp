@@ -26,7 +26,6 @@ import application.object.Orange;
 
 import application.object.*;
 
-import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.conditionModel.ForceCondition;
@@ -289,8 +288,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 					.setCartAcceleration(maxCartAcceleration)
 					.setCartJerk(maxCartJerk).breakWhen(normalForce));
 					System.out.println("Valve detected!");
-			ThreadUtil.milliSleep(2000);
-			System.out.println("Wait done");
 		}catch(Exception e){
 			System.out.println("Es konnte nicht in Z-Richtung "+z+" mm gesucht werden");
 			return false;

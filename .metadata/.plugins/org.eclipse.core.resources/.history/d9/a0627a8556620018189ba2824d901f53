@@ -26,7 +26,6 @@ import application.object.Orange;
 
 import application.object.*;
 
-import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
 import com.kuka.roboticsAPI.conditionModel.ForceCondition;
@@ -226,26 +225,27 @@ public class RobotApplication extends RoboticsAPIApplication {
 		 * Filling method*/
 		CartesianImpedanceControlMode cartImpCtrlMode = new	CartesianImpedanceControlMode();
 		
-		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
-		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(5000);
+		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(5000);
 		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
 		cartImpCtrlMode.setNullSpaceStiffness(0.5);
-		cartImpCtrlMode.setMaxPathDeviation(50.0, 50.0, 50.0, 10.0, 10.0, 10.0);
 		//Added force to push up valve
 		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(20.0);
 		
 		/*
 		 * fillMode: Pause movement with timer to fill up glass*/
-		PositionControlMode holdMode=new PositionControlMode();
-		
-		
+		CartesianImpedanceControlMode holdMode = new	CartesianImpedanceControlMode();
+		holdMode.parametrize(CartDOF.X).setStiffness(5000);
+		holdMode.parametrize(CartDOF.Y).setStiffness(5000);
+		holdMode.parametrize(CartDOF.Z).setStiffness(5000);
+		PositionControlMode holdMode2=new PositionControlMode();
 		for (int i = 1; i<=amount; i++){		//Run up and down movement
 		//Find valve and zero force before applying extra force and spring mode	
 		findValve(30);
 		tool.move(linRel(0,0,30.0).setCartVelocity(10.0).setMode(cartImpCtrlMode)); //Move up to fill	
 		
 		System.out.println("Beginning positionHold!");
-		tool.move(positionHold(holdMode, 5, TimeUnit.SECONDS));
+		tool.move(positionHold(holdMode2, 5, TimeUnit.SECONDS));
 		
 		/*final Timer timer = new Timer();		//Set timer to wait until fluid chamber is empty
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -257,7 +257,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	            }
 	        }, 0, 1000);
 		*/
-		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(frame)).setCartVelocity(100.0));
+		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(frame)));
 		}
 		
 		return false;
@@ -289,8 +289,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 					.setCartAcceleration(maxCartAcceleration)
 					.setCartJerk(maxCartJerk).breakWhen(normalForce));
 					System.out.println("Valve detected!");
-			ThreadUtil.milliSleep(2000);
-			System.out.println("Wait done");
 		}catch(Exception e){
 			System.out.println("Es konnte nicht in Z-Richtung "+z+" mm gesucht werden");
 			return false;
