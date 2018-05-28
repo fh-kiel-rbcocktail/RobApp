@@ -1,0 +1,307 @@
+package application;
+
+
+
+
+//import com.kuka.generated.ioAccess.FlexFellowIOGroup;
+
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.lin;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.linRel;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.positionHold;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptp;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
+import application.object.Cafe;
+import application.object.Ingredient;
+import application.object.Milk;
+import application.object.Orange;
+
+import application.object.*;
+
+import com.kuka.common.ThreadUtil;
+import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
+import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
+import com.kuka.roboticsAPI.conditionModel.ForceCondition;
+import com.kuka.roboticsAPI.controllerModel.Controller;
+import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.executionModel.IFiredConditionInfo;
+import com.kuka.roboticsAPI.geometricModel.AbstractFrame;
+import com.kuka.roboticsAPI.geometricModel.CartDOF;
+import com.kuka.roboticsAPI.geometricModel.CartPlane;
+import com.kuka.roboticsAPI.geometricModel.Frame;
+import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
+import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
+import com.kuka.roboticsAPI.geometricModel.math.Vector;
+import com.kuka.roboticsAPI.motionModel.IMotionContainer;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.PositionControlMode;
+import com.kuka.roboticsAPI.sensorModel.ForceSensorData;
+import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
+
+import de.fh_kiel.cimtt.robotik.EGripper;
+
+/**
+ * Implementation of a robot application.
+ * <p>
+ * The application provides a {@link RoboticsAPITask#initialize()} and a 
+ * {@link RoboticsAPITask#run()} method, which will be called successively in 
+ * the application lifecycle. The application will terminate automatically after 
+ * the {@link RoboticsAPITask#run()} method has finished or after stopping the 
+ * task. The {@link RoboticsAPITask#dispose()} method will be called, even if an 
+ * exception is thrown during initialization or run. 
+ * <p>
+ * <b>It is imperative to call <code>super.dispose()</code> when overriding the 
+ * {@link RoboticsAPITask#dispose()} method.</b> 
+ * 
+ * @see #initialize()
+ * @see #run()
+ * @see #dispose()
+ */
+public class RobotApplication extends RoboticsAPIApplication {
+	private Controller kuka_Sunrise_Cabinet_1;
+	private LBR lbr_iiwa_7_R800_1;
+	private Tool tool;
+	private EGripper gripper;
+	
+	//public Cognex camera;
+	private Frame stonePosition;
+	//CartesianImpedanceControlMode softMode;
+	
+	//
+	//ForceCondition cond_1;
+	private static double maxCartVelocity = 300.0;
+	private static double maxCartAcceleration = 500.0;
+	private static double maxCartJerk = 5000.0;
+	
+	private static double maxJointVelocity = 0.5;
+	private static double maxJointAcceleration = 0.4;
+	private static double maxJointJerk = 0.04;
+	
+	private static double cartStiffness = 2000.0;
+	private static double nullStiffness = 0.5;
+	
+	private static double defVel = 300.0;
+	private static double defJointVel = 0.5;
+	
+	//private static int colorCount = 255;
+	private final static String informationText=
+			"Which coctail do you want";
+
+	public void initialize() {
+		kuka_Sunrise_Cabinet_1 = getController("KUKA_Sunrise_Cabinet_1");
+		lbr_iiwa_7_R800_1 = (LBR) getDevice(kuka_Sunrise_Cabinet_1, "LBR_iiwa_7_R800_1");
+		tool = getApplicationData().createFromTemplate("EGripper");
+		tool.attachTo(lbr_iiwa_7_R800_1.getFlange());
+		gripper = new EGripper(kuka_Sunrise_Cabinet_1, lbr_iiwa_7_R800_1, tool);
+		//camera = new Cognex();
+	}
+
+	public static int getPositionOfBottle (String[]positionBottle, String ingredientName){
+		int index = -1;
+		for (int i = 0; i < positionBottle.length ; i++) {
+		    if (positionBottle[i].equals(ingredientName)) {
+		        index = i;
+		        return index + 1;
+		    }
+		}
+		return index;
+	}
+	
+	public void run() {
+		// Zähler für Gut-, Schlecht- und Nachzuarbeitende Teile
+		int gut = 0;
+		int nach = 0;
+		int schlecht = 0;
+				
+		Frame refFrame = null;
+			
+		// Greifer mit Roboterflansch verbinden
+		gripper.attach(lbr_iiwa_7_R800_1.getFlange());
+		
+		//Initialize the position of bottle 
+        String[] positionBottle = {"milk", "cafe", "orange", "tea"};
+        
+		// Initialize menu
+        RecipeScript menu = new RecipeScript();
+		String[] mS = new String[5];
+		/*
+		 *  For user panel
+		 */
+		String menuText = "Please order the drink!";
+		String errorText = "Sorry, invalid drink. Please choose again!";
+		Map<String, Recipe> recipes = menu.getMenu();
+		int it = 0;
+		for(Map.Entry<String, Recipe> re : recipes.entrySet()) {
+			mS[it] = re.getKey();
+			it ++;
+		}
+		int orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1]);
+		
+//	        while(orderNbr >= menu.menuSize()) {
+//	        	getApplicationUI().displayModalDialog(ApplicationDialogType.ERROR, errorText, "Ok");
+//	        	orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4]);
+//	        }
+		Recipe recipe = menu.generateRecipe(mS[orderNbr]);
+		
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/Start")).setJointVelocityRel(defJointVel));
+		gripper.open();
+		// Pick up at RefPart
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/CupS")).setJointVelocityRel(defJointVel));
+		
+		gripper.close();
+		gripper.moveZ(70);
+		Map<String, Ingredient>ingredients = recipe.getIngredients();
+		
+		for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
+			int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
+			if(currPosition != -1) {
+				String nameCurrFrame = "/Bottle" + currPosition;
+				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(nameCurrFrame)).setCartVelocity(defVel));
+				//gripper.moveLin(getApplicationData().getFrame(nameCurrFrame));
+				fillGlass(ingre.getValue().getTimeToFill(), nameCurrFrame);
+				
+			}
+		}
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/CupS")).setJointVelocityRel(defJointVel));
+		
+		gripper.open();
+		gripper.moveY(-300);
+		
+		//Movements for picking up straw
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/GetStraw")).setJointVelocityRel(defJointVel));
+		
+		gripper.close();
+		gripper.moveX(250);			//Move gripper up (25cm) from straw rack 
+		
+		//Stirr it up, little darling stirr it up!
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/StirrP")).setJointVelocityRel(defJointVel));
+		
+		gripper.moveZ(-110);		//move gripper with straw down to place stirrer in cup
+				
+		/* Lissajous stirring movement
+		 * For smooth stirring 
+		*/			
+		CartesianSineImpedanceControlMode lissajousMode;
+		lissajousMode =	CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.XY, 2.5, 10.0, 400.0);
+		// Move in x 
+		tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(-60.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		// Move in x
+		tool.move(linRel(0.0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(0.0, -60.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+				
+		
+		//Dropping the straw into cup
+		gripper.open();
+		tool.move(linRel(0, -100.0,0.0));
+		
+		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/Start")).setCartVelocity(defVel));
+		
+		gripper.close();
+	}
+	
+	/*
+	 * Task: Fill glass with one liquid
+	 * */
+	public boolean fillGlass(final int amount, String frame) {
+		
+		/*
+		 * Filling method*/
+		CartesianImpedanceControlMode cartImpCtrlMode = new	CartesianImpedanceControlMode();
+		
+		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
+		//cartImpCtrlMode.setNullSpaceStiffness(0.5);
+		cartImpCtrlMode.setMaxPathDeviation(50.0, 50.0, 50.0, 10.0, 10.0, 10.0);
+		//Added force to push up valve
+		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(20.0);
+		
+		/*
+		 * fillMode: Pause movement with timer to fill up glass*/
+		PositionControlMode holdMode=new PositionControlMode();
+		
+		
+		for (int i = 1; i<=amount; i++){		//Run up and down movement
+		//Find valve and zero force before applying extra force and spring mode	
+		findValve(30);
+		tool.move(linRel(0,0,40.0).setCartVelocity(10.0).setMode(cartImpCtrlMode)); //Move up to fill	
+		
+		System.out.println("Beginning positionHold!");
+		tool.move(positionHold(holdMode, 3, TimeUnit.SECONDS));
+		System.out.println("Moving on!");
+		
+		/*final Timer timer = new Timer();		//Set timer to wait until fluid chamber is empty
+		timer.scheduleAtFixedRate(new TimerTask() {
+			int timeToFill = 15;
+	            public void run() {
+	            	System.out.println(timeToFill--);
+	                if ( timeToFill < 0)
+	                    timer.cancel();
+	            }
+	        }, 0, 1000);
+		*/
+		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(frame)).setCartVelocity(100.0));
+		}
+		
+		return false;
+	}
+	/*Function to find the valve
+	 * */
+	public boolean findValve(double z){
+		IMotionContainer motionCmd;
+		ForceCondition normalForce = ForceCondition.createNormalForceCondition(this.tool.getDefaultMotionFrame(),CoordinateAxis.Z , 20.0);
+		ForceSensorData data = lbr_iiwa_7_R800_1.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
+		Vector force = data.getForce(); //Get actual current forces (angle, weight, etc)
+			
+		CartesianImpedanceControlMode cartImpCtrlMode = new CartesianImpedanceControlMode();
+		cartImpCtrlMode.setNullSpaceStiffnessToDefaultValue();
+		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
+		
+		cartImpCtrlMode.setNullSpaceStiffness(nullStiffness);
+		//Substracting the measured force to set the force to 0. Unstressed forces aren't 0 due to weight and angle etc. of the robot.
+		cartImpCtrlMode.parametrize(CartDOF.X).setAdditionalControlForce(-force.getX());
+		cartImpCtrlMode.parametrize(CartDOF.Y).setAdditionalControlForce(-force.getY());
+		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(-force.getZ());
+		
+		try{//only to check if possible ACTUAL COMMAND WHEN THE ROBOT MOVES
+			motionCmd = this.tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, z)
+					.setMode(cartImpCtrlMode)
+					.setCartVelocity(50.0)
+					.setCartAcceleration(maxCartAcceleration)
+					.setCartJerk(maxCartJerk).breakWhen(normalForce));
+					System.out.println("Valve detected!");
+			ThreadUtil.milliSleep(2000);
+			System.out.println("Wait done");
+		}catch(Exception e){
+			System.out.println("Es konnte nicht in Z-Richtung "+z+" mm gesucht werden");
+			return false;
+		}
+		IFiredConditionInfo firedInfo = motionCmd.getFiredBreakConditionInfo();
+		return false;
+		
+	}
+
+	/**
+	 * Auto-generated method stub. Do not modify the contents of this method.
+	 */
+	public static void main(String[] args) {
+		RobotApplication app = new RobotApplication();
+		app.runApplication();
+	}
+}

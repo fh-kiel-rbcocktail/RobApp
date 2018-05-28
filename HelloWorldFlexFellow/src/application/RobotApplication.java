@@ -8,6 +8,7 @@ package application;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.lin;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.linRel;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.positionHold;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptp;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -83,12 +84,15 @@ public class RobotApplication extends RoboticsAPIApplication {
 	private static double maxCartAcceleration = 500.0;
 	private static double maxCartJerk = 5000.0;
 	
-	private static double maxJointVelocity = 0.15;
-	private static double maxJointAcceleration = 0.2;
-	private static double maxJointJerk = 0.02;
+	private static double maxJointVelocity = 0.5;
+	private static double maxJointAcceleration = 0.4;
+	private static double maxJointJerk = 0.04;
 	
 	private static double cartStiffness = 2000.0;
 	private static double nullStiffness = 0.5;
+	
+	private static double defVel = 300.0;
+	private static double defJointVel = 0.5;
 	
 	//private static int colorCount = 255;
 	private final static String informationText=
@@ -125,19 +129,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 		// Greifer mit Roboterflansch verbinden
 		gripper.attach(lbr_iiwa_7_R800_1.getFlange());
 		
-		/*
-		 * 19.04.2018 - Test sequence 1
-		 * 
-		 * - Cup must be placed higher than the table level, otherwise --> collision
-		 * - moveNear-function will move straight into bottle holder 
-		 * - moving the gripper to grab the glass needs a more detailed path --> gripper tips over the cup
-		 * 
-		 * TODO: 
-		 * - design cup-holder to place it higher than table
-		 * - configure moveNear-function Z-levels
-		 * - define path for gripper to move to horizontal level before moving near the cup
-		 * 
-		 * */
 		//Initialize the position of bottle 
         String[] positionBottle = {"milk", "cafe", "orange", "tea"};
         
@@ -163,10 +154,11 @@ public class RobotApplication extends RoboticsAPIApplication {
 //	        }
 		Recipe recipe = menu.generateRecipe(mS[orderNbr]);
 		
-		gripper.movePTP(getApplicationData().getFrame("/Start"));
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/Start")).setJointVelocityRel(defJointVel));
 		gripper.open();
 		// Pick up at RefPart
-		gripper.movePTP(getApplicationData().getFrame("/CupS"));
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/CupS")).setJointVelocityRel(defJointVel));
+		
 		gripper.close();
 		gripper.moveZ(70);
 		Map<String, Ingredient>ingredients = recipe.getIngredients();
@@ -175,22 +167,26 @@ public class RobotApplication extends RoboticsAPIApplication {
 			int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
 			if(currPosition != -1) {
 				String nameCurrFrame = "/Bottle" + currPosition;
-				gripper.moveLin(getApplicationData().getFrame(nameCurrFrame));
+				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(nameCurrFrame)).setCartVelocity(defVel));
+				//gripper.moveLin(getApplicationData().getFrame(nameCurrFrame));
 				fillGlass(ingre.getValue().getTimeToFill(), nameCurrFrame);
 				
 			}
 		}
-		gripper.movePTP(getApplicationData().getFrame("/CupS"));
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/CupS")).setJointVelocityRel(defJointVel));
+		
 		gripper.open();
 		gripper.moveY(-300);
 		
 		//Movements for picking up straw
-		gripper.movePTP(getApplicationData().getFrame("/GetStraw"));
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/GetStraw")).setJointVelocityRel(defJointVel));
+		
 		gripper.close();
 		gripper.moveX(250);			//Move gripper up (25cm) from straw rack 
 		
 		//Stirr it up, little darling stirr it up!
-		gripper.movePTP(getApplicationData().getFrame("/StirrP")); 	//Move gripper to stirring frame (more or less horizontal movement to avoid collisions)
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/StirrP")).setJointVelocityRel(defJointVel));
+		
 		gripper.moveZ(-110);		//move gripper with straw down to place stirrer in cup
 				
 		/* Lissajous stirring movement
@@ -212,7 +208,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 		gripper.open();
 		tool.move(linRel(0, -100.0,0.0));
 		
-		gripper.moveLin(getApplicationData().getFrame("/Start"));
+		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/Start")).setCartVelocity(defVel));
 		
 		gripper.close();
 	}
@@ -220,32 +216,42 @@ public class RobotApplication extends RoboticsAPIApplication {
 	/*
 	 * Task: Fill glass with one liquid
 	 * */
+	
 	public boolean fillGlass(final int amount, String frame) {
-		
+		ForceSensorData data = lbr_iiwa_7_R800_1.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
+		Vector force = data.getForce(); //Get actual current forces (angle, weight, etc)
+			
 		/*
 		 * Filling method*/
 		CartesianImpedanceControlMode cartImpCtrlMode = new	CartesianImpedanceControlMode();
-		
 		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
 		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
-		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
-		cartImpCtrlMode.setNullSpaceStiffness(0.5);
-		cartImpCtrlMode.setMaxPathDeviation(50.0, 50.0, 50.0, 10.0, 10.0, 10.0);
-		//Added force to push up valve
-		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(20.0);
+		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(300);
+		cartImpCtrlMode.setNullSpaceStiffness(0.9);
+		cartImpCtrlMode.setMaxPathDeviation(100.0, 100.0, 100.0, 100.0, 100.0, 100.0);
 		
+		//Substracting the measured force to set the force to 0. Unstressed forces aren't 0 due to weight and angle etc. of the robot.
+		cartImpCtrlMode.parametrize(CartDOF.X).setAdditionalControlForce(-force.getX());
+		cartImpCtrlMode.parametrize(CartDOF.Y).setAdditionalControlForce(-force.getY());
+		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(-force.getZ());
+		
+		//Added force to push up valve
+		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(30.0);
+		System.out.println("Force Z: " + force.getZ() + " Force Y: " + force.getY() + " Force X: " + force.getX());
 		/*
 		 * fillMode: Pause movement with timer to fill up glass*/
-		PositionControlMode holdMode=new PositionControlMode();
+		//PositionControlMode holdMode=new PositionControlMode();
 		
 		
 		for (int i = 1; i<=amount; i++){		//Run up and down movement
 		//Find valve and zero force before applying extra force and spring mode	
 		findValve(30);
-		tool.move(linRel(0,0,30.0).setCartVelocity(10.0).setMode(cartImpCtrlMode)); //Move up to fill	
+		tool.move(linRel(0,0,25.0).setCartVelocity(10.0).setMode(cartImpCtrlMode)); //Move up to fill	
 		
 		System.out.println("Beginning positionHold!");
-		tool.move(positionHold(holdMode, 5, TimeUnit.SECONDS));
+		ThreadUtil.milliSleep(2000);
+		//tool.move(positionHold(holdMode, 3, TimeUnit.SECONDS));
+		System.out.println("Moving on!");
 		
 		/*final Timer timer = new Timer();		//Set timer to wait until fluid chamber is empty
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -268,7 +274,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 		IMotionContainer motionCmd;
 		ForceCondition normalForce = ForceCondition.createNormalForceCondition(this.tool.getDefaultMotionFrame(),CoordinateAxis.Z , 20.0);
 		ForceSensorData data = lbr_iiwa_7_R800_1.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
-		Vector force = data.getForce(); //Get actual current forces (angle, weight, etc)
+		Vector force = data.getForce(); //Get actual current forces (angle, weight, etc);
 			
 		CartesianImpedanceControlMode cartImpCtrlMode = new CartesianImpedanceControlMode();
 		cartImpCtrlMode.setNullSpaceStiffnessToDefaultValue();
@@ -289,8 +295,8 @@ public class RobotApplication extends RoboticsAPIApplication {
 					.setCartAcceleration(maxCartAcceleration)
 					.setCartJerk(maxCartJerk).breakWhen(normalForce));
 					System.out.println("Valve detected!");
-			ThreadUtil.milliSleep(2000);
-			System.out.println("Wait done");
+			//ThreadUtil.milliSleep(2000);
+			//System.out.println("Wait done");
 		}catch(Exception e){
 			System.out.println("Es konnte nicht in Z-Richtung "+z+" mm gesucht werden");
 			return false;
