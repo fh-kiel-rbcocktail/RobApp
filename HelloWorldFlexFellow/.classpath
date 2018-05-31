@@ -6,6 +6,8 @@
 	<classpathentry kind="lib" path="jamod-1.2-SNAPSHOT.jar"/>
 	<classpathentry kind="src" path="examples"/>
 	<classpathentry kind="lib" path="EEIP_library.jar"/>
+	<classpathentry kind="lib" path="java-json.jar"/>
+	<classpathentry kind="lib" path="json-simple-1.1.jar"/>
 	<classpathentry kind="lib" path="KUKAJavaLib/javax.inject_1.0.0.v20091030.jar"/>
 	<classpathentry kind="lib" path="KUKAJavaLib/com.kuka.common.datatypes_1.15.0.5.jar">
 		<attributes>
@@ -67,7 +69,5 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/HelloWorldFlexFellow/KUKAJavaLib/#Bundle-JavaDoc#!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="java-json.jar"/>
-	<classpathentry kind="lib" path="json-simple-1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

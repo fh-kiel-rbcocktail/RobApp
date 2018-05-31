@@ -13,14 +13,14 @@
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="134" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="57" y="22"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="107" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="122" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="com.kuka.safety.configuration.eclipseplugin.editors.MultiPageEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="configurationModel.eclipsePlugin.ConfigurationEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="configurationModel.eclipsePlugin.ConfigurationEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -36,32 +36,49 @@
 <part id="2"/>
 <part id="3"/>
 <part id="4"/>
+<part id="5"/>
+<part id="6"/>
+<part id="7"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RobotApplication.java" partName="RobotApplication.java" path="E:/Workbench/RobApp/HelloWorldFlexFellow/src/application/RobotApplication.java" title="RobotApplication.java" tooltip="HelloWorldFlexFellow/src/application/RobotApplication.java" workbook="DefaultEditorWorkbook">
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RobotApplication.java" partName="RobotApplication.java" path="E:/Workbench/RobApp/HelloWorldFlexFellow/src/application/RobotApplication.java" title="RobotApplication.java" tooltip="HelloWorldFlexFellow/src/application/RobotApplication.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/src/application/RobotApplication.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6574" selectionTopPixel="2055"/>
+<editorState selectionHorizontalPixel="0" selectionLength="69" selectionOffset="11718" selectionTopPixel="5442"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Gripper.java" partName="Gripper.java" path="E:/Workbench/RobApp/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Gripper.java" title="Gripper.java" tooltip="HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Gripper.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Gripper.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="5" selectionOffset="2540" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1722" selectionTopPixel="976"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransportPosition.java" partName="TransportPosition.java" path="E:/Workbench/RobApp/HelloWorldFlexFellow/src/application/TransportPosition.java" title="TransportPosition.java" tooltip="HelloWorldFlexFellow/src/application/TransportPosition.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/src/application/TransportPosition.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="16" selectionOffset="969" selectionTopPixel="244"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FlexFellowIOGroup.java" partName="FlexFellowIOGroup.java" path="E:/Workbench/RobApp/HelloWorldFlexFellow/src/com/kuka/generated/ioAccess/FlexFellowIOGroup.java" title="FlexFellowIOGroup.java" tooltip="HelloWorldFlexFellow/src/com/kuka/generated/ioAccess/FlexFellowIOGroup.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/src/com/kuka/generated/ioAccess/FlexFellowIOGroup.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="50"/>
+</editor>
+<editor id="com.kuka.safety.configuration.eclipseplugin.editors.MultiPageEditor" name="SafetyConfiguration.sconf" partName="SafetyConfiguration.sconf" path="E:/Workbench/RobApp/HelloWorldFlexFellow/SafetyConfiguration.sconf" title="SafetyConfiguration.sconf" tooltip="E:\Workbench\RobApp\HelloWorldFlexFellow\SafetyConfiguration.sconf - Version 7.44" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/SafetyConfiguration.sconf"/>
+</editor>
+<editor id="configurationModel.eclipsePlugin.ConfigurationEditor" name="StationSetup.cat" partName="StationSetup.cat" title="StationSetup.cat" tooltip="HelloWorldFlexFellow/StationSetup.cat" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/StationSetup.cat"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RecipeScript.java" partName="RecipeScript.java" path="E:/Workbench/RobApp/HelloWorldFlexFellow/src/application/RecipeScript.java" title="RecipeScript.java" tooltip="HelloWorldFlexFellow/src/application/RecipeScript.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/src/application/RecipeScript.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="11402" selectionTopPixel="4722"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EGripper.java" partName="EGripper.java" path="E:/Workbench/RobApp/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/EGripper.java" title="EGripper.java" tooltip="HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/EGripper.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/EGripper.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="27" selectionOffset="1752" selectionTopPixel="351"/>
-</editor>
-<editor id="org.eclipse.jdt.ui.ClassFileEditor" name="CartesianImpedanceControlMode.class" partName="CartesianImpedanceControlMode.class" title="CartesianImpedanceControlMode.class" tooltip="com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.motionModel.controlModeModel(CartesianImpedanceControlMode.class"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
-</editor>
-<editor activePart="true" focus="true" id="com.kuka.safety.configuration.eclipseplugin.editors.MultiPageEditor" name="SafetyConfiguration.sconf" partName="SafetyConfiguration.sconf" path="E:/Workbench/RobApp/HelloWorldFlexFellow/SafetyConfiguration.sconf" title="SafetyConfiguration.sconf" tooltip="E:\Workbench\RobApp\HelloWorldFlexFellow\SafetyConfiguration.sconf - Version 7.44" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/HelloWorldFlexFellow/SafetyConfiguration.sconf"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="933" selectionTopPixel="761"/>
 </editor>
 </editors>
 <views>
 <view id="org.eclipse.ui.views.PropertySheet" partName="Eigenschaften">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.DebugView" partName="Debuggen">
 <viewState/>
 </view>
 <view id="com.kuka.roboticsAPI.eclipseBase.templateView.TemplateView" partName="Objektvorlagen">
@@ -70,7 +87,9 @@
 <view id="com.kuka.roboticsAPI.eclipseBase.dataView.DataView" partName="Applikationsdaten">
 <viewState/>
 </view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="Konsole"/>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Konsole">
+<viewState/>
+</view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Paket-Explorer">
 <viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
 <customFilters userDefinedPatternsEnabled="false">
@@ -98,6 +117,10 @@
 </customFilters>
 </viewState>
 </view>
+<view id="org.eclipse.debug.ui.BreakpointView" partName="Unterbrechungspunkte"/>
+<view id="org.eclipse.debug.ui.VariableView" partName="Variablen">
+<viewState/>
+</view>
 <view id="org.eclipse.ui.views.TaskList" partName="Aufgaben">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.completionField" categoryGroup="none" markerContentGenerator="org.eclipse.ui.ide.tasksGenerator" partName="Aufgaben">
 <columnWidths org.eclipse.ui.ide.completionField="40" org.eclipse.ui.ide.descriptionField="400" org.eclipse.ui.ide.locationField="120" org.eclipse.ui.ide.markerType="120" org.eclipse.ui.ide.pathField="160" org.eclipse.ui.ide.priorityField="40" org.eclipse.ui.ide.resourceField="120"/>
@@ -110,9 +133,12 @@
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
 </view>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Gliederung">
+<viewState/>
+</view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="com.kuka.safety.configuration.eclipseplugin.editors.MultiPageEditor" activePerspective="com.kuka.common.eclipsePlugin.ProgrammingPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="com.kuka.common.eclipsePlugin.ProgrammingPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.kuka.common.eclipsePlugin.ProgrammingPerspectiveFactory" id="com.kuka.common.eclipsePlugin.ProgrammingPerspective" label="Programmierung"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -344,8 +370,8 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@e6da7b" ratio="0.857517" ratioLeft="1637" ratioRight="272" relationship="2" relative="topLeft">
-<folder activePageID="com.kuka.roboticsAPI.eclipseBase.dataView.DataView" appearance="2" expanded="2">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@e6da7b" ratio="0.7338921" ratioLeft="1401" ratioRight="508" relationship="2" relative="topLeft">
+<folder activePageID="com.kuka.roboticsAPI.eclipseBase.templateView.TemplateView" appearance="2" expanded="2">
 <page content="com.kuka.roboticsAPI.eclipseBase.dataView.DataView" label="Applikationsdaten"/>
 <page content="com.kuka.roboticsAPI.eclipseBase.templateView.TemplateView" label="Objektvorlagen"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -370,7 +396,7 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.16952264" ratioLeft="277" ratioRight="1357" relationship="2" relative="topLeft"/>
-<info folder="true" part="bottomRight" ratio="0.65876776" ratioLeft="417" ratioRight="216" relationship="4" relative="org.eclipse.ui.editorss">
+<info folder="true" part="bottomRight" ratio="0.73730683" ratioLeft="668" ratioRight="238" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.views.TaskList" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.TaskList" label="Aufgaben"/>
 <page content="org.eclipse.ui.console.ConsoleView" label="Konsole"/>
@@ -391,165 +417,249 @@
 </mainWindow>
 </layout>
 </perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.debug.internal.ui.DebugPerspectiveFactory" id="org.eclipse.debug.ui.DebugPerspective" label="Debuggen"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<show_view_action id="org.eclipse.debug.ui.DebugView"/>
+<show_view_action id="org.eclipse.debug.ui.VariableView"/>
+<show_view_action id="org.eclipse.debug.ui.BreakpointView"/>
+<show_view_action id="org.eclipse.debug.ui.ExpressionView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.eclipse.jdt.debug.ui.DisplayView"/>
+<perspective_action id="com.kuka.robotics"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.debug.ui.DebugView"/>
+<view id="org.eclipse.debug.ui.VariableView"/>
+<view id="org.eclipse.debug.ui.BreakpointView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debuggen"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="stickyFolderRight" ratio="0.75" ratioLeft="1434" ratioRight="478" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.7491749" ratioLeft="681" ratioRight="228" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.console.ConsoleView" label="Konsole"/>
+<page content="org.eclipse.ui.views.TaskList" label="Aufgaben"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
+<page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.4493392" ratioLeft="306" ratioRight="375" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.75" ratioLeft="1434" ratioRight="478" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Gliederung"/>
+<page content="com.kuka.roboticsAPI.eclipseBase.dataView.DataView" label="LabelNotFound"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+</presentation>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.5" ratioLeft="956" ratioRight="956" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">&#x0A;<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variablen"/>
+<page content="org.eclipse.debug.ui.BreakpointView" label="Unterbrechungspunkte"/>
+<page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
+<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+</mainWindow>
+</layout>
+</perspective>
 </perspectives>
 <workingSets/>
 <navigationHistory>
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HelloWorldFlexFellow/src/application/RobotApplication.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Gripper.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Gripper.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/EGripper.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Gripper.java"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.motionModel(BasicMotions.class"/>
-<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.motionModel.controlModeModel(CartesianImpedanceControlMode.class"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.kuka.safety.configuration.eclipseplugin.editors.MultiPageEditor" path="/HelloWorldFlexFellow/SafetyConfiguration.sconf"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.geometricModel(SpatialObject.class"/>
+<editor factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.motionModel(SplineJP.class"/>
 </editors>
+<item historyLabel="Gripper.java" index="1">
+<position info="not_deleted" x="15665" y="74"/>
+</item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="8782" y="0"/>
+<position info="not_deleted" x="10487" y="0"/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position info="not_deleted" x="11246" y="9"/>
 </item>
 <item historyLabel="Gripper.java" index="1">
-<position info="not_deleted" x="15829" y="1990"/>
+<position info="not_deleted" x="13883" y="0"/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="8782" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position/>
+<position info="not_deleted" x="11246" y="9"/>
 </item>
 <item historyLabel="Gripper.java" index="1">
-<position info="not_deleted" x="17649" y="0"/>
+<position info="not_deleted" x="15556" y="188"/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="8559" y="0"/>
+<position info="not_deleted" x="13221" y="0"/>
+</item>
+<item historyLabel="Gripper.java" index="1">
+<position info="not_deleted" x="15556" y="188"/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position/>
+<position info="not_deleted" x="13221" y="0"/>
 </item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="8618" y="0"/>
+<item historyLabel="EGripper.java" index="2">
+<position info="not_deleted" x="911" y="8"/>
 </item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="8780" y="0"/>
+<item historyLabel="Gripper.java" index="3">
+<position info="not_deleted" x="15556" y="188"/>
 </item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="9416" y="0"/>
+<item historyLabel="Gripper.java" index="3">
+<position info="not_deleted" x="12219" y="0"/>
 </item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="9255" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="10035" y="9"/>
-</item>
-<item historyLabel="Gripper.java" index="2">
-<position info="not_deleted" x="17649" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="11570" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="9253" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="10035" y="9"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="9096" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="8781" y="0"/>
-</item>
-<item historyLabel="Gripper.java" index="2">
-<position info="not_deleted" x="1997" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="8781" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="9250" y="9"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="10035" y="9"/>
-</item>
-<item historyLabel="Gripper.java" index="2">
-<position info="not_deleted" x="1997" y="0"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position/>
-</item>
-<item historyLabel="Gripper.java" index="2">
-<position info="not_deleted" x="1997" y="0"/>
-</item>
-<item historyLabel="Gripper.java" index="2">
-<position info="not_deleted" x="3061" y="5"/>
-</item>
-<item historyLabel="Gripper.java" index="2">
-<position info="not_deleted" x="2540" y="5"/>
-</item>
-<item historyLabel="EGripper.java" index="3">
-<position info="not_deleted" x="1752" y="27"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="9250" y="9"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="11576" y="31"/>
-</item>
-<item historyLabel="Gripper.java" index="2">
-<position info="not_deleted" x="2540" y="5"/>
-</item>
-<item historyLabel="EGripper.java" index="3">
-<position info="not_deleted" x="1752" y="27"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="11576" y="31"/>
-</item>
-<item historyLabel="Gripper.java" index="4">
-<position info="not_deleted" x="2540" y="5"/>
-</item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="6437" y="0"/>
-</item>
-<item historyLabel="BasicMotions.class" index="5">
+<item historyLabel="SpatialObject.class" index="4">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="6437" y="0"/>
+<item historyLabel="Gripper.java" index="3">
+<position info="not_deleted" x="12195" y="6"/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="9977" y="0"/>
+<position info="not_deleted" x="3309" y="0"/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position info="not_deleted" x="6373" y="0"/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
 <position/>
 </item>
-<item historyLabel="CartesianImpedanceControlMode.class" index="6">
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position/>
+</item>
+<item historyLabel="SplineJP.class" index="5">
 <position info="not_deleted" x="0" y="0"/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
 <position/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="6591" y="0"/>
+<position/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="8388" y="9"/>
+<position/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="9976" y="0"/>
+<position/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="10826" y="9"/>
+<position info="not_deleted" x="8634" y="0"/>
+</item>
+<item historyLabel="Gripper.java" index="3">
+<position info="not_deleted" x="12195" y="6"/>
 </item>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="10147" y="0"/>
+<position info="not_deleted" x="8634" y="0"/>
 </item>
-<item historyLabel="SafetyConfiguration.sconf" index="7"/>
 <item historyLabel="RobotApplication.java" index="0">
-<position info="not_deleted" x="6574" y="0"/>
+<position info="not_deleted" x="7838" y="0"/>
 </item>
-<item active="true" historyLabel="SafetyConfiguration.sconf" index="7"/>
+<item historyLabel="Gripper.java" index="3">
+<position info="not_deleted" x="12213" y="8"/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position info="not_deleted" x="7838" y="0"/>
+</item>
+<item historyLabel="RobotApplication.java" index="0">
+<position info="not_deleted" x="11712" y="0"/>
+</item>
+<item historyLabel="Gripper.java" index="3">
+<position info="not_deleted" x="1722" y="0"/>
+</item>
+<item historyLabel="EGripper.java" index="2">
+<position info="not_deleted" x="933" y="0"/>
+</item>
+<item historyLabel="Gripper.java" index="3">
+<position info="not_deleted" x="1722" y="0"/>
+</item>
+<item active="true" historyLabel="RobotApplication.java" index="0">
+<position info="not_deleted" x="11712" y="0"/>
+</item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -567,8 +677,41 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="SplineJP.class" tooltip="com.kuka.roboticsAPI.motionModel.SplineJP">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.motionModel(SplineJP.class"/>
+</file>
+<file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="SpatialObject.class" tooltip="com.kuka.roboticsAPI.geometricModel.SpatialObject">
+<persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.geometricModel(SpatialObject.class"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EGripper.java" tooltip="HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/EGripper.java">
+<persistable path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/EGripper.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RecipeScript.java" tooltip="HelloWorldFlexFellow/src/application/RecipeScript.java">
+<persistable path="/HelloWorldFlexFellow/src/application/RecipeScript.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Recipe.java" tooltip="HelloWorldFlexFellow/src/application/object/Recipe.java">
+<persistable path="/HelloWorldFlexFellow/src/application/object/Recipe.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="configurationModel.eclipsePlugin.ConfigurationEditor" name="StationSetup.cat" tooltip="HelloWorldFlexFellow/StationSetup.cat">
+<persistable path="/HelloWorldFlexFellow/StationSetup.cat"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.kuka.safety.configuration.eclipseplugin.editors.MultiPageEditor" name="SafetyConfiguration.sconf" tooltip="HelloWorldFlexFellow/SafetyConfiguration.sconf">
 <persistable path="/HelloWorldFlexFellow/SafetyConfiguration.sconf"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="IOConfiguration.wvs" tooltip="HelloWorldFlexFellow/IOConfiguration.wvs">
+<persistable path="/HelloWorldFlexFellow/IOConfiguration.wvs"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FlexFellowIOGroup.java" tooltip="HelloWorldFlexFellow/src/com/kuka/generated/ioAccess/FlexFellowIOGroup.java">
+<persistable path="/HelloWorldFlexFellow/src/com/kuka/generated/ioAccess/FlexFellowIOGroup.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TransportPosition.java" tooltip="HelloWorldFlexFellow/src/application/TransportPosition.java">
+<persistable path="/HelloWorldFlexFellow/src/application/TransportPosition.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Movable.java" tooltip="HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Movable.java">
+<persistable path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Movable.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Bilder.java" tooltip="HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Bilder.java">
+<persistable path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Bilder.java"/>
 </file>
 <file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="CartesianImpedanceControlMode.class" tooltip="com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode">
 <persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.motionModel.controlModeModel(CartesianImpedanceControlMode.class"/>
@@ -576,29 +719,8 @@
 <file factoryID="org.eclipse.jdt.ui.ClassFileEditorInputFactory" id="org.eclipse.jdt.ui.ClassFileEditor" name="BasicMotions.class" tooltip="com.kuka.roboticsAPI.motionModel.BasicMotions">
 <persistable org.eclipse.jdt.ui.ClassFileIdentifier="=HelloWorldFlexFellow/KUKAJavaLib\/com.kuka.roboticsAPI_1.15.2.5.jar&lt;com.kuka.roboticsAPI.motionModel(BasicMotions.class"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="EGripper.java" tooltip="HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/EGripper.java">
-<persistable path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/EGripper.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="test.json" tooltip="HelloWorldFlexFellow/src/application/test.json">
 <persistable path="/HelloWorldFlexFellow/src/application/test.json"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Gripper.java" tooltip="HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Gripper.java">
-<persistable path="/HelloWorldFlexFellow/src/de/fh_kiel/cimtt/robotik/Gripper.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RobotApplication.java" tooltip="HelloWorldFlexFellow/src/application/RobotApplication.java">
-<persistable path="/HelloWorldFlexFellow/src/application/RobotApplication.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="configurationModel.eclipsePlugin.ConfigurationEditor" name="StationSetup.cat" tooltip="HelloWorldFlexFellow/StationSetup.cat">
-<persistable path="/HelloWorldFlexFellow/StationSetup.cat"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="RecipeScript.java" tooltip="HelloWorldFlexFellow/src/application/RecipeScript.java">
-<persistable path="/HelloWorldFlexFellow/src/application/RecipeScript.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Recipe.java" tooltip="HelloWorldFlexFellow/src/application/Recipe.java">
-<persistable path="/HelloWorldFlexFellow/src/application/Recipe.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Ingredient.java" tooltip="HelloWorldFlexFellow/src/application/Ingredient.java">
-<persistable path="/HelloWorldFlexFellow/src/application/Ingredient.java"/>
 </file>
 </mruList>
 </workbench>
