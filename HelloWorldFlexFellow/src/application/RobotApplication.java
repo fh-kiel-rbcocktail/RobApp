@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import org.json.JSONException;
 import org.json.simple.parser.ParseException;
@@ -216,7 +217,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 		for (int i = 1; i<=amount; i++){		//Run up and down movement  
 		tool.move(linRel(0,0,50.0).setCartVelocity(30.0).setMode(cartImpCtrlMode)); //Move up to fill		
 		final Timer timer = new Timer();		//Set timer to wait until fluid chamber is empty
-	  
+		int timeToFill = 5;
 		timer.scheduleAtFixedRate(new TimerTask() {
 			int timeToFill = 5;
 	            public void run() {
@@ -225,6 +226,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	                    timer.cancel();
 	            }
 	        }, 0, 1000);
+		
 		
 		gripper.moveLin(getApplicationData().getFrame(frame));
 		}
