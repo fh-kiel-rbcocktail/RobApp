@@ -5,7 +5,11 @@ package application;
 
 //import com.kuka.generated.ioAccess.FlexFellowIOGroup;
 
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.circ;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.lin;
 import static com.kuka.roboticsAPI.motionModel.BasicMotions.linRel;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.positionHold;
+import static com.kuka.roboticsAPI.motionModel.BasicMotions.ptp;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,18 +28,30 @@ import application.object.Orange;
 
 import application.object.*;
 
+import com.kuka.common.ThreadUtil;
 import com.kuka.roboticsAPI.applicationModel.RoboticsAPIApplication;
 import com.kuka.roboticsAPI.applicationModel.tasks.RoboticsAPITask;
+import com.kuka.roboticsAPI.conditionModel.ForceCondition;
 import com.kuka.roboticsAPI.controllerModel.Controller;
 import com.kuka.roboticsAPI.deviceModel.LBR;
+import com.kuka.roboticsAPI.executionModel.IFiredConditionInfo;
 import com.kuka.roboticsAPI.geometricModel.AbstractFrame;
 import com.kuka.roboticsAPI.geometricModel.CartDOF;
 import com.kuka.roboticsAPI.geometricModel.CartPlane;
 import com.kuka.roboticsAPI.geometricModel.Frame;
 import com.kuka.roboticsAPI.geometricModel.ObjectFrame;
 import com.kuka.roboticsAPI.geometricModel.Tool;
+import com.kuka.roboticsAPI.geometricModel.Workpiece;
+import com.kuka.roboticsAPI.geometricModel.math.CoordinateAxis;
+import com.kuka.roboticsAPI.geometricModel.math.Transformation;
+import com.kuka.roboticsAPI.geometricModel.math.Vector;
+import com.kuka.roboticsAPI.motionModel.CIRC;
+import com.kuka.roboticsAPI.motionModel.IMotionContainer;
+import com.kuka.roboticsAPI.motionModel.Spline;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianImpedanceControlMode;
 import com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode;
+import com.kuka.roboticsAPI.motionModel.controlModeModel.PositionControlMode;
+import com.kuka.roboticsAPI.sensorModel.ForceSensorData;
 import com.kuka.roboticsAPI.uiModel.ApplicationDialogType;
 
 import de.fh_kiel.cimtt.robotik.EGripper;
@@ -73,13 +89,17 @@ public class RobotApplication extends RoboticsAPIApplication {
 	private static double maxCartAcceleration = 500.0;
 	private static double maxCartJerk = 5000.0;
 	
-	private static double maxJointVelocity = 0.15;
-	private static double maxJointAcceleration = 0.2;
-	private static double maxJointJerk = 0.02;
+	private static double maxJointVelocity = 0.5;
+	private static double maxJointAcceleration = 0.4;
+	private static double maxJointJerk = 0.04;
 	
 	private static double cartStiffness = 2000.0;
 	private static double nullStiffness = 0.5;
 	
+	private static double defVel = 300.0;
+	private static double defJointVel = 0.5;
+	
+	private Workpiece Cup1;
 	//private static int colorCount = 255;
 	private final static String informationText=
 			"Which coctail do you want";
@@ -115,19 +135,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 		// Greifer mit Roboterflansch verbinden
 		gripper.attach(lbr_iiwa_7_R800_1.getFlange());
 		
-		/*
-		 * 19.04.2018 - Test sequence 1
-		 * 
-		 * - Cup must be placed higher than the table level, otherwise --> collision
-		 * - moveNear-function will move straight into bottle holder 
-		 * - moving the gripper to grab the glass needs a more detailed path --> gripper tips over the cup
-		 * 
-		 * TODO: 
-		 * - design cup-holder to place it higher than table
-		 * - configure moveNear-function Z-levels
-		 * - define path for gripper to move to horizontal level before moving near the cup
-		 * 
-		 * */
 		//Initialize the position of bottle 
         String[] positionBottle = {"milk", "cafe", "orange", "tea"};
         
@@ -147,56 +154,90 @@ public class RobotApplication extends RoboticsAPIApplication {
 		}
 		int orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1]);
 		
+		
 //	        while(orderNbr >= menu.menuSize()) {
 //	        	getApplicationUI().displayModalDialog(ApplicationDialogType.ERROR, errorText, "Ok");
 //	        	orderNbr = getApplicationUI().displayModalDialog(ApplicationDialogType.QUESTION, menuText,mS[0],mS[1],mS[2],mS[3],mS[4]);
 //	        }
 		Recipe recipe = menu.generateRecipe(mS[orderNbr]);
 		
-		gripper.movePTP(getApplicationData().getFrame("/Start"));
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/Start")).setJointVelocityRel(defJointVel));
+				
+		gripper.open();
 		// Pick up at RefPart
-		gripper.getPart(getApplicationData().getFrame("/CupS"));
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/CupS")).setJointVelocityRel(defJointVel));
 		
+		gripper.close();
+		gripper.moveZ(70);
 		Map<String, Ingredient>ingredients = recipe.getIngredients();
 		
 		for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
 			int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
 			if(currPosition != -1) {
 				String nameCurrFrame = "/Bottle" + currPosition;
-				gripper.movePTP(getApplicationData().getFrame(nameCurrFrame));
+				//String nameCurrFrame = "/Bottle1";
+				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(nameCurrFrame)).setCartVelocity(defVel));
+				//gripper.moveLin(getApplicationData().getFrame(nameCurrFrame));
 				fillGlass(ingre.getValue().getTimeToFill(), nameCurrFrame);
 				
 			}
 		}
-		gripper.putPart(getApplicationData().getFrame("/CupS"));
-		gripper.moveY(-100);
 		
-		//Movements for picking up straw
-		gripper.movePTP(getApplicationData().getFrame("/GetStraw"));
+		//Put cup down
+		gripper.moveNear(getApplicationData().getFrame("/CupS"), 70);
+		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/CupS")).setCartVelocity(100));
+		gripper.open();
+		
+		//move back
+		tool.getDefaultMotionFrame().move(linRel(0.0, -200.0, 0.0 ));
+//		Transformation rTC = getApplicationData().getFrame("/CupS").getTransformationFromParent();
+//		Transformation cTBackPoint = rTC.compose(Transformation.ofDeg(0.0, -200.0, 0.0, 0.0, 0.0, 0.0));
+//		Frame moveback = new Frame(cTBackPoint);
+//		
+//		Transformation moveXAndRotate = cTBackPoint.compose(Transformation.ofDeg(150.0, 0.0, 0.0, 0.0, 0.0 ,0.0));
+//		Frame moveXR = new Frame(moveXAndRotate);
+//		
+//		Spline mySplineMoveBack = new Spline(circ(moveback, moveXR));
+//		
+//		tool.move(mySplineMoveBack);
+		
+		tool.getDefaultMotionFrame().move(linRel(150.0, 0.0, 0.0,0.0,-1.5708,0.0 ));
+		
+		
+		/* --- Movements for picking up straw --- */
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/GetStraw")).setJointVelocityRel(defJointVel));
+		
 		gripper.close();
-		gripper.moveX(250);			//Move gripper up (25cm) from straw rack 
+		tool.getDefaultMotionFrame().move(linRel(20.0, 0.0, 0.0 ));
+		tool.getDefaultMotionFrame().move(linRel(0.0, -150.0, 0.0, 0.0, 0.0, 0.0 ));
+		tool.getDefaultMotionFrame().move(linRel(230.0, 0.0, 0.0 ));
+		 
 		
 		//Stirr it up, little darling stirr it up!
-		gripper.movePTP(getApplicationData().getFrame("/StirrP")); 	//Move gripper to stirring frame (more or less horizontal movement to avoid collisions)
-		gripper.moveZ(-110);		//move gripper with straw down to place stirrer in cup
-				
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/StirrP")).setJointVelocityRel(defJointVel));
+		
+		tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, -120.0 ));		
 		/* Lissajous stirring movement
 		 * For smooth stirring 
 		*/			
 		CartesianSineImpedanceControlMode lissajousMode;
 		lissajousMode =	CartesianSineImpedanceControlMode.createLissajousPattern(CartPlane.XY, 2.5, 10.0, 400.0);
 		// Move in x 
-		tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		tool.move(linRel(-60.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		tool.move(linRel(30.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(20.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(-40.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(20.0,0,0.0).setCartVelocity(100).setMode(lissajousMode));
 		// Move in x
-		tool.move(linRel(0.0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		tool.move(linRel(0.0, -60.0,0.0).setCartVelocity(100).setMode(lissajousMode));
-		tool.move(linRel(0, 30.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(0.0, 20.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(0.0, -40.0,0.0).setCartVelocity(100).setMode(lissajousMode));
+		tool.move(linRel(0, 20.0,0.0).setCartVelocity(100).setMode(lissajousMode));
 				
+		
 		//Dropping the straw into cup
 		gripper.open();
-		gripper.moveLin(getApplicationData().getFrame("/Start"));
+		tool.move(linRel(0, -100.0,0.0));
+		
+		
+		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/Start")).setCartVelocity(defVel));
 		
 		gripper.close();
 	}
@@ -204,34 +245,104 @@ public class RobotApplication extends RoboticsAPIApplication {
 	/*
 	 * Task: Fill glass with one liquid
 	 * */
+	
 	public boolean fillGlass(final int amount, String frame) {
-		
+			
 		/*
 		 * Filling method*/
 		CartesianImpedanceControlMode cartImpCtrlMode = new	CartesianImpedanceControlMode();
-		
 		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
 		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
-		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(850);
+
+		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
+		//cartImpCtrlMode.parametrize(CartDOF.ALL).setDamping(0.6);
+		cartImpCtrlMode.setNullSpaceStiffness(0.7);
+		cartImpCtrlMode.setMaxPathDeviation(200.0, 200.0, 200.0, 200.0, 200.0, 200.0);
 		
-		for (int i = 1; i<=amount; i++){		//Run up and down movement  
-		tool.move(linRel(0,0,50.0).setCartVelocity(30.0).setMode(cartImpCtrlMode)); //Move up to fill		
-		final Timer timer = new Timer();		//Set timer to wait until fluid chamber is empty
-		int timeToFill = 5;
-		timer.scheduleAtFixedRate(new TimerTask() {
-			int timeToFill = 5;
-	            public void run() {
-	            	timeToFill--;
-	                if ( timeToFill < 0)
-	                    timer.cancel();
-	            }
-	        }, 0, 1000);
+		/*
+		 * fillMode: Pause movement with timer to fill up glass*/
+		PositionControlMode holdMode=new PositionControlMode();
 		
 		
-		gripper.moveLin(getApplicationData().getFrame(frame));
+		for (int i = 1; i<=amount; i++){		//Run up and down movement
+
+			//Substracting the measured force to set the force to 0. Unstressed forces aren't 0 due to weight and angle etc. of the robot.
+			ForceSensorData data = lbr_iiwa_7_R800_1.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
+			Vector force = data.getForce(); //Get actual current forces (angle, weight, etc)
+			cartImpCtrlMode.parametrize(CartDOF.X).setAdditionalControlForce(-force.getX());
+			cartImpCtrlMode.parametrize(CartDOF.Y).setAdditionalControlForce(-force.getY());
+			cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(-force.getZ());
+			
+			//Added force to push up valve
+			cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(20.0);
+			System.out.println("Force Z: " + force.getZ() + " Force Y: " + force.getY() + " Force X: " + force.getX());	
+			
+		//Find valve and zero force before applying extra force and spring mode	
+		
+		Frame tempframe = findValve(30);
+		
+		System.out.println("Filling Cup. (carImpCtrlMode)");
+		//tool.move(positionHold(holdMode, 4, TimeUnit.SECONDS).setMode(cartImpCtrlMode));
+		tool.move(linRel(0,0,25.0).setCartVelocity(15.0).setMode(cartImpCtrlMode)); //Move up to fill	
+		
+		System.out.println("Pause.");
+		ThreadUtil.milliSleep(2500);
+		//tool.move(positionHold(holdMode, 3, TimeUnit.SECONDS));
+		
+//		Cup1.attachTo();
+//		System.out.print(Cup1.getLoadData().getMass());
+		
+		System.out.println("Moving on!");
+
+			if(i == amount){
+				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(frame)).setCartVelocity(100.0));
+			}else{
+				tool.getDefaultMotionFrame().move(lin(tempframe).setCartVelocity(100.0));
+				ThreadUtil.milliSleep(2000);
+			}
 		}
-		
 		return false;
+	}
+	/*Function to find the valve
+	 * */
+	public Frame findValve(double z){
+		IMotionContainer motionCmd;
+		ForceCondition normalForce = ForceCondition.createNormalForceCondition(this.tool.getDefaultMotionFrame(),CoordinateAxis.Z , 20.0);
+		ForceSensorData data = lbr_iiwa_7_R800_1.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
+		Vector force = data.getForce(); //Get actual current forces (angle, weight, etc);
+		
+		
+			
+		CartesianImpedanceControlMode cartImpCtrlMode = new CartesianImpedanceControlMode();
+		cartImpCtrlMode.setNullSpaceStiffnessToDefaultValue();
+		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
+		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
+		
+		cartImpCtrlMode.setNullSpaceStiffness(nullStiffness);
+		//Substracting the measured force to set the force to 0. Unstressed forces aren't 0 due to weight and angle etc. of the robot.
+		cartImpCtrlMode.parametrize(CartDOF.X).setAdditionalControlForce(-force.getX());
+		cartImpCtrlMode.parametrize(CartDOF.Y).setAdditionalControlForce(-force.getY());
+		cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(-force.getZ());
+		
+		try{//only to check if possible ACTUAL COMMAND WHEN THE ROBOT MOVES
+			motionCmd = this.tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, z)
+					.setMode(cartImpCtrlMode)
+					.setCartVelocity(50.0)
+					.setCartAcceleration(maxCartAcceleration)
+					.setCartJerk(maxCartJerk).breakWhen(normalForce));
+					System.out.println("Valve detected!");
+			//ThreadUtil.milliSleep(2000);
+			//System.out.println("Wait done");
+		}catch(Exception e){
+			System.out.println("Es konnte nicht in Z-Richtung "+z+" mm gesucht werden");
+			return null;
+		}
+		IFiredConditionInfo firedInfo = motionCmd.getFiredBreakConditionInfo();
+//		if(firedInfo != null){
+			return this.lbr_iiwa_7_R800_1.getCurrentCartesianPosition(this.tool.getDefaultMotionFrame());
+//		}
+//		return null;
 	}
 
 	/**

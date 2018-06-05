@@ -3,4 +3,12 @@
 <fullyQualifiedTypeName name="java.util.TimerTask"/>
 <fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.controlModeModel.CartesianSineImpedanceControlMode"/>
 <fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.CartPlane"/>
+<fullyQualifiedTypeName name="java.util.concurrent.TimeUnit"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.controlModeModel.PositionControlMode"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.math.Transformation"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.SplineJP"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.Spline"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.CIRC"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.Frame"/>
+<fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.Workpiece"/>
 </qualifiedTypeNameHistroy>
