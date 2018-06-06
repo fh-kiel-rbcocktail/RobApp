@@ -100,8 +100,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 	private static double defJointVel = 0.5;
 	
 	private Workpiece Cup;
-	
-	
 	//private static int colorCount = 255;
 	private final static String informationText=
 			"Which coctail do you want";
@@ -168,13 +166,12 @@ public class RobotApplication extends RoboticsAPIApplication {
 		gripper.open();
 		// Pick up at RefPart
 		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/CupS")).setJointVelocityRel(defJointVel));
-		gripper.close();
 		
 		double mass = 0.2; // kg for weight of cup
 		Cup.getLoadData().setMass(mass);
 		Cup.attachTo(tool.getFrame("/CupS"));
 		
-		
+		gripper.close();
 		gripper.moveZ(70);
 		Map<String, Ingredient>ingredients = recipe.getIngredients();
 		
@@ -185,7 +182,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 				//String nameCurrFrame = "/Bottle1";
 				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(nameCurrFrame)).setCartVelocity(defVel));
 				//gripper.moveLin(getApplicationData().getFrame(nameCurrFrame));
-				fillGlass(ingre.getValue().getTimeToFill(), nameCurrFrame, Cup.getLoadData().getMass());
+				fillGlass(ingre.getValue().getTimeToFill(), nameCurrFrame, mass);
 				
 			}
 		}
@@ -270,8 +267,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 		 * fillMode: Pause movement with timer to fill up glass*/
 		PositionControlMode holdMode=new PositionControlMode();
 		
-		double liquidMass = 0.02; 						// kg for 1 filling --> 20 ml water equals 0.02 kg. TODO: Implement weight of each liquid in recipe and change this value dynamically
-		double currentMass = mass;
 		
 		for (int i = 1; i<=amount; i++){		//Run up and down movement
 
@@ -299,10 +294,12 @@ public class RobotApplication extends RoboticsAPIApplication {
 		//tool.move(positionHold(holdMode, 3, TimeUnit.SECONDS));
 		
 		/*Adding mass to the workpiece*/
-		currentMass +=   liquidMass;	// sum up the weights
+		double liquidMass = 0.02; 						// kg for 1 filling --> 20 ml water equals 0.02 kg
+		double currentMass = (i * liquidMass) + mass;	// sum up the weights
 		Cup.getLoadData().setMass(currentMass);
 		
-		System.out.print("Current load changed to:" + Cup.getLoadData().getMass());
+		System.out.print(Cup1.getLoadData().getMass());
+		
 		System.out.println("Moving on!");
 
 			if(i == amount){
@@ -312,7 +309,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 				ThreadUtil.milliSleep(2000);
 			}
 		}
-		
 		return false;
 	}
 	/*Function to find the valve

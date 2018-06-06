@@ -100,7 +100,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	private static double defJointVel = 0.5;
 	
 	private Workpiece Cup;
-	
+	private double CupWeight = 0.2;
 	
 	//private static int colorCount = 255;
 	private final static String informationText=
