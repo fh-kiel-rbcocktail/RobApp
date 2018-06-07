@@ -11,4 +11,6 @@
 <fullyQualifiedTypeName name="com.kuka.roboticsAPI.motionModel.CIRC"/>
 <fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.Frame"/>
 <fullyQualifiedTypeName name="com.kuka.roboticsAPI.geometricModel.Workpiece"/>
+<fullyQualifiedTypeName name="javax.inject.Inject"/>
+<fullyQualifiedTypeName name="javax.inject.Named"/>
 </qualifiedTypeNameHistroy>

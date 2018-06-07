@@ -18,6 +18,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 
@@ -98,7 +101,8 @@ public class RobotApplication extends RoboticsAPIApplication {
 	
 	private static double defVel = 300.0;
 	private static double defJointVel = 0.5;
-	
+	@Inject
+	@Named("Cup")
 	private Workpiece Cup;
 	
 	
@@ -170,9 +174,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/CupS")).setJointVelocityRel(defJointVel));
 		gripper.close();
 		
-		double mass = 0.2; // kg for weight of cup
+		double mass = 0.4; // kg for weight of cup
 		Cup.getLoadData().setMass(mass);
-		Cup.attachTo(tool.getFrame("/CupS"));
+		Cup.attachTo(getApplicationData().getFrame("/CupS"));
 		
 		
 		gripper.moveZ(70);
@@ -192,38 +196,34 @@ public class RobotApplication extends RoboticsAPIApplication {
 		
 		//Put cup down
 		gripper.moveNear(getApplicationData().getFrame("/CupS"), 70);
-		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/CupS")).setCartVelocity(100));
+		
+		//Impedance Control for placing cup
+		CartesianImpedanceControlMode placeCup = new	CartesianImpedanceControlMode();
+		placeCup.parametrize(CartDOF.X).setStiffness(1000);
+		placeCup.parametrize(CartDOF.Y).setStiffness(1000);
+		placeCup.parametrize(CartDOF.Z).setStiffness(1000);		
+		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/CupS")).setCartVelocity(100).setMode(placeCup));
 		gripper.open();
 		
 		//move back
-		tool.getDefaultMotionFrame().move(linRel(0.0, -200.0, 0.0 ));
-//		Transformation rTC = getApplicationData().getFrame("/CupS").getTransformationFromParent();
-//		Transformation cTBackPoint = rTC.compose(Transformation.ofDeg(0.0, -200.0, 0.0, 0.0, 0.0, 0.0));
-//		Frame moveback = new Frame(cTBackPoint);
-//		
-//		Transformation moveXAndRotate = cTBackPoint.compose(Transformation.ofDeg(150.0, 0.0, 0.0, 0.0, 0.0 ,0.0));
-//		Frame moveXR = new Frame(moveXAndRotate);
-//		
-//		Spline mySplineMoveBack = new Spline(circ(moveback, moveXR));
-//		
-//		tool.move(mySplineMoveBack);
-		
-		tool.getDefaultMotionFrame().move(linRel(150.0, 0.0, 0.0,0.0,-1.5708,0.0 ));
-		
+		tool.getDefaultMotionFrame().move(linRel(0.0, -130.0, 0.0 ));
+		tool.getDefaultMotionFrame().move(linRel(150.0, 0.0, 0.0,0.0,0.0,0.0 ));
+		tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, -30.0,0.0,0.0,0.0 ));
+		tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, 0.0,0.0,1.5708,0.0 ));
 		
 		/* --- Movements for picking up straw --- */
 		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/GetStraw")).setJointVelocityRel(defJointVel));
 		
 		gripper.close();
-		tool.getDefaultMotionFrame().move(linRel(20.0, 0.0, 0.0 ));
-		tool.getDefaultMotionFrame().move(linRel(0.0, -150.0, 0.0, 0.0, 0.0, 0.0 ));
-		tool.getDefaultMotionFrame().move(linRel(230.0, 0.0, 0.0 ));
+		tool.getDefaultMotionFrame().move(linRel(-20.0, 0.0, 0.0 ));
+		tool.getDefaultMotionFrame().move(linRel(0.0, -100.0, 0.0, 0.0, 0.0, 0.0 ));
+		tool.getDefaultMotionFrame().move(linRel(-230.0, 0.0, 0.0 ));
 		 
 		
 		//Stirr it up, little darling stirr it up!
 		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/StirrP")).setJointVelocityRel(defJointVel));
 		
-		tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, -120.0 ));		
+		tool.getDefaultMotionFrame().move(linRel(0.0, 0.0, 120.0 ));		
 		/* Lissajous stirring movement
 		 * For smooth stirring 
 		*/			
@@ -242,9 +242,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 		//Dropping the straw into cup
 		gripper.open();
 		tool.move(linRel(0, -100.0,0.0));
-		
-		
-		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/Start")).setCartVelocity(defVel));
+		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/Start")).setJointVelocityRel(defJointVel));
 		
 		gripper.close();
 	}
@@ -261,30 +259,43 @@ public class RobotApplication extends RoboticsAPIApplication {
 		cartImpCtrlMode.parametrize(CartDOF.X).setStiffness(3000);
 		cartImpCtrlMode.parametrize(CartDOF.Y).setStiffness(3000);
 
-		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(1000);
+		cartImpCtrlMode.parametrize(CartDOF.Z).setStiffness(500);
+		cartImpCtrlMode.setMaxControlForce(300.0,300.0, 300.0, 20.0, 20.0,20.0, true);
+		cartImpCtrlMode.parametrize(CartDOF.ALL).setDamping(1.0);
+		
+		/* Try this tomorrow, Bitch :)
+		 * 
+		 * cartImpCtrlMode.parametrize(CartDOF.ALL).setDamping(1.0);
+		 * */
 		//cartImpCtrlMode.parametrize(CartDOF.ALL).setDamping(0.6);
-		cartImpCtrlMode.setNullSpaceStiffness(0.7);
-		cartImpCtrlMode.setMaxPathDeviation(200.0, 200.0, 200.0, 200.0, 200.0, 200.0);
+		//cartImpCtrlMode.setNullSpaceStiffness(0.7);
+		//cartImpCtrlMode.setMaxPathDeviation(200.0, 200.0, 200.0, 200.0, 200.0, 200.0);
 		
 		/*
 		 * fillMode: Pause movement with timer to fill up glass*/
 		PositionControlMode holdMode=new PositionControlMode();
 		
-		double liquidMass = 0.02; 						// kg for 1 filling --> 20 ml water equals 0.02 kg. TODO: Implement weight of each liquid in recipe and change this value dynamically
+		double liquidMass = 0.02; 	// kg for 1 filling --> 20 ml water equals 0.02 kg. TODO: Implement weight of each liquid in recipe and change this value dynamically
 		double currentMass = mass;
 		
 		for (int i = 1; i<=amount; i++){		//Run up and down movement
 
 			//Substracting the measured force to set the force to 0. Unstressed forces aren't 0 due to weight and angle etc. of the robot.
-			ForceSensorData data = lbr_iiwa_7_R800_1.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
+			/*ForceSensorData data = lbr_iiwa_7_R800_1.getExternalForceTorque(tool.getDefaultMotionFrame(), tool.getDefaultMotionFrame() );
 			Vector force = data.getForce(); //Get actual current forces (angle, weight, etc)
 			cartImpCtrlMode.parametrize(CartDOF.X).setAdditionalControlForce(-force.getX());
 			cartImpCtrlMode.parametrize(CartDOF.Y).setAdditionalControlForce(-force.getY());
-			cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(-force.getZ());
+			cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(-force.getZ());*/
 			
 			//Added force to push up valve
-			cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(20.0);
-			System.out.println("Force Z: " + force.getZ() + " Force Y: " + force.getY() + " Force X: " + force.getX());	
+			/* Heaviest Workpiece
+ 			Right-click on the desired project in the Package Explorer view and select
+			Sunrise > Change project settings from the context menu.
+			The Properties for [Sunrise Project] window opens.
+			2. Select Sunrise > Safety in the directory in the left area of the window.*/
+			
+			cartImpCtrlMode.parametrize(CartDOF.Z).setAdditionalControlForce(40.0);
+			//System.out.println("Force Z: " + force.getZ() + " Force Y: " + force.getY() + " Force X: " + force.getX());	
 			
 		//Find valve and zero force before applying extra force and spring mode	
 		
@@ -292,17 +303,17 @@ public class RobotApplication extends RoboticsAPIApplication {
 		
 		System.out.println("Filling Cup. (carImpCtrlMode)");
 		//tool.move(positionHold(holdMode, 4, TimeUnit.SECONDS).setMode(cartImpCtrlMode));
-		tool.move(linRel(0,0,25.0).setCartVelocity(15.0).setMode(cartImpCtrlMode)); //Move up to fill	
+		tool.move(linRel(0,0,20.0).setCartVelocity(20.0).setMode(cartImpCtrlMode)); //Move up to fill	
 		
 		System.out.println("Pause.");
-		ThreadUtil.milliSleep(2500);
+		ThreadUtil.milliSleep(2000);
 		//tool.move(positionHold(holdMode, 3, TimeUnit.SECONDS));
 		
 		/*Adding mass to the workpiece*/
 		currentMass +=   liquidMass;	// sum up the weights
 		Cup.getLoadData().setMass(currentMass);
 		
-		System.out.print("Current load changed to:" + Cup.getLoadData().getMass());
+		System.out.println("Current load changed to:" + Cup.getLoadData().getMass());
 		System.out.println("Moving on!");
 
 			if(i == amount){

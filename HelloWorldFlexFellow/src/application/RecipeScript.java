@@ -268,20 +268,20 @@ public class RecipeScript implements IRecipeScript {
         ingredient2.put("amount", new Float(30.1));
         
         
-//        JSONObject ingredient3 = new JSONObject();
-//        ingredient3.put("nameIngredient", "Tea");
-//        ingredient3.put("timeToFill", 1);
-//        ingredient3.put("amount", new Float(30.1));
-//        
-//        JSONObject ingredient4 = new JSONObject();
-//        ingredient4.put("nameIngredient", "Cafe");
-//        ingredient4.put("timeToFill", 2);
-//        ingredient4.put("amount", new Float(30.1));
-//        
+        JSONObject ingredient3 = new JSONObject();
+        ingredient3.put("nameIngredient", "Tea");
+        ingredient3.put("timeToFill", 1);
+        ingredient3.put("amount", new Float(30.1));
+        
+        JSONObject ingredient4 = new JSONObject();
+        ingredient4.put("nameIngredient", "Cafe");
+        ingredient4.put("timeToFill", 2);
+        ingredient4.put("amount", new Float(30.1));
+        
         listIngredient.add(ingredient1);
         listIngredient.add(ingredient2);
-//        listIngredient.add(ingredient3);
-//        listIngredient.add(ingredient4);
+        listIngredient.add(ingredient3);
+        listIngredient.add(ingredient4);
         
         recipe.put("ingredients", listIngredient);
         listRecipe.add(recipe);
@@ -302,21 +302,21 @@ public class RecipeScript implements IRecipeScript {
         ingredient6.put("timeToFill", 1);
         ingredient6.put("amount", new Float(30.1));
 //        
-//        JSONObject ingredient7 = new JSONObject();
-//        ingredient7.put("nameIngredient", "Cafe");
-//        ingredient7.put("timeToFill", 2);
-//        ingredient7.put("amount", new Float(20.1));
-//        
-//        JSONObject ingredient8 = new JSONObject();
-//        ingredient8.put("nameIngredient", "Tea");
-//        ingredient8.put("timeToFill", 1);
-//        ingredient8.put("amount", new Float(30.1));
+        JSONObject ingredient7 = new JSONObject();
+        ingredient7.put("nameIngredient", "Cafe");
+        ingredient7.put("timeToFill", 2);
+        ingredient7.put("amount", new Float(20.1));
+        
+        JSONObject ingredient8 = new JSONObject();
+        ingredient8.put("nameIngredient", "Tea");
+        ingredient8.put("timeToFill", 1);
+        ingredient8.put("amount", new Float(30.1));
         
         
         listIngredient1.add(ingredient5);
         listIngredient1.add(ingredient6);
-//        listIngredient1.add(ingredient7);
-//        listIngredient1.add(ingredient8);
+        listIngredient1.add(ingredient7);
+        listIngredient1.add(ingredient8);
         
         recipe1.put("ingredients", listIngredient1);
         
