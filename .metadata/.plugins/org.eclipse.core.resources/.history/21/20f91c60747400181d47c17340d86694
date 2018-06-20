@@ -179,9 +179,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 		Cup.attachTo(getApplicationData().getFrame("/CupS"));
 		
 		
-//		gripper.moveZ(70);
-//		Map<String, Ingredient>ingredients = recipe.getIngredients();
-//		
+		gripper.moveZ(70);
+		Map<String, Ingredient>ingredients = recipe.getIngredients();
+		
 //		for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
 //			int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
 //			if(currPosition != -1) {
@@ -194,9 +194,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 //			}
 //		}
 		Transformation wTC = getApplicationData().getFrame("/CupS").getTransformationFromParent();
-		Transformation wTCDirect = wTC.compose(Transformation.ofDeg(0.0, 0.0, 220.0, 0.0, 0.0, 0.0));
+		Transformation wTCDirect = wTC.compose(Transformation.ofDeg(0.0, 0.0, 200.0, 0.0, 0.0, 0.0));
 		Frame lastFrame = new Frame(wTCDirect);
-		tool.getDefaultMotionFrame().move(lin(lastFrame).setCartVelocity(defVel));
+		tool.getDefaultMotionFrame().move(lin(lastFrame).setCartVelocity(100));
 		Frame currFrame = null;
 		for(int i = 0; i < positionBottle.length ; i++){
 			Ingredient ingre = menu.getIngredient(recipe.getName(), positionBottle[i]);
@@ -205,9 +205,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 				Transformation lastFrameTParent = lastFrame.getTransformationFromParent();
 				Transformation lastFrameTBottle;
 				if(i == 0){
-					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(260.0, 10.0, 0.0, 0.0, 0.0, 0.0));
+					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(250.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 				}else{
-					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(-100.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(-80.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 				}
 				currFrame = new Frame(lastFrameTBottle);
 				tool.getDefaultMotionFrame().move(lin(currFrame).setCartVelocity(defVel));
@@ -221,9 +221,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 		
 		//Impedance Control for placing cup
 		CartesianImpedanceControlMode placeCup = new	CartesianImpedanceControlMode();
-		placeCup.parametrize(CartDOF.X).setStiffness(600);
-		placeCup.parametrize(CartDOF.Y).setStiffness(600);
-		placeCup.parametrize(CartDOF.Z).setStiffness(600);		
+		placeCup.parametrize(CartDOF.X).setStiffness(1000);
+		placeCup.parametrize(CartDOF.Y).setStiffness(1000);
+		placeCup.parametrize(CartDOF.Z).setStiffness(1000);		
 		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/CupS")).setCartVelocity(100).setMode(placeCup));
 		gripper.open();
 		
@@ -326,7 +326,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 		System.out.println("Filling Cup. (carImpCtrlMode)");
 		//tool.move(positionHold(holdMode, 4, TimeUnit.SECONDS).setMode(cartImpCtrlMode));
 		tool.move(linRel(0,0,20.0).setCartVelocity(20.0).setMode(cartImpCtrlMode)); //Move up to fill	
-//		tool.move(linRel(0,0,20.0).setMode(cartImpCtrlMode));
+		
 		System.out.println("Pause.");
 		ThreadUtil.milliSleep(2000);
 		//tool.move(positionHold(holdMode, 3, TimeUnit.SECONDS));
@@ -339,7 +339,6 @@ public class RobotApplication extends RoboticsAPIApplication {
 		System.out.println("Moving on!");
 
 			if(i == amount){
-//				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(frame)).setCartVelocity(100.0));
 				tool.getDefaultMotionFrame().move(lin(frame).setCartVelocity(100.0));
 			}else{
 				tool.getDefaultMotionFrame().move(lin(tempframe).setCartVelocity(100.0));

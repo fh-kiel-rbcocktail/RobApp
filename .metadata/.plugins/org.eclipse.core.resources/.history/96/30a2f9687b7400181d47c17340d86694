@@ -194,7 +194,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 //			}
 //		}
 		Transformation wTC = getApplicationData().getFrame("/CupS").getTransformationFromParent();
-		Transformation wTCDirect = wTC.compose(Transformation.ofDeg(0.0, 0.0, 220.0, 0.0, 0.0, 0.0));
+		Transformation wTCDirect = wTC.compose(Transformation.ofDeg(0.0, 0.0, 200.0, 0.0, 0.0, 0.0));
 		Frame lastFrame = new Frame(wTCDirect);
 		tool.getDefaultMotionFrame().move(lin(lastFrame).setCartVelocity(defVel));
 		Frame currFrame = null;
@@ -207,7 +207,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 				if(i == 0){
 					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(260.0, 10.0, 0.0, 0.0, 0.0, 0.0));
 				}else{
-					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(-100.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(-80.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 				}
 				currFrame = new Frame(lastFrameTBottle);
 				tool.getDefaultMotionFrame().move(lin(currFrame).setCartVelocity(defVel));
@@ -221,9 +221,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 		
 		//Impedance Control for placing cup
 		CartesianImpedanceControlMode placeCup = new	CartesianImpedanceControlMode();
-		placeCup.parametrize(CartDOF.X).setStiffness(600);
-		placeCup.parametrize(CartDOF.Y).setStiffness(600);
-		placeCup.parametrize(CartDOF.Z).setStiffness(600);		
+		placeCup.parametrize(CartDOF.X).setStiffness(1000);
+		placeCup.parametrize(CartDOF.Y).setStiffness(1000);
+		placeCup.parametrize(CartDOF.Z).setStiffness(1000);		
 		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/CupS")).setCartVelocity(100).setMode(placeCup));
 		gripper.open();
 		
@@ -321,11 +321,11 @@ public class RobotApplication extends RoboticsAPIApplication {
 			
 		//Find valve and zero force before applying extra force and spring mode	
 		
-		Frame tempframe = findValve(30);
+		Frame tempframe = findValve(50);
 		
 		System.out.println("Filling Cup. (carImpCtrlMode)");
 		//tool.move(positionHold(holdMode, 4, TimeUnit.SECONDS).setMode(cartImpCtrlMode));
-		tool.move(linRel(0,0,20.0).setCartVelocity(20.0).setMode(cartImpCtrlMode)); //Move up to fill	
+		tool.move(linRel(0,0,20.0).setCartVelocity(5.0).setMode(cartImpCtrlMode)); //Move up to fill	
 //		tool.move(linRel(0,0,20.0).setMode(cartImpCtrlMode));
 		System.out.println("Pause.");
 		ThreadUtil.milliSleep(2000);

@@ -221,9 +221,9 @@ public class RobotApplication extends RoboticsAPIApplication {
 		
 		//Impedance Control for placing cup
 		CartesianImpedanceControlMode placeCup = new	CartesianImpedanceControlMode();
-		placeCup.parametrize(CartDOF.X).setStiffness(600);
-		placeCup.parametrize(CartDOF.Y).setStiffness(600);
-		placeCup.parametrize(CartDOF.Z).setStiffness(600);		
+		placeCup.parametrize(CartDOF.X).setStiffness(1000);
+		placeCup.parametrize(CartDOF.Y).setStiffness(1000);
+		placeCup.parametrize(CartDOF.Z).setStiffness(1000);		
 		tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame("/CupS")).setCartVelocity(100).setMode(placeCup));
 		gripper.open();
 		

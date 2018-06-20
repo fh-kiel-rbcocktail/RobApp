@@ -1,9 +1,0 @@
-#Thu Jun 07 11:02:03 CEST 2018
-externalControl=false
-ioOutputDefaultAppError=
-ioGroupDefaultAppError=
-ioOutputAutExtAppReadyToStart=
-ioOutputStationError=
-defaultApplication=application.RobotApplication
-ioGroupStationError=
-ioGroupAutExtAppReadyToStart=
