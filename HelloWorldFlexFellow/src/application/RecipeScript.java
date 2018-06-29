@@ -277,7 +277,11 @@ public class RecipeScript implements IRecipeScript {
         ingredient4.put("nameIngredient", "Cafe");
         ingredient4.put("timeToFill", 2);
         ingredient4.put("amount", new Float(30.1));
+<<<<<<< HEAD
 //        
+=======
+        
+>>>>>>> 018b2057ec3b8dd42e0fe9eb37305da4b16272a0
         listIngredient.add(ingredient1);
         listIngredient.add(ingredient2);
         listIngredient.add(ingredient3);
@@ -301,7 +305,11 @@ public class RecipeScript implements IRecipeScript {
         ingredient6.put("nameIngredient", "Orange");
         ingredient6.put("timeToFill", 1);
         ingredient6.put("amount", new Float(30.1));
+<<<<<<< HEAD
         
+=======
+//        
+>>>>>>> 018b2057ec3b8dd42e0fe9eb37305da4b16272a0
         JSONObject ingredient7 = new JSONObject();
         ingredient7.put("nameIngredient", "Cafe");
         ingredient7.put("timeToFill", 2);

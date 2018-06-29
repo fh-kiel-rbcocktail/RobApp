@@ -12,7 +12,11 @@ public class Recipe {
 		this.ingredients = new HashMap<String, Ingredient>();
 	    this.ingredientsIdx = new HashMap<Integer, String>();
 		// lower case and trim String
+<<<<<<< HEAD
 		//name = name.toLowerCase().trim();
+=======
+//		name = name.toLowerCase().trim();
+>>>>>>> 018b2057ec3b8dd42e0fe9eb37305da4b16272a0
 		this.setName(name);
 	}
 	
@@ -20,7 +24,11 @@ public class Recipe {
 	    this.ingredientsIdx = new HashMap<Integer, String>();
 		this.setIngredients(ingredients);
 		// lower case and trim String
+<<<<<<< HEAD
 		//name = name.toLowerCase().trim();
+=======
+//		name = name.toLowerCase().trim();
+>>>>>>> 018b2057ec3b8dd42e0fe9eb37305da4b16272a0
 		this.setName(name);
 	}
 	
