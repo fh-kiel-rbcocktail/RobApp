@@ -168,18 +168,43 @@ public class RobotApplication extends RoboticsAPIApplication {
 		tool.getDefaultMotionFrame().move(ptp(getApplicationData().getFrame("/CupS")).setJointVelocityRel(defJointVel));
 		
 		gripper.close();
-		gripper.moveZ(70);
+//		gripper.moveZ(70);
 		Map<String, Ingredient>ingredients = recipe.getIngredients();
 		
-		for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
-			int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
-			if(currPosition != -1) {
-				String nameCurrFrame = "/Bottle" + currPosition;
-				//String nameCurrFrame = "/Bottle1";
-				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(nameCurrFrame)).setCartVelocity(defVel));
+//		for(Map.Entry<String, Ingredient> ingre : ingredients.entrySet()){
+//			int currPosition = getPositionOfBottle(positionBottle, ingre.getKey());
+//			if(currPosition != -1) {
+//				String nameCurrFrame = "/Bottle" + currPosition;
+//				//String nameCurrFrame = "/Bottle1";
+//				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(nameCurrFrame)).setCartVelocity(defVel));
+//				//gripper.moveLin(getApplicationData().getFrame(nameCurrFrame));
+//				fillGlass(ingre.getValue().getTimeToFill(), nameCurrFrame);
+//				
+		
+//			}
+//		}
+		
+		Transformation wTC = getApplicationData().getFrame("/CupS").getTransformationFromParent();
+		Transformation wTCDirect = wTC.compose(Transformation.ofDeg(0.0, 0.0, 200.0, 0.0, 0.0, 0.0));
+		Frame lastFrame = new Frame(wTCDirect);
+		tool.getDefaultMotionFrame().move(lin(lastFrame).setCartVelocity(100));
+		Frame currFrame = null;
+		for(int i = 0; i < positionBottle.length ; i++){
+			Ingredient ingre = menu.getIngredient(recipe.getName(), positionBottle[i]);
+			//Ingredient ingre = new Cafe(1,1);
+			if(ingre != null){
+				Transformation lastFrameTParent = lastFrame.getTransformationFromParent();
+				Transformation lastFrameTBottle;
+				if(i == 0){
+					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(250.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+				}else{
+					lastFrameTBottle = lastFrameTParent.compose(Transformation.ofDeg(-80.0, 0.0, 0.0, 0.0, 0.0, 0.0));
+				}
+				currFrame = new Frame(lastFrameTBottle);
+				tool.getDefaultMotionFrame().move(lin(currFrame).setCartVelocity(defVel));
 				//gripper.moveLin(getApplicationData().getFrame(nameCurrFrame));
-				fillGlass(ingre.getValue().getTimeToFill(), nameCurrFrame);
-				
+				//fillGlass(ingre.getTimeToFill(), currFrame);
+				lastFrame = currFrame;
 			}
 		}
 		
@@ -190,6 +215,8 @@ public class RobotApplication extends RoboticsAPIApplication {
 		
 		//move back
 		tool.getDefaultMotionFrame().move(linRel(0.0, -200.0, 0.0 ));
+		//Change to move by spline
+		
 //		Transformation rTC = getApplicationData().getFrame("/CupS").getTransformationFromParent();
 //		Transformation cTBackPoint = rTC.compose(Transformation.ofDeg(0.0, -200.0, 0.0, 0.0, 0.0, 0.0));
 //		Frame moveback = new Frame(cTBackPoint);
@@ -246,7 +273,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 	 * Task: Fill glass with one liquid
 	 * */
 	
-	public boolean fillGlass(final int amount, String frame) {
+	public boolean fillGlass(final int amount, Frame frame) {
 			
 		/*
 		 * Filling method*/
@@ -295,7 +322,7 @@ public class RobotApplication extends RoboticsAPIApplication {
 		System.out.println("Moving on!");
 
 			if(i == amount){
-				tool.getDefaultMotionFrame().move(lin(getApplicationData().getFrame(frame)).setCartVelocity(100.0));
+				tool.getDefaultMotionFrame().move(lin(frame).setCartVelocity(100.0));
 			}else{
 				tool.getDefaultMotionFrame().move(lin(tempframe).setCartVelocity(100.0));
 				ThreadUtil.milliSleep(2000);
